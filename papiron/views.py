@@ -5,4 +5,4 @@ def index(request):
     dados = {
         'perguntas' : 'TESTES'
     }
-    return render(request,'index.html', dados)
+    return render(request,'index2.html', dados)

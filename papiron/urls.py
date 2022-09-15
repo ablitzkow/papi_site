@@ -9,6 +9,7 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
+    path('teste', views.teste, name='teste'),
     path('reset_password/', auth_views.PasswordResetView.as_view(template_name="usuarios/password/reset_senha.html"), name="reset_password"),
     path('reset_password_sent/', auth_views.PasswordResetDoneView.as_view(template_name="usuarios/password/reset_senha_envio.html"), name="password_reset_done"),
     path('reset/<uidb64>/<token>', auth_views.PasswordResetConfirmView.as_view(template_name="usuarios/password/reset_senha_confirmacao.html"), name="password_reset_confirm"),

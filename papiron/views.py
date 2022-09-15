@@ -6,3 +6,13 @@ def index(request):
         'perguntas' : 'TESTES'
     }
     return render(request,'index2.html', dados)
+
+
+    
+def teste(request):
+    
+    dados = {
+        'perguntas' : 'TESTES'
+    }
+    return render(request,'index2.html', dados)
+

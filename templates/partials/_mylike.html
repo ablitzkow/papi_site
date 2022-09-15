@@ -1,0 +1,30 @@
+{% if my_like == False %}
+    <a name="{{ pergunta.pk }}" style="font-size:24px; color:black" class="likin" id="co" color="black"><i class="fa fa-heart" aria-hidden="true" class="likin"></i></a>
+    Se gostou da resposta, agradeça ao colaborador,  
+        
+{% else %}
+    <a name="{{ pergunta.pk }}" style="font-size:24px; color:red" class="likin" id="co" ><i class="fa fa-heart" aria-hidden="true" class="likin" color="red"></i></a>
+    Você já agradeceu ao colaborador!  
+        
+    {% endif %}
+    {% if likes_count > 1 %} 
+        {% if my_like == True %}
+            {{ likes_count }} usuários também já o agradeceram. 
+        {% else %}
+            {{ likes_count }}  usuários já agradeceram.
+
+        {% endif %}
+    {% endif %} 
+    
+    {% if likes_count == 1 %} 
+        {% if my_like == True %}
+            outro usuário também já o agradeceu. 
+        {% else %}
+            um usuário já o agradeceu. 
+        {% endif %} 
+    {% endif %} {% if likes_count == 0 %}
+    
+    {% if my_like == False %}
+        seja o primeiro. 
+    {% endif %}
+{% endif %}

@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- ##### Contact Form Area Start ##### -->
+<div class="contact-area section-padding-0-80" style="margin-top:80px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-heading">
+                    <h3>Poste sua pergunta, {{ user.first_name }} :)</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="contact-form-area">
+                    <form action="{% url 'form_pergunta' %}" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                        <div class="row">
+                            <!-- <input type="hidden" class="form-control" name="nome" value="{{ user.username }}">
+                                <input type="hidden" class="form-control" name="email" value="{{ user.email }}"> -->
+
+                            <div class="col-12 col-lg-3">
+                                <label for="file"><b>Faculdade</b></label>
+                                <select name="faculdade">
+                                    {% include 'partials/forms/_faculdade.html' %}
+                                </select>
+                            </div>
+                        
+                            <div class="col-12 col-lg-3">
+                                <label for="file">Disciplina</b></label>
+                                <select name="disciplina">
+                                {% include 'partials/forms/_disciplina.html' %}
+                                </select>
+                            </div>
+                    
+                                
+                            <div class="col-12">
+                                <label for="file"><b>Pergunta</b></label>
+                                <textarea class="form-control" name="pergunta" cols="30" rows="10" style="border:1px solid #e7d060 ;"></textarea>
+                            </div>
+
+                            <div class="col-12">
+                                <div center>{% include 'partials/_recaptcha.html' %}</div>
+
+                                <div class="block"></div>
+                           
+                                <div><button class="btn delicious-btn mt-30" type="submit">Perguntar</button></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

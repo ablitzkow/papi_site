@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+{% include 'usuarios/partials/_painel.html' %}
+
+
+<!-- ##### Best Receipe Area Start ##### -->
+<section> 
+    <div class="container" style="width: 100%;"> 
+        <h4>Minhas Perguntas</h4><br>
+        <div class="row">
+            <div style="width:95%;">  
+            <!-- border-width: medium;
+            border-style: solid;
+            border-color: rgb(24, 20, 20);border-width:thin; ;border-radius: 3%;border-top: 0;"> -->
+                <br>
+                {% if perguntas %}
+                    {% for pergunta in perguntas %}
+                    <!-- Single Best Receipe Area -->
+                    <div class="row-18 row-sm-12 col-lg-12">
+                        <div>
+                            <div class="contact-area">
+                                <a href="{% url 'pergunta' pergunta.id %}" style="font-size:14px;font-weight:normal;font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;";>
+                                    [{{ pergunta.date_pergunta|date:'d/m/Y' }}] - {% if pergunta.comentario != "" %} <b>[RESPONDIDA]</b> - {% endif %} {{ pergunta.intro_pergunta }} ... 
+                                    <hr { border: 4;
+                                        border-top: 1px solid #094CFA;}>
+                                </a>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

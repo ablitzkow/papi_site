@@ -1,0 +1,36 @@
+
+<!-- Bloco para Assessores solicitarem revisão -->
+<!-- Verifica se é assinante -->
+{% if usuario_logado_assinante != None %}
+    {% if pergunta.comentario != '' %}
+        <div class="container">
+            <div class="row row-sm row-lg-12">
+                
+                <div class="col col-lg-8">&nbsp;</div>
+                
+                <div>
+                    <form action="{% url 'revisar' %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        <div class="col col-sm col-lg-8" style="padding-left:50px;padding-right:50px;width:100%">
+                        
+                                <button class="btn delicious-btn mt-30" type="submit" style="width:300px">Solicitar Revisão</button>
+                            
+                            <div>
+                                <input type="hidden" name="id_pergunta" value= "{{pergunta.id}}">&nbsp; </input>
+                            </div>
+
+                            <div>
+                                &nbsp; 
+                            </div>
+                            
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="col col-lg-4">&nbsp;</div>
+
+            </div>
+        </div>
+    {% endif %}
+{% endif %}

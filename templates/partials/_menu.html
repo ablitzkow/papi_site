@@ -1,0 +1,62 @@
+{% load static %}
+<!-- ##### Menu Area Start ##### -->
+<header class="header-area" style="z-index:2;">
+        <!-- Navbar Area -->
+        <div class="delicious-main-menu" style="margin-left: auto;">
+            <div class="classy-nav-container breakpoint-off">
+                <div class="container" >
+                    <!-- Menu -->
+                    <nav class="classy-navbar justify-content-between" id="deliciousNav" style="height:40px ;">
+
+                       <!-- Logo -->
+                        <!-- <div class="invisible-sm" style="margin-top:100px ;"><a class="nav-brand  invisible-sm" href="{% url 'index' %}"><img src="{% static 'img/core-img/logo.png' %}" alt=""></a></div> -->
+
+                        <!-- Navbar Toggler -->
+                        <div class="classy-navbar-toggler" style="margin-left:5px;">
+                            <span class="navbarToggler"><span></span><span></span><span></span></span>
+                        </div>
+
+                        <!-- Menu -->
+                        <div class="classy-menu">
+
+                            <!-- close btn -->
+                            <div class="classycloseIcon">
+                                <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                            </div>
+
+                            <!-- Nav Start -->
+                            
+                            <div class="classynav">
+                                <ul>
+                                {% if user.is_authenticated %}
+                                    <li><a href="{% url 'index' %}">home</a></li>
+                                    <li><a href="{% url 'dashboard' %}">Meu Painel</a></li>
+                                    <li><a href="{% url 'form_pergunta' %}">fazer uma pergunta</a></li>
+                                    <li><a href="{% url 'ultimas_perguntas' %}">últimas perguntas</a></li>
+                                    <li><a href="{% url 'assessores' %}">Assessores</a></li>
+                                    <li><a href="{% url 'planos' %}">Planos</a></li>
+                                    <li><a href="{% url 'logout' %}">sair</a></li>
+                                {% else %}
+                                    <li><a href="{% url 'cadastro_email' %}">cadastro</a></li>
+                                    <li><a href="{% url 'login' %}">login</a></li>
+                                    <li><a href="{% url 'login' %}">fazer uma pergunta</a></li>
+                                    <li><a href="{% url 'ultimas_perguntas' %}">últimas perguntas</a></li>
+                                    <li><a href="{% url 'assessores' %}">Assessores</a></li>
+                                    <li><a href="{% url 'planos' %}">Planos</a></li>
+                                {% endif %}
+                                </ul>
+                                <!-- Formulario de busca -->
+                                <div class="search-btn">
+                                    <i class="fa fa-search" aria-hidden="true"></i>
+                                </div>
+                                <!-- Formulario de busca -->
+
+                            </div>
+                            <!-- Nav End -->
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ##### Menu Area End ##### -->

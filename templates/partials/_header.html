@@ -1,0 +1,31 @@
+{% load static %}
+
+    <div class="top_page invisible-sm">
+        <div class="row">
+            <div style="width:60px; margin-block-start:0.0em;padding-left:10px;margin-left:120px"><a href="{% url 'index' %}"><img src="{% static 'img/core-img/logo2.png' %}" alt="" height="25px"></a></div>
+            <div style="width:100px; margin-block-start:1.3em; margin-inline-start:-18px;"><a href="{% url 'index' %}"><img src="{% static 'img/core-img/papiron3.png' %}" alt="" style="width:80%;"></a></div>
+            <div style="width:15%"></div>
+        </div>
+    </div>
+
+<div class="top_page invisible-lg" style="background-color:rgb(255, 255, 255)">
+    <div class="row row-sm">
+        <div style="width:55px; height:5px ; padding-left:2%;margin-block-start:0.5em;">{% include 'partials/_menu.html' %} </div>
+        <div style="width:52px; margin-block-start:0.5em;padding-left:10px;"><a href="{% url 'index' %}"><img src="{% static 'img/core-img/logo2.png' %}" alt="" height="25px"> </a></div>
+        <div style="width:18%; margin-block-start:1.1em; margin-inline-start:-13px;"><a href="{% url 'index' %}"><img src="{% static 'img/core-img/papiron3.png' %}" alt="" style="width:80%;"></a></div>
+        <ol class="btn_top_container">
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'dashboard' %}" class="s-btn-normal" style="text-align:center;padding-left: 10px;padding-right:10px;font-weight: bold;">Meu Painel</a></li>
+                <li><a href="{% url 'form_pergunta' %}" class="s-btn-white" style="text-align:center;">Faça uma <br><br><br><br> pergunta</a></li>
+            {% else %}
+                <li><a href="{% url 'login' %}" class="s-btn-normal" rel="nofollow" style="padding-left: 15px;padding-right:15px;font-weight: bold; ">Login</a></li>
+                <li><a href="{% url 'cadastro_email' %}" class="s-btn-white" rel="nofollow" style="margin-block-start:1.2em;">Cadastre-se</a></li>
+            {% endif %}
+        </ol>
+        <hr>
+    </div>
+
+</div>
+
+<!-- Se retirar este trecho fica com uma parte em branco a esquerda do menu -->
+<div class="menu  invisible-sm"></div>

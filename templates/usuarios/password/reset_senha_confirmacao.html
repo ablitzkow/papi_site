@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+	<!--Reset Password-->
+	<br>
+	<div class="container">
+		<div class="row-2">
+			<div class="row-sm row-lg-8">
+				{% if validlink %}
+        		
+				<div class="col col-sm-2 col-lg-3">&nbsp;</div>
+
+				<div class="col col-sm-10 col-lg-5">
+					<h2 class="font-weight-bold mt-3">Recuperação de senha</h2>
+					<hr>
+					<p>Por favor insira sua senha.<br />
+					<div>
+						<form action="" method="post">
+							<div style="display:none">
+								<input type="hidden" value="{{ csrf_token }}" name="csrfmiddlewaretoken">
+							</div>
+							<table>
+								<tr>
+									<td>{{ form.new_password1.errors }}
+										<label for="id_new_password1">Nova senha:</label></td>
+									<td>{{ form.new_password1 }}</td>
+								</tr>
+								<tr>
+									<td>{{ form.new_password2.errors }}
+										<label for="id_new_password2">Confirme senha:</label></td>
+									<td>{{ form.new_password2 }}</td>
+								</tr>
+								<tr>
+									<td></td>
+									<td><input type="submit" value="Alterar minha senha" /></td>
+								</tr>
+							</table>
+						</form>
+					</div>
+				</div>
+				
+				<div class="col col-sm-2 col-lg-3">&nbsp;</div>
+			{% else %}
+				<h1>Recuperação de senha falhou!</h1>
+				<p>O link de recuperação de senha expirou, <br /> 
+				possivelmente por causa de já ter sido utilizado.<br />
+				Por favor requisite um novo link para recuperação de senha.</p>
+			{% endif %}
+			</div>
+		</div>
+	</div> 
+
+{% endblock %}

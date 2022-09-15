@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% if user.is_authenticated %}
+    {% include 'usuarios/partials/_painel.html' %}
+
+    <section>
+        <div class="container" style="width:100%;padding-left: 5%;"> 
+            <h4>Meus Dados</h4><br>
+            <form action="{% url 'form_dados' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="col col-sm col-lg-6">
+                    <div>E-mail</div>
+                    <div><input type="" class="form-control" name="email" value="{{ user.email }}" disabled="disabled"></div>
+                    <br>
+                    <div>Nome</div>
+                    <div><input type="" class="form-control" name="first_name" value="{{ user.first_name }}"></input></div>
+                    <br>
+                    <div>Sobrenome</div>
+                    <div><input type="" class="form-control" name="last_name" value="{{ user.last_name }}"></input></div>
+                    <br>
+                    {% if dados_assinante %}
+                    <label for="file"><b>Dados de Assinante</b></label>
+                    <br>
+                    <div>CPF</div>
+                    <div><input type="" class="form-control" name="cpf" value="{{ dados_assinante.CPF }}" disabled="disabled"></div>
+                    <div><input type="hidden" name="cpf" value= "{{dados_assinante.CPF}}"></input>&nbsp;</div>
+     
+                    <div class="row" style="width:100%; margin-left:-10px">
+                        <div style="width:15%;">
+                            <div class="col">
+                                <div style="width:100%;">DDD</div>
+                                <div style="width:100%;"><input type="" class="form-control" name="whatsapp_ddd" value="{{ dados_assinante.whatsapp_ddd }}" placeholder="DDD"></input></div>
+                            </div>
+                        </div>
+
+
+                        <div style="width:85%;">
+                            <div class="col" style="width:100%; margin-right: auto;">
+                                <div>Whatsapp (sem DDD)</div>
+                                <div style="width:105%;"><input type="" class="form-control" name="whatsapp" value="{{ dados_assinante.whatsapp }}" placeholder="Celular do contato whatsapp sem DDD"></input></div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <br>
+                    <div>Instagram</div>
+                    <div><input type="" class="form-control" name="instagram" value="{{ dados_assinante.instagram }}"></input></div>
+                    <br>
+                    <div>LinkedIn</div>
+                    <div><input type="" class="form-control" name="linkedIn" value="{{ dados_assinante.linkedIn }}"></input></div>
+                    <br>
+                    <div>Facebook</div>
+                    <div><input type="" class="form-control" name="facebook" value="{{ dados_assinante.facebook }}"></input></div>
+                    <br>
+                    <div>Breve relato :</div>
+                    {% if dados_assinante.descricao == '' %}
+                    <div><textarea type="" class="form-control" cols="8" rows="6" name="descricao" value="{{ dados_assinante.descricao }}"  placeholder="Utilize 1000 caracteres" ></textarea></div>
+                    {% else %}
+                    <div><textarea type="" class="form-control" cols="8" rows="6" name="descricao" value="{{ dados_assinante.descricao }}" >{{ dados_assinante.descricao }}"</textarea></div>
+                    {% endif %}
+
+
+                    <br>
+                    <div>Alterar foto</div>
+                    
+                    <div class="row">
+                        <div class="col"><input type="file" class="form-control"  name="foto" style="width:100%;margin-top:30px;font-size: 12px;"></div>
+                        <!-- <div class="col"><img src="{{dados_assinante.foto}}" alt="" width="100%"></div> -->
+                    </div>
+                    {% endif %}
+                    <br>
+                    <br>
+                    <br>
+                </div>
+                
+
+                    <div class="col col-sm col-lg-12">
+                        <div center>{% include 'partials/_recaptcha.html' %}</div>
+
+                        <div class="block"></div>
+                
+                        <div><button class="btn delicious-btn mt-30" type="submit">Enviar dados</button></div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+    {% endif %}
+{% endblock %}

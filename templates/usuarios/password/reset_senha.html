@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+	         
+
+	<!--Reset Password-->
+	<br>
+	<div class="container">
+		<div class="row-2">
+			<div class="row-sm row-lg-8">
+
+				<div class="col col-sm-2 col-lg-3">&nbsp;</div>
+
+				<div class="col col-sm-10 col-lg-5">
+					<h2 class="font-weight-bold mt-3">Recuperação de senha</h2>
+					<hr>
+					<p>Esqueceu sua senha? Entre com seu endreço de email abaixo, e nos enviaremos um email com instruções para recuperar sua senha.</p>
+					<div>
+						<form method="POST">
+							{% csrf_token %}
+							
+							<div>{{ form.as_p }}  </div>               
+							
+							<div><button class="btn delicious-btn mt-15" type="submit">Recuperar Senha</button> </div>
+						</form>
+					</div>
+				</div>
+				
+				<div class="col col-sm-2 col-lg-3">&nbsp;</div>
+
+			</div>
+		</div>
+	</div> 
+
+{% endblock %}

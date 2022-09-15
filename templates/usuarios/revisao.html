@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+{% include 'usuarios/partials/_painel.html' %}
+
+
+
+<!-- Renderiza este bloco caso não tenha comentários ainda -->
+{% if pergunta.comentario != '' %}
+    {% if dados_assinante.mensalidade == True %}
+        <div class="container">
+            <div class="col col-sm col-lg-10">
+                <form action="{% url 'form_revisar' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div style="width: 97%;padding-left:3%;">
+                        <label for="file"><b> <br> Deixe sua revisão:</b></label>
+                        <textarea class="form-control" name="revisao_efetuada" cols="80" rows="10"></textarea>
+                    </div>
+                    
+                    <div class="row row-sm row-lg-4">
+
+                        <div class="col col-sm col-lg-4">&nbsp;</div>
+
+                        <div class="col col-sm col-lg-4">
+
+                            <div class="text-center" style="width:100%;">
+                                <button class="btn delicious-btn mt-30" type="submit">Enviar Revisão</button>
+                            </div>
+
+                            <div><input type="hidden" name="id_pergunta" value= "{{pergunta.id}}"></input>&nbsp;</div>
+
+                            <div class="text-center"  style="width:100%;">
+                                    {% include 'partials/_recaptcha.html' %}
+                            </div>
+
+                        </div>
+
+                        <div class="col col-sm col-lg-4">&nbsp;</div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    {% endif %}   
+{% endif %}
+
+{% endblock %}

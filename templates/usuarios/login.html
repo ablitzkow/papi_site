@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- ##### Contact Form Area Start ##### -->
+<div class="contact-area section-padding-0-80">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                
+            </div>
+        </div>
+        <div class="panel">
+            <div class="form"><br><br>      
+                    <h2 class="h3 text-center" text-color="white">Faça seu Login</h2>
+                    <form action="{% url 'login' %}" method="post">
+                        {% csrf_token %}
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="email">Insira seu e-mail:</label>
+                                {% if email %}
+                                <input type="text" class="form-control" name="email" placeholder="{{email}}" value="{{email}}">
+                                {% else %}
+                                <input type="text" class="form-control" name="email" placeholder="Insira seu email @">
+                                {% endif %}
+                            </div>
+                            <div class="form-group">
+                                <label for="senha">Senha:</label>
+                                <input type="password" class="form-control" name="senha" placeholder="Senha">
+                                {% if erro is not None %}
+                                <section class="alert alert-danger col-12"  role="alert">
+                                    {{ erro }}
+                                </section>
+                                {% endif %}
+                            </div>
+                           
+                            <div class="col-12 text-center">
+                                <button class="btn botao-btn mt-30" type="submit">Acessar sua conta</button>
+                            </div>
+                            
+                        </div>
+                        <br><br><p style="color: white;text-align: center"> Ainda não tem cadastro <a href="{% url 'cadastro_email' %}" style="color: white;text-decoration: underline aqua;" >clique aqui</a> <br />
+                            <br><a href="{% url 'reset_password' %}" style="color: white;text-decoration: underline aqua;font-weight: normal; ;" >Esqueceu sua senha </a> </p>
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

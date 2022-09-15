@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!-- ##### Contact Form Area Start ##### -->
+
+<div class="contact-area section-padding-0-80">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-heading">
+                    <h3>Informações para cadastro</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="contact-form-area">
+                    {% if email %}
+                    <form action="{% url 'cadastro' %}" method="post">
+                            {% csrf_token %}
+                        <div class="row"> 
+                            <div class="col-12 col-lg-12">
+                                <div>&nbsp;&nbsp; Meu email <b>{{ email }}</b></div>
+                                <!-- <input type="email" class="form-control" name="email_register" placeholder="E-mail" value="{{ email }}" disabled="disabled" style="background-color: rgb(198, 244, 198);"></input> -->
+                                <!-- <input type="email" class="form-control" name="email_register" placeholder="{{ email }}" value="{{ email }}" disabled="disabled" style="background-color: rgb(163, 248, 163);"> -->
+                                <div><input type="hidden" name="email_register" value= "{{email}}"></input>&nbsp;</div>
+                                <div><input type="hidden" name="first_name" value= "{{first_name}}"></input>&nbsp;</div>
+                                <div><input type="hidden" name="last_name" value= "{{last_name}}"></input>&nbsp;</div>
+                            </div>
+
+                            <div class="col-12 col-lg-12">
+                                {% if first_name %}
+                                <input type="text"  class="form-control" name="first_name" placeholder="{{first_name}}" value="{{first_name}}" disabled="disabled" style="background-color: rgb(215, 253, 215);"></input>&nbsp;
+                                {% else %}
+                                <input type="text" class="form-control" name="first_name" placeholder="Nome"></input>&nbsp;
+                                {% endif  %}
+                            </div>
+                            <div class="col-12 col-lg-12">
+                                {% if first_name %}
+                                <input type="text"  class="form-control" name="last_name" placeholder="{{last_name}}" value="{{last_name}}" disabled="disabled" style="background-color: rgb(215, 253, 215);"></input>&nbsp;
+                                {% else %}
+                                <input type="text" class="form-control" name="last_name" placeholder="Sobrenome"></input>&nbsp;
+                                {% endif  %}
+                                {% if erro is not None %}
+                                <section class="alert alert-danger"  role="alert">
+                                    {{ erro }}
+                                </section>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="col-12 col-lg-6">
+                                <input type="password" class="form-control" name="password" placeholder="Senha">
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <input type="password" class="form-control" name="password2" placeholder="Confirme sua senha">
+                            </div>
+                            <div class="col-12 text-center">
+                                <button class="btn delicious-btn mt-30" type="submit">Cadastrar</button>
+                            </div>
+                        </div>
+                    </form>
+                    {% else %}
+                    <section class="alert alert-danger"  role="alert">
+                        {{ erro }}
+                    </section>
+                    <div>Para cadastrar novo email:&nbsp;&nbsp;&nbsp;<a href="{% url 'cadastro_email' %}" class="s-btn-normal">&nbsp;&nbsp;&nbsp;Novo email&nbsp;&nbsp;</a></div>
+                    <div>&nbsp;</div>
+                    <div>Recupere sua senha:&nbsp;&nbsp;&nbsp;<a href="{% url 'reset_password' %}" class="s-btn-normal">&nbsp;&nbsp;&nbsp;Recuperar&nbsp;&nbsp;</a></div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

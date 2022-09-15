@@ -1,0 +1,209 @@
+
+{% load static %}
+
+    <div class="receipe-content-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-8 col-sm col-md-8">
+                    <div class="receipe-headline my-5">
+                        <span>{{ pergunta.data_pergunta}}</span>
+                        <div class="receipe-duration">
+                            <h6>Instituição: {{pergunta.faculdade}}</h6>
+                            <h6>Disciplina: {{pergunta.disciplina}}</h6>
+                            <h6> Postado por : {{pergunta.user}}</h6> em {{pergunta.date_pergunta|date:'d/m/Y'  }} 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container" style="max-width:80%; min-width:60%; border: 1px solid #e0dede; border-radius: 3px; background: #fcfcfc">
+        <div class="col col-sm col-lg-10" style="max-width: fit-content; padding-top:1%">
+            <div style="max-width:100%; text-align: justify;">
+                <p style="color: #4d2d2d">{{pergunta.pergunta}} </p>
+            </div>
+        </div>
+    </div>
+
+<!-- Renderiza este bloco caso não tenha comentários ainda -->
+{% if pergunta.comentario == '' %}
+    <div class="container">
+        <div class="col col-sm col-lg-10">
+            <!-- Se ainda não houver, verifica se o usuário logado é assinante -->
+            {% if usuario_logado != None %}
+                <form action="{% url 'form_comentar' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div style="width: 97%;padding-left:3%;">
+                        <label for="file"><b> <br> Deixe seu comentário:</b></label>
+                        <textarea class="form-control" name="comentario" cols="80" rows="10"></textarea>
+                    </div>
+                    
+
+                    <div class="row row-sm row-lg-4">
+
+                        <div class="col col-sm col-lg-4">&nbsp;</div>
+
+                        <div class="col col-sm col-lg-4">
+
+                            <div class="text-center" style="width:100%;">
+                                <button class="btn delicious-btn mt-30" type="submit">Responder</button>
+                            </div>
+
+                            <div><input type="hidden" name="teste" value= "{{pergunta.id}}"></input>&nbsp;</div>
+
+                            <div class="text-center"  style="width:100%;">
+                                    {% include 'partials/_recaptcha.html' %}
+                            </div>
+
+                        </div>
+
+                        <div class="col col-sm col-lg-4">&nbsp;</div>
+  
+                    </div>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+{% endif %}
+
+
+
+<!-- Renderiza este bloco caso já tenha comentários -->
+{% if pergunta.comentario != '' %}
+    <br>
+    <br>
+    <hr>
+    <div class="container">
+        <div>
+            <!-- Então há comentário feito -->
+                <br><br><center><h4>COMENTÁRIO</h4><br></center>
+            <!-- Insere dados do assinante que fez o comentário -->
+            {% include 'partials/_pub_pergunta.html' %}
+            
+            <div class="receipe-content-area" style="max-width:60%; text-align: left; font-weight: bold">
+                <br><br>Veja o comentário feito pelo assessor:<br><br>
+            </div>
+
+            <!-- Comentário feito pelo assessor -->
+            <div style="max-width:100%; min-width:80%; border: 1px solid #e0dede; border-radius: 3px; background: #fcfcfc; padding-left: 3%; padding-top:1%; ">
+            <!-- <div style="max-width:100%; text-align: justify;"> -->
+                <p style="color: #4d2d2d">{{ pergunta.comentario }}</p>
+            </div>
+
+            <div>
+            {% if my_like == False %}
+                Se gostou da resposta, agradeça ao colaborador  
+                    <a name="{{ pergunta.pk }}" style="font-size:24px; color:black" class="likin" id="co" color="black"><i class="fa fa-heart" aria-hidden="true" class="likin"></i></a>
+            {% else %}
+                Você já agradeceu ao colaborador 
+                    <a name="{{ pergunta.pk }}" style="font-size:24px; color:red" class="likin" id="co" ><i class="fa fa-heart" aria-hidden="true" class="likin" color="red"></i></a>
+                {% endif %}
+                {% if likes_count > 1 %} 
+                    {% if my_like == True %}
+                        , {{ likes_count }} usuários também já o agradeceram. 
+                    {% else %}
+                        , {{ likes_count }}  usuários já agradeceram.
+
+                    {% endif %}
+                {% endif %} 
+                
+                {% if likes_count == 1 %} 
+                    {% if my_like == True %}
+                        , outro usuário também já o agradeceu. 
+                    {% else %}
+                        , um usuário já o agradeceu. 
+                    {% endif %} 
+                {% endif %} {% if likes_count == 0 %}
+                
+                {% if my_like == False %}
+                    , seja o primeiro. 
+                {% endif %}
+            {% endif %}
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+<br><br>
+
+<!-- Bloco para Assessores solicitarem revisão -->
+<!-- Verifica se é assinante -->
+DADOSSSS: {{ dados_assinante.mensalidade }} - {{ dados_assinante.email }}
+{% if assinante_random != None %}
+    {% if dados_assinante.mensalidade == True %}
+        {% if pergunta.comentario != '' %}
+            <div class="container">
+                <div class="row row-sm row-lg-12">
+                    <div class="col col-lg-4">&nbsp;</div>
+                    
+                    <div>
+                        <form action="{% url 'revisar' %}" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            
+                            <div class="col col-sm col-lg-4" style="padding-left:50px;padding-right:50px;width:100%">
+                            
+                                    <button class="btn delicious-btn mt-30" type="submit" style="width:300px">Solicitar Revisão</button>
+                                
+                                <div>
+                                    <input type="hidden" name="id_pergunta" value= "{{pergunta.id}}">&nbsp; </input>
+                                </div>
+
+                                <div>
+                                    &nbsp; 
+                                </div>
+                                
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <div class="col col-lg-4">&nbsp;</div>
+
+                </div>
+            </div>
+        {% endif %}
+    {% endif %}
+{% endif %}
+
+<!-- Espaço para publicidade do Assessor -->
+{% if assinante_random != None %}
+    <div class="receipe-content-area" style="max-width:90%; text-align: left; font-weight: bold; padding-left: 5%;">
+        {% if pergunta.comentario == '' %}
+            Ninguém respondeu essa pergunta, mas não se preocupe, entre em contato com o Assessor para te ajudar: <br>
+        {% else %}
+            Caso ainda tenha dúvidas, entre em contato com o Assessor:
+        {% endif %}
+        <br><br>
+    </div>
+    {% include 'partials/_pub_pergunta_random.html' %}
+{% endif %}
+            
+        </div>
+    </div>
+    <br><br><br><br><br><br>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+   $('a.likin').click(function(){
+     $.ajax({
+         type: "POST",
+         url: "{% url 'curtir' %}",
+         data: {'content_id': $(this).attr('name'),
+               'operation':'like_submit',
+               csrfmiddlewaretoken: "{{ csrf_token }}"
+         },
+         success: function(response) {
+               selector = document.getElementsByName(response.content_id);
+                       if(response.liked==true){
+                         $(selector).css("color","red");
+                       }
+                       else if(response.liked==false){
+                         $(selector).css("color","black");
+                       }
+         }
+     })
+   })
+   
+   </script>

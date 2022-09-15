@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- ##### Contact Form Area Start ##### -->
+<div class="contact-area section-padding-0-80" style="margin-top:80px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="contact-form-area">
+                    <form action="{% url 'form_email_code' %}" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                        <div class="row">
+
+                            <div class="col-12">
+                                <div><input type="hidden" name="email_register" value= "{{email}}"></input>&nbsp;</div>
+                                <label for="file"><b>Email</b></label>
+                                <input type="email" class="form-control" name="email_register" placeholder="E-mail" value="{{ email }}" disabled="disabled" style="background-color: rgb(215, 253, 215);"></input>
+                                <label for="file"><b>Insira o código recebido</b></label>
+                                <input class="form-control" name="code" style="border:1px solid #e7d060 ;"></input>
+                            
+                            {% if erro is not None %}
+                                <div class="alert alert-danger"  role="alert" style="width:fit-content ; text-align:center ">
+                                    {{ erro }}
+                                </div>
+                            {% endif %}
+                            </div>
+                            
+                            <div class="col-12">
+                                <div center>{% include 'partials/_recaptcha.html' %}</div>
+
+                                <div class="block"></div>
+                           
+                                <div><button class="btn delicious-btn mt-30" type="submit">Submeter</button></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

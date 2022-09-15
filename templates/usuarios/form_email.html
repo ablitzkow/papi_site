@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- ##### Contact Form Area Start ##### -->
+<div class="contact-area section-padding-0-80" style="margin-top:80px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="contact-form-area">
+                    <form action="{% url 'form_email' %}" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                        <div class="row">
+
+                            <div class="col-12">
+                                <label for="file"><b>Insira o email que deseja cadastrar</b></label>
+                                <input class="form-control" name="email" style="border:1px solid #e7d060 ;"></input>
+                            </div>
+
+                            <div class="col-12">
+                                {% if erro is not None %}
+                                <section class="alert alert-danger"  role="alert">
+                                   <b> {{ email }} </b> <br> {{ erro }}
+                                </section>
+                                <div><a href="{% url 'reset_password' %}" style="color: rgb(255, 60, 60);text-decoration: underline rgb(248, 115, 115);font-weight: normal; ;" >Clique aqui</a> para recuperar sua senha <br><br></div>
+                                {% endif %}
+                            </div>
+
+                            <div class="col-12">
+                                <div center>{% include 'partials/_recaptcha.html' %}</div>
+
+                                <div class="block"></div>
+                            
+                                <div><button class="btn delicious-btn mt-30" type="submit">Submeter</button></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-vdp-aitu&9a&ws0==s=e6e_j3#adn_d^fn%@58fbji+(1v(=f3
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https//:papiron.com.br','http//:papiron.com.br','www.papiron.com.br',]
 
 
 # Application definition
@@ -85,6 +85,19 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+DATABASES  =  { 
+    'default' :  { 
+        'ENGINE' :  'django.db.backends.postgresql' , 
+        'NAME' :  'papirondb' , 
+        'USER' :  'blitzkow' , 
+        'PASSWORD' :  '883497Zx@' , 
+        'HOST' :  'blitzkow-2833.postgres.pythonanywhere-services.com' , 
+        'PORT' :  12833 , 
+    } 
+}
+
+
 
 
 # Password validation

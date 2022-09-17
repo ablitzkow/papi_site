@@ -11,7 +11,7 @@ def index(request):
     dados = {
         'perguntas' : perguntas
     }
-    return render(request,'index2.html', dados)
+    return render(request,'index.html', dados)
 
 
 def pergunta(request, pergunta_id):

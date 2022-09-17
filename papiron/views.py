@@ -1,18 +1,6 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 
 def index(request):
     
-    dados = {
-        'perguntas' : 'TESTES'
-    }
-    return render(request,'index2.html', dados)
-
-
-    
-def teste(request):
-    
-    dados = {
-        'perguntas' : 'TESTES'
-    }
-    return render(request,'index2.html', dados)
+    return render(request,'index.html')
 

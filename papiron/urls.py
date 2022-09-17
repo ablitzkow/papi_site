@@ -7,8 +7,10 @@ from . import views
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('perguntas.urls')),
+    path('admin_papiron/', admin.site.urls),
+    path('', views.index , name='index'),
+    path('perguntas/', include('perguntas.urls')),
+    path('usuarios/', include('usuarios.urls')),
     path('reset_password/', auth_views.PasswordResetView.as_view(template_name="usuarios/password/reset_senha.html"), name="reset_password"),
     path('reset_password_sent/', auth_views.PasswordResetDoneView.as_view(template_name="usuarios/password/reset_senha_envio.html"), name="password_reset_done"),
     path('reset/<uidb64>/<token>', auth_views.PasswordResetConfirmView.as_view(template_name="usuarios/password/reset_senha_confirmacao.html"), name="password_reset_confirm"),

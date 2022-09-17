@@ -6,7 +6,7 @@ def colaborador_aleatorio(pergunta):
     while pergunta:
         assinante_random = Assinante.objects.filter(mensalidade=True).order_by('?').first()
         if assinante_random:
-            if assinante_random.email != pergunta.assessor_email:
+            if assinante_random.email != pergunta.email_comentario:
                 assinante_random = Assinante.objects.get(email=assinante_random.email)
                 break
         else:

@@ -3,11 +3,14 @@ from datetime import datetime
 from django.contrib.auth.models import User
 
 class Pergunta(models.Model):
+    #dados do usuario que faz a pergunta
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    pergunta = models.TextField(max_length=2000)
+    email_pergunta = email_comentario = models.CharField(max_length=200)
+    pergunta = models.TextField(max_length=2500)
     intro_pergunta = models.TextField(max_length=150)
-    comentario = models.TextField(blank=True,max_length=2000)
-    assessor_email = models.CharField(max_length=150 , blank=True)
+    #dados do assessor que responde
+    comentario = models.TextField(blank=True,max_length=2500)
+    email_comentario = models.CharField(max_length=200, blank=True)
     disciplina = models.CharField(max_length=150)
     faculdade = models.CharField(max_length=150)
     date_pergunta = models.DateTimeField(default=datetime.now, blank=True)
@@ -18,13 +21,11 @@ class Pergunta(models.Model):
         id_str = str(self.id)
         return id_str
 
-
 class Revisao(models.Model):
     id_pergunta = models.ForeignKey(Pergunta, on_delete=models.CASCADE)
-    revisor_email =  models.CharField(max_length=150 , blank=True)
+    email_revisor =  models.CharField(max_length=200 , blank=True)
     comentario_revisao = models.TextField(blank=True,max_length=2000)
     revisada = models.BooleanField(default=False)
-
 
 class LikeBtn(models.Model):
     id_pergunta = models.ForeignKey(Pergunta, on_delete=models.CASCADE)

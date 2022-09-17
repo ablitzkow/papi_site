@@ -265,4 +265,7 @@ cython_debug/
 pyvenv.cfg
 pip-selfcheck.json
 
+# Specific files #
+papiron/settings.py
+
 # End of https://www.toptal.com/developers/gitignore/api/python,venv,django

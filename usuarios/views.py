@@ -170,7 +170,7 @@ def meu_perfil(request):
     #Verifica se o usuário é assinante
     assinante = perfil_assinante(request)
     if assinante:
-        respostas = Pergunta.objects.filter(assessor_email=email_user)
+        respostas = Pergunta.objects.filter(email_comentario=email_user)
         ids = set(resposta.id for resposta in respostas)
         lista = list(ids)
         qtd_respostas = len(lista)
@@ -193,7 +193,7 @@ def meu_perfil(request):
 
 def meus_comentarios(request):
     email_user = request.user.email
-    perguntas = Pergunta.objects.order_by('-date_pergunta').filter(assessor_email=email_user)
+    perguntas = Pergunta.objects.order_by('-date_pergunta').filter(email_comentario=email_user)
     assinante = perfil_assinante(request)
 
     dados = {
@@ -318,7 +318,7 @@ def form_comentar(request):
         print(">>>",email_user)
         comentario = request.POST['comentario']
         print(comentario)
-        Pergunta.objects.filter(id=id_pergunta).update(comentario=comentario, assessor_email=email_user)
+        Pergunta.objects.filter(id=id_pergunta).update(comentario=comentario, email_comentario=email_user)
         score(email_user,request.user.id)
         print('Pergunta salva com sucesso!!!')
         return redirect('dashboard')
@@ -398,10 +398,10 @@ def revisar(request):
 
     # #verifica se há revisão anterior (Cria ou insere mais um comentário)
     # if not Revisao.objects.filter(id_pergunta=id).exists():
-    #     revisao_feita = Revisao.objects.create(id_pergunta=pergunta,revisor_email=request.user.email,comentario_revisao ="Essa é a revisão")
+    #     revisao_feita = Revisao.objects.create(id_pergunta=pergunta,email_revisor=request.user.email,comentario_revisao ="Essa é a revisão")
     #     revisao_feita.save()
     # else:
-    #     Revisao.objects.filter(id=id).update(revisor_email=request.user.email,comentario_revisao ="Essa é a revisão da revisaõ 2")
+    #     Revisao.objects.filter(id=id).update(email_revisor=request.user.email,comentario_revisao ="Essa é a revisão da revisaõ 2")
     print("REVISAR", dados_assinante)
     contexto = {
         'dados_assinante' : dados_assinante,
@@ -416,12 +416,12 @@ def form_revisar(request):
     pergunta = get_object_or_404(Pergunta,id=id)
     Pergunta.objects.filter(id=id).update(revisao_solicitada=True,revisao_qtd=pergunta.revisao_qtd+1)
     #verifica se há revisão anterior (Cria ou insere mais um comentário)
-    print("xxx",Revisao.objects.filter(revisor_email=request.user.email,id_pergunta=id).exists())
-    if not Revisao.objects.filter(revisor_email=request.user.email,id_pergunta=id).exists():
-        revisao_feita = Revisao.objects.create(id_pergunta=pergunta,revisor_email=request.user.email,comentario_revisao=comentario_revisao)
+    print("xxx",Revisao.objects.filter(email_revisor=request.user.email,id_pergunta=id).exists())
+    if not Revisao.objects.filter(email_revisor=request.user.email,id_pergunta=id).exists():
+        revisao_feita = Revisao.objects.create(id_pergunta=pergunta,email_revisor=request.user.email,comentario_revisao=comentario_revisao)
         revisao_feita.save()
     else:
-        Revisao.objects.filter(revisor_email=request.user.email,id_pergunta=id).update(revisor_email=request.user.email,comentario_revisao=comentario_revisao)
+        Revisao.objects.filter(email_revisor=request.user.email,id_pergunta=id).update(email_revisor=request.user.email,comentario_revisao=comentario_revisao)
     
     contexto = {
         'dados_assinante' : dados_assinante
@@ -432,7 +432,7 @@ def ver_minha_colaboracao(request, pergunta_id):
 
     pergunta = get_object_or_404(Pergunta, pk=pergunta_id)
     #Obtém o email de que eventualmente ja respondeu a pergunta
-    email_user_pergunta = pergunta.assessor_email
+    email_user_pergunta = pergunta.email_comentario
 
     try:
         #Dados do usuário logado

@@ -14,7 +14,7 @@ def score(user,user_id):
     print("XXXXXX4",qtd_perguntas)
     
     #Verifica o números de colaborações em RESPOSTAS
-    perguntas = Pergunta.objects.order_by('-date_pergunta').filter(assessor_email=email)
+    perguntas = Pergunta.objects.order_by('-date_pergunta').filter(email_comentario=email)
     ids = set(pergunta.id for pergunta in perguntas)
     qtd_respostas = len(list(ids))
     print("XXXXXX4",qtd_respostas,ids)

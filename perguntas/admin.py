@@ -10,7 +10,7 @@ class ListandoPerguntas(admin.ModelAdmin):
     list_per_page = 10
 
 class ListandoRevisoes(admin.ModelAdmin):
-    list_display = ('id', 'id_pergunta', 'revisor_email','comentario_revisao')
+    list_display = ('id', 'id_pergunta', 'email_revisor','comentario_revisao')
     list_display_links = ('id', 'id_pergunta','comentario_revisao')
     search_fields = ['id_pergunta__id'] #ótimo search
     list_per_page = 20

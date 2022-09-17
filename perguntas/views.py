@@ -19,7 +19,7 @@ def pergunta(request, pergunta_id):
     # Dados da pergunta
     pergunta = get_object_or_404(Pergunta, pk=pergunta_id) 
     likes_count = LikeBtn.objects.filter(id_pergunta = pergunta.pk).count() # Qtd de Likes
-    email_usuario_comentario = pergunta.assessor_email  #Obtém o email de que eventualmente ja respondeu a pergunta
+    email_usuario_comentario = pergunta.email_comentario  #Obtém o email de que eventualmente ja respondeu a pergunta
     
     user_anonimo = None
     if pergunta.comentario != '':
@@ -157,12 +157,12 @@ def assinante_ran(pergunta):
         email.append(assinantes[i].email)
     print("list_email",email)
     #Faz uma escolha aleatória dentro da lista
-    print("email ass",pergunta.assessor_email)
-    while(pergunta.assessor_email):
+    print("email ass",pergunta.email_comentario)
+    while(pergunta.email_comentario):
         email_random = random.choice(email)
-        if email_random != pergunta.assessor_email:
+        if email_random != pergunta.email_comentario:
             email = email_random
-            print("WWW",pergunta.assessor_email==email,email)
+            print("WWW",pergunta.email_comentario==email,email)
             break
     assinante = Assinante.objects.get(email=email)
     print("<><><>",assinante)

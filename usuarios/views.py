@@ -352,33 +352,38 @@ def form_dados(request):
             # obtém dados do arquivo de foto
             if request.FILES.getlist('foto',None):
                 from PIL import Image
-                nova_foto = request.FILES.getlist('foto',None)
-                file = nova_foto[0].file
-                name_file = request.POST['cpf'].replace(".","").replace("-","")
-                path_media = os.path.join(BASE_DIR, '/media/usuarios/')
-                print("PATH_MEDIA",path_media)
-                name_path = path_media+name_file+'.png'
-                f = open(name_path,'wb')
-                f.write(file.getvalue())
-                f.close()
-                img = Image.open(name_path)
-                w,h = img.size
-                if w>h:
-                    delta = (w-h)/2
-                    img = img.crop((delta,0,w-delta,h))
-                else:
-                    x=14 #retirar uma borda que o processo anterior cria
-                    delta = (h-w)/2
-                    img = img.crop((x,delta+x,w-x,h-delta-x))
+                # nova_foto = request.FILES.getlist('foto',None)
+                # file = nova_foto[0].file
+                # name_file = request.POST['cpf'].replace(".","").replace("-","")
 
-                img = img.resize((120,120),Image.ANTIALIAS)
-                img.show()
-                img.save(name_path)
-                img.close()
+                a = os.path.abspath(os.getcwd())
+                b = os.path.relpath(os.getcwd())
+                path_media = os.path.join(BASE_DIR, '/media/usuarios/')
+                path_foto = a + " | "+ b +" | "+path_media
+                # path_a = os.path.join(a, '/media/usuarios/')
+                # path_b = os.path.join(b, '/media/usuarios/')
+                # print("PATH_MEDIA",path_media,path_a,path_b)
+                # name_path = path_media+name_file+'.png'
+                # f = open(name_path,'wb')
+                # f.write(file.getvalue())
+                # f.close()
+                # img = Image.open(name_path)
+                # w,h = img.size
+                # if w>h:
+                #     delta = (w-h)/2
+                #     img = img.crop((delta,0,w-delta,h))
+                # else:
+                #     x=14 #retirar uma borda que o processo anterior cria
+                #     delta = (h-w)/2
+                #     img = img.crop((x,delta+x,w-x,h-delta-x))
+
+                # img = img.resize((120,120),Image.ANTIALIAS)
+                # img.show()
+                # img.save(name_path)
+                # img.close()
 
                 print("Trocou")
-                Assinante.objects.filter(assinante=user).update(nome=first_name,sobrenome=last_name,whatsapp=whatsapp,whatsapp_ddd=whatsapp_ddd,instagram=instagram,linkedIn=linkedIn,facebook=facebook,descricao=descricao, foto='/media/usuarios/'+name_file+'.png')
-        
+                Assinante.objects.filter(assinante=user).update(nome=first_name,sobrenome=last_name,whatsapp=whatsapp,whatsapp_ddd=whatsapp_ddd,instagram=instagram,linkedIn=linkedIn,facebook=facebook,descricao=descricao, foto=path_foto)
             else:
                 print("Não troca")
                 Assinante.objects.filter(assinante=user).update(nome=first_name,sobrenome=last_name,whatsapp=whatsapp,whatsapp_ddd=whatsapp_ddd,instagram=instagram,linkedIn=linkedIn,facebook=facebook,descricao=descricao)

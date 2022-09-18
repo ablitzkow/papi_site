@@ -382,7 +382,7 @@ def form_dados(request):
                 # img.close()
 
                 print("Trocou")
-                Assinante.objects.filter(assinante=user).update(nome=first_name,sobrenome=last_name,whatsapp=whatsapp,whatsapp_ddd=whatsapp_ddd,instagram=instagram,linkedIn=linkedIn,facebook=facebook,descricao=descricao, foto=path_media+name_file)
+                Assinante.objects.filter(assinante=user).update(nome=first_name,sobrenome=last_name,whatsapp=whatsapp,whatsapp_ddd=whatsapp_ddd,instagram=instagram,linkedIn=linkedIn,facebook=facebook,descricao=descricao, foto=path_media+name_file+'.png')
             else:
                 print("Não troca")
                 Assinante.objects.filter(assinante=user).update(nome=first_name,sobrenome=last_name,whatsapp=whatsapp,whatsapp_ddd=whatsapp_ddd,instagram=instagram,linkedIn=linkedIn,facebook=facebook,descricao=descricao)

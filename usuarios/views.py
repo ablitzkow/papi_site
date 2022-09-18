@@ -354,13 +354,12 @@ def form_dados(request):
                 nova_foto = request.FILES.getlist('foto',None)
                 file = nova_foto[0].file
                 
-                name_file = request.POST['cpf'].replace(".","").replace("-","")
-       
                 
+                #Abrindo o arquivo na memória
                 from django.conf import settings
-                path_media = '/media/usuarios/'
-                name_path = os.path.join(settings.BASE_DIR , path_media)
-                path_file = name_path+name_file+'.png'
+                name_file = request.POST['cpf'].replace(".","").replace("-","")
+                path_media = os.path.join(settings.BASE_DIR , '')+'media/usuarios/'
+                path_file = path_media+name_file+'.png'
 
                 f = open(path_file,'wb')
                 f.write(file.getvalue())

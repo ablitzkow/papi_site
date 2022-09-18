@@ -332,6 +332,7 @@ def form_dados(request):
     import os   
     from pathlib import Path
     BASE_DIR = Path(__file__).resolve().parent.parent
+    DIR = Path(__file__).resolve().parent
 
     if request.method == 'POST':
         user = get_object_or_404(User, pk=request.user.id)
@@ -358,7 +359,7 @@ def form_dados(request):
 
                 a = os.path.abspath(os.getcwd())
                 b = os.path.relpath(os.getcwd())
-                path_media = os.path.join(BASE_DIR, '/media/usuarios/')
+                path_media = os.path.join(DIR, '/media/usuarios/')
                 path_foto = a + " | "+ b +" | "+path_media
                 # path_a = os.path.join(a, '/media/usuarios/')
                 # path_b = os.path.join(b, '/media/usuarios/')

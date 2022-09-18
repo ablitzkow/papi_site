@@ -1,17 +1,18 @@
 from usuarios.models import Assinante
 
 #Obtém um colaborador aleatório
-def colaborador_aleatorio(pergunta):
-    
-    while pergunta:
-        assinante_random = Assinante.objects.filter(mensalidade=True).order_by('?').first()
+def colaborador_aleatorio(comentario):
+    assinante_random = Assinante.objects.filter(mensalidade=True).order_by('?').first()
+    while comentario:
         if assinante_random:
-            if assinante_random.email != pergunta.email_comentario:
+            if assinante_random.email != comentario.email_comentario:
                 assinante_random = Assinante.objects.get(email=assinante_random.email)
                 break
         else:
             assinante_random = None
             break
+        assinante_random = Assinante.objects.filter(mensalidade=True).order_by('?').first()
+    print("AAAA", assinante_random,assinante_random.foto)
     return assinante_random
 
 def usuario_assinante_comentario(email_usuario_comentario):
@@ -57,3 +58,9 @@ def remove_emojis(data):
         u"\u3030"
                       "]+", re.UNICODE)
     return re.sub(emoj, '', data)
+
+def nick(user):
+    d = str(user.date_joined)
+    id_user = d[d.find(' ')-1:d.find(':')].replace(':','').replace(' ','')
+    nick = str(user)[:str(user).find('@')]+id_user
+    return nick

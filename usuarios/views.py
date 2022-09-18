@@ -1,11 +1,9 @@
-import email
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib import auth
+from perguntas.met_pergunta import nick
 from perguntas.models import Pergunta, Revisao , LikeBtn
-from usuarios.admin import ListandoCode
 from usuarios.models import Assinante , Registro_Email
-from distutils.command.clean import clean
 from usuarios.score import score
 
 
@@ -223,8 +221,9 @@ def form_pergunta(request):
         disciplina = request.POST['disciplina']
         pergunta = remove_emojis(pergunta)
         intro_pergunta = pergunta[0:150]
+        nick_pergunta = nick(user)
         print(intro_pergunta)
-        pergunta_feita = Pergunta.objects.create(user=user, pergunta=pergunta, intro_pergunta = intro_pergunta , disciplina=disciplina, faculdade=faculdade)
+        pergunta_feita = Pergunta.objects.create(user=user, email_pergunta=user.email,nick_pergunta = nick_pergunta , pergunta=pergunta, intro_pergunta = intro_pergunta , disciplina=disciplina, faculdade=faculdade)
         pergunta_feita.save()
         if Assinante.objects.filter(email=request.user.email).exists():
             score(request.user.email,request.user.id)
@@ -376,7 +375,6 @@ def form_dados(request):
                     img = img.crop((x,delta+x,w-x,h-delta-x))
 
                 img = img.resize((120,120),Image.ANTIALIAS)
-                img.show()
                 img.save(path_file)
                 img.close()
 

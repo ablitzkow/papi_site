@@ -21,7 +21,7 @@
     <div class="row invisible-lg" style="width:100%">
 
         <div style="width:20%;">
-            <img src="{% static assinante_random.foto.url %}" alt="" style="display: block; border:0px; border-radius: 80%;
+            <img src="{{assinante_random.foto.url}}" alt="" style="display: block; border:0px; border-radius: 80%;
             margin-left: auto;
             margin-right: auto;
             max-width: 80%; max-height:80%; ">
@@ -52,9 +52,8 @@
 <!-- Area Desktop -->
 <div class="container" style="width:100%" >
     <div class="row invisible-sm" style="width:100%">
-
         <div style="width:20%;">
-            <img src="{% static assinante_random.foto.url %}" alt="" style="display: block; border:0px; border-radius: 80%;
+            <img src="{{ assinante_random.foto.url }}" alt="" style="display: block; border:0px; border-radius: 80%;
             margin-left: auto;
             margin-right: auto;
             max-width: 80%; max-height:80%; ">

@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 class Pergunta(models.Model):
     #dados do usuario que faz a pergunta
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    nick_pergunta = models.CharField(max_length=200)
     email_pergunta = models.CharField(max_length=200)
     pergunta = models.TextField(max_length=2500)
     intro_pergunta = models.TextField(max_length=150)
@@ -18,6 +19,7 @@ class Pergunta(models.Model):
 
 class Comentario(models.Model):
     id_pergunta = models.ForeignKey(Pergunta, on_delete=models.CASCADE)
+    nick_comentario = models.CharField(max_length=200)
     email_comentario = models.CharField(max_length=200, blank=True)
     comentario = models.TextField(blank=True,max_length=2500)
     revisao_solicitada = models.BooleanField(default=False)

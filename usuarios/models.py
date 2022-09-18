@@ -18,8 +18,9 @@ class Assinante(models.Model):
     homepage =  models.CharField(max_length=300,blank=True)
     descricao = models.CharField(max_length=2500,blank=True)
     resumo = models.CharField(max_length=250,blank=True)
+    plano = models.CharField(max_length=300,blank=True)
     score = models.IntegerField(blank=True,default=0)
-    foto = models.ImageField(upload_to='papiron/static/media/usuarios/', blank=True,default='papiron/static/media/usuarios/no-image.png')
+    foto = models.ImageField(upload_to='papiron/static/media/usuarios/', blank=True,default='/media/usuarios/no-image.png')
     def __str__(self):
         return self.email
 

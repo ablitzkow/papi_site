@@ -31,7 +31,7 @@
 
 
 <!-- Renderiza este bloco caso não tenha comentários ainda -->
-{% if pergunta.comentario == '' %}
+{% if comentario.comentario == '' %}
     <div class="container invisible-lg">
         <div class="col" >
             <!-- Se ainda não houver, verifica se o usuário logado é assinante -->
@@ -72,7 +72,7 @@
 
 
 <!-- Renderiza este bloco caso já tenha comentários -->
-{% if pergunta.comentario != '' %}
+{% if comentario.comentario != '' %}
     <br>
     <div class="container invisible-lg">
         <div>
@@ -95,7 +95,7 @@
         <div class="col col-sm">
             <div style="max-width:100%; text-align: justify;position: relative; padding-top: 2%;">
                 <p style="color: #af92dc;font-weight: bold  ;">Resposta:<br>
-                <p style="color: #4d2d2d"></p> {{ pergunta.comentario }} Coloque no fogo à temperatura normal. As propriedades antiaderentes do revestimento são afetadas pelo superaquecimento repetido, portanto, é recomendável reduzir o fogo após 2 ou 3 minutos, caso você coloque a parte vazia no fogo.
+                <p style="color: #4d2d2d"></p> {{ comentario.comentario }} Coloque no fogo à temperatura normal. As propriedades antiaderentes do revestimento são afetadas pelo superaquecimento repetido, portanto, é recomendável reduzir o fogo após 2 ou 3 minutos, caso você coloque a parte vazia no fogo.
                 - Você pode utilizar utensílios de metal, desde que não sejam afiados (não use misturadores).
                 - Após o uso, lave-as com água e sabão usando uma esponja, um pano macio ou uma escova de náilon.</p>
             </div>
@@ -118,7 +118,7 @@
 {% if assinante_random != None %}
 <div class="invisible-lg" style="padding-bottom: 90px">
     <div class="receipe-content-area" style="width:90%; text-align: left; font-weight: bold; padding-left:15px; padding-top: 50px;">
-        {% if pergunta.comentario == '' %}
+        {% if comentario.comentario == '' %}
             Ninguém respondeu essa pergunta, mas não se preocupe, entre em contato com o Assessor para te ajudar:<br>
         {% else %}
             Caso ainda tenha dúvidas, entre em contato com o Assessor:
@@ -144,7 +144,7 @@
 </div>
 
 <!-- Renderiza este bloco caso não tenha comentários ainda -->
-{% if pergunta.comentario == '' %}
+{% if comentario.comentario == '' %}
     <div class="container invisible-sm" style="width:80%;">
         <div class="col" >
             <!-- Se ainda não houver, verifica se o usuário logado é assinante -->
@@ -185,18 +185,16 @@
 
 
 <!-- Renderiza este bloco caso já tenha comentários -->
-{% if pergunta.comentario != '' %}
+{% if comentario.comentario != '' %}
     <br>
     <div class="container invisible-sm">
         <div>
             <!-- Então há comentário feito -->
                 <hr> <center><b><h3>COMENTÁRIO</h4></b><br></center>
             <!-- Insere dados do assinante que fez o comentário -->
-            {% if usuario_assinante_comentario %}
-                {% include 'perguntas/partials/_pub_pergunta.html' %}
-            {% else %}
-                Comentário Anônimo
-            {% endif %}    
+
+            {% include 'perguntas/partials/_pub_pergunta.html' %}
+   
             <div class="receipe-content-area" style="max-width:60%; text-align: left; font-weight: bold">
             </div>
         </div>
@@ -211,7 +209,7 @@
 <div class="container" style="width:80%;padding-bottom:150px;">
     <div class="invisible-sm" style="padding-bottom: 10px">
         <div class="receipe-content-area" style="width:90%; text-align: left; font-weight: bold; padding-left:15px; padding-top: 10px;">
-            {% if pergunta.comentario == '' %}
+            {% if comentario.comentario == '' %}
             <br><br> Ninguém respondeu essa pergunta, mas não se preocupe, entre em contato com o Assessor para te ajudar:<br>
             {% else %}
                 <br><hr>

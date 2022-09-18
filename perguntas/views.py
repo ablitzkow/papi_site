@@ -1,69 +1,55 @@
 import email
 from django.contrib.auth.models import User
 from django.shortcuts import render, get_object_or_404
-from .models import Pergunta, LikeBtn
-# from usuarios.models import Assinante
-# from usuarios.views import perfil_assinante
-Assinante = None
-
-# def index(request):
-#     perguntas = Pergunta.objects.order_by('-date_pergunta').filter(publicada=True)
-#     dados = {
-#         'perguntas' : perguntas
-#     }
-#     return render(request,'index.html', dados)
+from .models import Comentario, Pergunta, LikeBtn
+from usuarios.models import Assinante
+from usuarios.views import perfil_assinante
 
 
 def pergunta(request, pergunta_id):
-    from perguntas.met_pergunta import colaborador_aleatorio,usuario_assinante_comentario,usuario_logado_assinante
+    from perguntas.met_pergunta import colaborador_aleatorio,usuario_assinante_comentario,usuario_logado_assinante, nick
     # Dados da pergunta
     if Pergunta.objects.filter(pk=pergunta_id,publicada=True).exists():
         pergunta = get_object_or_404(Pergunta, pk=pergunta_id)
         likes_count = LikeBtn.objects.filter(id_pergunta = pergunta.pk).count() # Qtd de Likes
-        email_usuario_comentario = pergunta.email_comentario  #Obtém o email de que eventualmente ja respondeu a pergunta
-        
-        user_anonimo = None
-        if pergunta.comentario != '':
-            usuario_comentario = get_object_or_404(Assinante,email=email_usuario_comentario)
-            user_comentario =  usuario_assinante_comentario(email_usuario_comentario)
-            user_anonimo = email_usuario_comentario[:email_usuario_comentario.find('@')]+usuario_comentario.whatsapp[-4:]
+
+        #Obtém dados de quem respondeu a pergunta
+        if Comentario.objects.filter(id_pergunta=pergunta.id).exists():
+            comentario = get_object_or_404(Comentario,id_pergunta=pergunta.id)
+            assinante = get_object_or_404(Assinante, email = comentario.email_comentario)
+
         else:
-            user_comentario = None
+            comentario = None
+            assinante = None
 
         # Verifica se quem está acessando está logado ou é anônimo
         if request.user.is_active: 
             email_usuario = request.user.email
-
             # Verifica se o usuário logado deu Like na pergunta.
             my_like = False
-            if LikeBtn.objects.filter(user = request.user , id_pergunta = pergunta.pk).exists():
+            if LikeBtn.objects.filter(user = request.user , id_pergunta = pergunta.id).exists():
                 my_like = True
                 likes_count -= 1
 
             #gera o usuário para as perguntas
-            d = str(pergunta.user.date_joined)
-            id_user = d[d.find(' ')-1:d.find(':')].replace(':','').replace(' ','')
-            user_pergunta = pergunta.user
-
             contexto = {
-            'usuario_assinante_comentario' : user_comentario ,
+            'pergunta'  : pergunta,
+            'comentario': comentario,
+            'assinante' :assinante,
             'usuario_logado_assinante': usuario_logado_assinante(email_usuario),
-            'assinante_random':colaborador_aleatorio(pergunta),
-            'pergunta' : pergunta,
+            'assinante_random':colaborador_aleatorio(comentario),
             'my_like' : my_like,
             'likes_count':likes_count,
-            'usuario_anonimo': user_anonimo ,
-            'usuario_pergunta':str(user_pergunta)[:str(user_pergunta).find('@')]+id_user,
             }
-            print("111")
+            print(contexto)
             return render(request,'perguntas/pergunta.html', contexto )
         
         else:
             print("eee")
             contexto = {
-            'usuario_assinante_comentario' : usuario_assinante_comentario(email_usuario_comentario),
+            'usuario_assinante_comentario' : usuario_assinante_comentario(comentario.email_comentario),
             'usuario_logado_assinante':None,
-            'assinante_random':colaborador_aleatorio(pergunta),
+            'assinante_random':colaborador_aleatorio(comentario),
             'pergunta' : pergunta,
             'my_like' : False,
             'likes_count':likes_count,

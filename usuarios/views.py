@@ -329,7 +329,9 @@ def form_comentar(request):
 def form_dados(request):
     from django.shortcuts import get_object_or_404
     from django.http import HttpResponse
-    import os
+    import os   
+    from pathlib import Path
+    BASE_DIR = Path(__file__).resolve().parent.parent
 
     if request.method == 'POST':
         user = get_object_or_404(User, pk=request.user.id)
@@ -353,7 +355,9 @@ def form_dados(request):
                 nova_foto = request.FILES.getlist('foto',None)
                 file = nova_foto[0].file
                 name_file = request.POST['cpf'].replace(".","").replace("-","")
-                name_path = os.path.abspath(os.getcwd())+'/media/usuarios/'+name_file+'.png'
+                path_media = os.path.join(BASE_DIR, '/media/usuarios/')
+                print("PATH_MEDIA",path_media)
+                name_path = path_media+name_file+'.png'
                 f = open(name_path,'wb')
                 f.write(file.getvalue())
                 f.close()

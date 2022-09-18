@@ -71,7 +71,6 @@ def pergunta(request, pergunta_id):
 
 def ultimas_perguntas(request):
     perguntas = Pergunta.objects.order_by('-date_pergunta').filter(publicada=True)[0:100]
-
     contexto = {
         'perguntas' : perguntas,            
         'faculdade_select':None,

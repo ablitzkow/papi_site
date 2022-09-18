@@ -358,9 +358,7 @@ def form_dados(request):
                 # name_file = request.POST['cpf'].replace(".","").replace("-","")
 
                 a = os.path.abspath(os.getcwd())
-                b = os.path.relpath(os.getcwd())
-                path_media = os.path.join(DIR, '/media/usuarios/')
-                path_foto = a + " | "+ b +" | "+path_media
+                path_media = os.path.join(a, 'blitzkow.pythonanywhere.com/media/usuarios/')
                 # path_a = os.path.join(a, '/media/usuarios/')
                 # path_b = os.path.join(b, '/media/usuarios/')
                 # print("PATH_MEDIA",path_media,path_a,path_b)
@@ -384,7 +382,7 @@ def form_dados(request):
                 # img.close()
 
                 print("Trocou")
-                Assinante.objects.filter(assinante=user).update(nome=first_name,sobrenome=last_name,whatsapp=whatsapp,whatsapp_ddd=whatsapp_ddd,instagram=instagram,linkedIn=linkedIn,facebook=facebook,descricao=descricao, foto=path_foto)
+                Assinante.objects.filter(assinante=user).update(nome=first_name,sobrenome=last_name,whatsapp=whatsapp,whatsapp_ddd=whatsapp_ddd,instagram=instagram,linkedIn=linkedIn,facebook=facebook,descricao=descricao, foto=path_media)
             else:
                 print("Não troca")
                 Assinante.objects.filter(assinante=user).update(nome=first_name,sobrenome=last_name,whatsapp=whatsapp,whatsapp_ddd=whatsapp_ddd,instagram=instagram,linkedIn=linkedIn,facebook=facebook,descricao=descricao)

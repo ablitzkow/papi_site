@@ -358,14 +358,14 @@ def form_dados(request):
                 #Abrindo o arquivo na memória
                 from django.conf import settings
                 media = 'media/usuarios/'
-                name_file = request.POST['cpf'].replace(".","").replace("-","")
+                name_file = request.POST['cpf'].replace(".","").replace("-","")+'.png'
                 path_media = os.path.join(settings.BASE_DIR , '')+media
-                path_file = path_media+name_file+'.png'
+                path_file = path_media+name_file
 
                 f = open(path_file,'wb')
                 f.write(file.getvalue())
                 f.close()
-                img = Image.open(name_path)
+                img = Image.open(path_file)
                 w,h = img.size
                 if w>h:
                     delta = (w-h)/2
@@ -377,11 +377,11 @@ def form_dados(request):
 
                 img = img.resize((120,120),Image.ANTIALIAS)
                 img.show()
-                img.save(name_path)
+                img.save(path_file)
                 img.close()
 
                 print("Trocou")
-                Assinante.objects.filter(assinante=user).update(nome=first_name,sobrenome=last_name,whatsapp=whatsapp,whatsapp_ddd=whatsapp_ddd,instagram=instagram,linkedIn=linkedIn,facebook=facebook,descricao=descricao, foto=media+name_file+'.png')
+                Assinante.objects.filter(assinante=user).update(nome=first_name,sobrenome=last_name,whatsapp=whatsapp,whatsapp_ddd=whatsapp_ddd,instagram=instagram,linkedIn=linkedIn,facebook=facebook,descricao=descricao, foto=media+name_file)
             else:
                 print("Não troca")
                 Assinante.objects.filter(assinante=user).update(nome=first_name,sobrenome=last_name,whatsapp=whatsapp,whatsapp_ddd=whatsapp_ddd,instagram=instagram,linkedIn=linkedIn,facebook=facebook,descricao=descricao)

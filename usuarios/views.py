@@ -357,30 +357,31 @@ def form_dados(request):
                 
                 #Abrindo o arquivo na memória
                 from django.conf import settings
+                media = 'media/usuarios/'
                 name_file = request.POST['cpf'].replace(".","").replace("-","")
-                path_media = os.path.join(settings.BASE_DIR , '')+'media/usuarios/'
+                path_media = os.path.join(settings.BASE_DIR , '')+media
                 path_file = path_media+name_file+'.png'
 
                 f = open(path_file,'wb')
                 f.write(file.getvalue())
                 f.close()
-                # img = Image.open(name_path)
-                # w,h = img.size
-                # if w>h:
-                #     delta = (w-h)/2
-                #     img = img.crop((delta,0,w-delta,h))
-                # else:
-                #     x=14 #retirar uma borda que o processo anterior cria
-                #     delta = (h-w)/2
-                #     img = img.crop((x,delta+x,w-x,h-delta-x))
+                img = Image.open(name_path)
+                w,h = img.size
+                if w>h:
+                    delta = (w-h)/2
+                    img = img.crop((delta,0,w-delta,h))
+                else:
+                    x=14 #retirar uma borda que o processo anterior cria
+                    delta = (h-w)/2
+                    img = img.crop((x,delta+x,w-x,h-delta-x))
 
-                # img = img.resize((120,120),Image.ANTIALIAS)
-                # img.show()
-                # img.save(name_path)
-                # img.close()
+                img = img.resize((120,120),Image.ANTIALIAS)
+                img.show()
+                img.save(name_path)
+                img.close()
 
                 print("Trocou")
-                Assinante.objects.filter(assinante=user).update(nome=first_name,sobrenome=last_name,whatsapp=whatsapp,whatsapp_ddd=whatsapp_ddd,instagram=instagram,linkedIn=linkedIn,facebook=facebook,descricao=descricao, foto=path_media+name_file+'.png')
+                Assinante.objects.filter(assinante=user).update(nome=first_name,sobrenome=last_name,whatsapp=whatsapp,whatsapp_ddd=whatsapp_ddd,instagram=instagram,linkedIn=linkedIn,facebook=facebook,descricao=descricao, foto=media+name_file+'.png')
             else:
                 print("Não troca")
                 Assinante.objects.filter(assinante=user).update(nome=first_name,sobrenome=last_name,whatsapp=whatsapp,whatsapp_ddd=whatsapp_ddd,instagram=instagram,linkedIn=linkedIn,facebook=facebook,descricao=descricao)

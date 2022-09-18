@@ -74,10 +74,7 @@ def ultimas_perguntas(request):
     print(perguntas)
     # perguntas.append('teste':'Working')
     print(perguntas)
-    #gera o usuário para as perguntas
-    # d = str(pergunta.user.date_joined)
-    # id_user = d[d.find(' ')-1:d.find(':')].replace(':','').replace(' ','')
-    # user_pergunta = pergunta.user
+
 
     contexto = {
         'perguntas' : perguntas,            
@@ -86,7 +83,7 @@ def ultimas_perguntas(request):
         # 'usuario_pergunta':str(user_pergunta)[:str(user_pergunta).find('@')]+id_user,
         }
     print(">>>",pergunta,contexto)
-    return render(request,'ultimas_perguntas.html', contexto )
+    return render(request,'perguntas/ultimas_perguntas.html', contexto )
 
 
 def filtro_ultimas_perguntas(request):

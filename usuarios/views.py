@@ -353,19 +353,18 @@ def form_dados(request):
             # obtém dados do arquivo de foto
             if request.FILES.getlist('foto',None):
                 from PIL import Image
-                # nova_foto = request.FILES.getlist('foto',None)
-                # file = nova_foto[0].file
+                nova_foto = request.FILES.getlist('foto',None)
+                file = nova_foto[0].file
                 
                 name_file = request.POST['cpf'].replace(".","").replace("-","")
                 a = os.path.abspath(os.getcwd())
                 path_media = os.path.join(a, '/media/usuarios/')
-                # path_a = os.path.join(a, '/media/usuarios/')
-                # path_b = os.path.join(b, '/media/usuarios/')
-                # print("PATH_MEDIA",path_media,path_a,path_b)
-                # name_path = path_media+name_file+'.png'
-                # f = open(name_path,'wb')
-                # f.write(file.getvalue())
-                # f.close()
+
+                name_path = path_media+name_file+'.png'
+                
+                f = open(name_path,'wb')
+                f.write(file.getvalue())
+                f.close()
                 # img = Image.open(name_path)
                 # w,h = img.size
                 # if w>h:

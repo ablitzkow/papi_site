@@ -80,7 +80,7 @@
                 <hr> <center><b><h3>COMENTÁRIO</h4></b><br></center>
             <!-- Insere dados do assinante que fez o comentário -->
             {% if usuario_assinante_comentario.mensalidade == True %}
-                {% include 'partials/_pub_pergunta.html' %}
+                {% include 'perguntas/partials/_pub_pergunta.html' %}
             {% else %}
                 Comentário de {{usuario_anonimo}}
             {% endif %}    
@@ -105,13 +105,13 @@
     <!-- Inserção botão like -->
     <div class="container invisible-lg" style="margin: left 5%; background-color: white; margin-top: -0px; width: 90%;border: 1px  solid #e0dede; border-top: 0px  solid #e0dede;border-radius:0px 0px 20px 20px;">
         <div>
-            {% include 'partials/_mylike.html' %}
+            {% include 'perguntas/partials/_mylike.html' %}
         </div>
     </div>
 {% endif %}
 
 <div class="invisible-lg">
-{% include 'partials/_btn_revisao.html' %}
+{% include 'perguntas/partials/_btn_revisao.html' %}
 </div>
 
 <!-- Espaço para publicidade do Assessor, não deve aparecer para outros assessores -->
@@ -125,7 +125,7 @@
         {% endif %}
         <br><br>
     </div>
-    {% include 'partials/_pub_pergunta_random.html' %}
+    {% include 'perguntas/partials/_pub_pergunta_random.html' %}
 </div>
 
 {% endif %}
@@ -193,7 +193,7 @@
                 <hr> <center><b><h3>COMENTÁRIO</h4></b><br></center>
             <!-- Insere dados do assinante que fez o comentário -->
             {% if usuario_assinante_comentario %}
-                {% include 'partials/_pub_pergunta.html' %}
+                {% include 'perguntas/partials/_pub_pergunta.html' %}
             {% else %}
                 Comentário Anônimo
             {% endif %}    
@@ -219,16 +219,11 @@
             {% endif %}
             <br><br>
         </div>
-        {% include 'partials/_pub_pergunta_random.html' %}
+        {% include 'perguntas/partials/_pub_pergunta_random.html' %}
     </div>
 </div>
     
     {% endif %}
-
-
-
-
-
 
 
 

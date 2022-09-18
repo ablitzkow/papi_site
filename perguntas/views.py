@@ -71,10 +71,6 @@ def pergunta(request, pergunta_id):
 
 def ultimas_perguntas(request):
     perguntas = Pergunta.objects.order_by('-date_pergunta').filter(publicada=True)[0:100]
-    print(perguntas)
-    # perguntas.append('teste':'Working')
-    print(perguntas)
-
 
     contexto = {
         'perguntas' : perguntas,            

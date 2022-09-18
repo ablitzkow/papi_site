@@ -355,8 +355,8 @@ def form_dados(request):
                 from PIL import Image
                 # nova_foto = request.FILES.getlist('foto',None)
                 # file = nova_foto[0].file
-                # name_file = request.POST['cpf'].replace(".","").replace("-","")
-
+                
+                name_file = request.POST['cpf'].replace(".","").replace("-","")
                 a = os.path.abspath(os.getcwd())
                 path_media = os.path.join(a, '/media/usuarios/')
                 # path_a = os.path.join(a, '/media/usuarios/')
@@ -382,7 +382,7 @@ def form_dados(request):
                 # img.close()
 
                 print("Trocou")
-                Assinante.objects.filter(assinante=user).update(nome=first_name,sobrenome=last_name,whatsapp=whatsapp,whatsapp_ddd=whatsapp_ddd,instagram=instagram,linkedIn=linkedIn,facebook=facebook,descricao=descricao, foto=path_media)
+                Assinante.objects.filter(assinante=user).update(nome=first_name,sobrenome=last_name,whatsapp=whatsapp,whatsapp_ddd=whatsapp_ddd,instagram=instagram,linkedIn=linkedIn,facebook=facebook,descricao=descricao, foto=path_media+name_file)
             else:
                 print("Não troca")
                 Assinante.objects.filter(assinante=user).update(nome=first_name,sobrenome=last_name,whatsapp=whatsapp,whatsapp_ddd=whatsapp_ddd,instagram=instagram,linkedIn=linkedIn,facebook=facebook,descricao=descricao)

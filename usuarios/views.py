@@ -357,12 +357,14 @@ def form_dados(request):
                 file = nova_foto[0].file
                 
                 name_file = request.POST['cpf'].replace(".","").replace("-","")
-                a = os.path.abspath(os.getcwd())
-                path_media = os.path.join(a, '/media/usuarios/')
-
-                name_path = path_media+name_file+'.png'
+       
                 
-                f = open(name_path,'wb')
+                from django.conf import settings
+                path_media = '/media/usuarios/'
+                name_path = settings.BASE_DIR + path_media
+                path_file = name_path+name_file+'.png'
+
+                f = open(path_file,'wb')
                 f.write(file.getvalue())
                 f.close()
                 # img = Image.open(name_path)

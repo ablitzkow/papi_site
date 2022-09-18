@@ -331,8 +331,6 @@ def form_dados(request):
     from django.http import HttpResponse
     import os   
     from pathlib import Path
-    BASE_DIR = Path(__file__).resolve().parent.parent
-    DIR = Path(__file__).resolve().parent
 
     if request.method == 'POST':
         user = get_object_or_404(User, pk=request.user.id)
@@ -361,7 +359,7 @@ def form_dados(request):
                 
                 from django.conf import settings
                 path_media = '/media/usuarios/'
-                name_path = settings.BASE_DIR + path_media
+                name_path = os.path.join(settings.BASE_DIR , path_media)
                 path_file = name_path+name_file+'.png'
 
                 f = open(path_file,'wb')

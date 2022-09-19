@@ -22,6 +22,7 @@ class Comentario(models.Model):
     nick_comentario = models.CharField(max_length=200)
     email_comentario = models.CharField(max_length=200, blank=True)
     comentario = models.TextField(blank=True,max_length=2500)
+    date_comentario = models.DateTimeField(default=datetime.now, blank=True)
     revisao_solicitada = models.BooleanField(default=False)
     revisao_qtd = models.IntegerField(default=0)
 

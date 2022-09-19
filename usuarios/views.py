@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib import auth
 from perguntas.met_pergunta import nick
-from perguntas.models import Pergunta, Revisao , LikeBtn
+from perguntas.models import Comentario, Pergunta, Revisao , LikeBtn
 from usuarios.models import Assinante , Registro_Email
 from usuarios.score import score
 
@@ -183,7 +183,7 @@ def meu_perfil(request):
 
 def meus_comentarios(request):
     email_user = request.user.email
-    perguntas = Pergunta.objects.order_by('-date_pergunta').filter(email_comentario=email_user)
+    perguntas = Comentario.objects.order_by('-date_pergunta').filter(email_comentario=email_user)
     assinante = perfil_assinante(request)
 
     dados = {

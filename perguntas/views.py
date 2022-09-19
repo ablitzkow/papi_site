@@ -65,7 +65,7 @@ def ultimas_perguntas(request):
         'perguntas' : perguntas,            
         'faculdade_select':None,
         'disciplina_select':None,
-        # 'usuario_pergunta':str(user_pergunta)[:str(user_pergunta).find('@')]+id_user,
+        # 'usuario_pergunta':perguntas.nick_pergunta,
         }
     print(">>>",pergunta,contexto)
     return render(request,'perguntas/ultimas_perguntas.html', contexto )
@@ -92,7 +92,7 @@ def filtro_ultimas_perguntas(request):
             'status_select':status,
         }
         print("WWW",contexto)
-        return render(request,'ultimas_perguntas.html', contexto )
+        return render(request,'perguntas/ultimas_perguntas.html', contexto )
 
     else:
         perguntas = Pergunta.objects.order_by('-date_pergunta').filter(faculdade='UNICESUMAR',disciplina='GESTÃO',publicada=True)[0:100]

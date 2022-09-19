@@ -167,14 +167,14 @@ def meu_perfil(request):
     
     #Verifica se o usuário é assinante
     assinante = perfil_assinante(request)
-    if assinante:
-        respostas = Pergunta.objects.filter(email_comentario=email_user)
-        ids = set(resposta.id for resposta in respostas)
-        lista = list(ids)
-        qtd_respostas = len(lista)
+    # if assinante:
+    #     respostas = Pergunta.objects.filter(email_comentario=email_user)
+    #     ids = set(resposta.id for resposta in respostas)
+    #     lista = list(ids)
+    #     qtd_respostas = len(lista)
 
-    else:
-       qtd_respostas = None,
+    # else:
+    #    qtd_respostas = None,
     
     score_geral, qtd_likes , qtd_perguntas, qtd_respostas = score(dados_usuario.username,dados_usuario.id)
     dados = {

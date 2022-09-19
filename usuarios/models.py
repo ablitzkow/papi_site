@@ -23,7 +23,7 @@ class Assinante(models.Model):
     score = models.IntegerField(blank=True,default=0)
     foto = models.ImageField(upload_to='media/usuarios/', blank=True,default='/media/usuarios/no-image.png')
     def __str__(self):
-        return self.assinante
+        return self.email
 
 class Registro_Email(models.Model):
     email_register =  models.CharField(max_length=200)

@@ -15,7 +15,7 @@ NO GITBASH DO PYTHNANYWHERE (~/blitzkow.pythonanywhere.com (main))
 Por FIM:
 - python manage.py migrate
 
-
+E se alterar algum arquivo essencial é necessário fazer o RELOAD do app WEB no pya
 
 POSTGRES
 

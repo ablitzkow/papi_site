@@ -1,0 +1,36 @@
+COMMIT
+
+NO VSCODE
+- Fazer o makemigrations.py antes de commit
+- Inserir o "qual é esse commit"
+- Commit e Sincronizar
+
+NO GITBASH DO PYTHNANYWHERE (~/blitzkow.pythonanywhere.com (main))
+
+- git commit -am "qual é esse comit no gitbash pya"
+- git pull
+- python manage.py makemigrations ATENÇÃO se aparecer alguma migração aqui é porque esqueceu de fazer isso no disco local, então apague a migração.py criada e faça makemigrations no local e refaça o commit
+
+
+Por FIM:
+- python manage.py migrate
+
+
+
+POSTGRES
+
+Entrar no Banco de Dados
+	\c papirondb
+
+Ver Table do BD
+	\dt
+	\dt+  ++> para ver mais detalhes, como tamanho
+
+ver COLUNA de uma Table
+	\d nome_coluna;
+	\d+ nome_coluna;   (DIGITE q  PARA SAIR)
+
+
+
+
+	

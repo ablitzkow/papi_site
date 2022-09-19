@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 class Assinante(models.Model):
     assinante = models.ForeignKey(User, on_delete=models.CASCADE)
     email = models.CharField(max_length=200)
-    nick_assinante = models.CharField(max_length=200)
+    # nick_assinante = models.CharField(max_length=200)
     nome = models.CharField(max_length=200)
     sobrenome = models.CharField(max_length=200)
     mensalidade = models.BooleanField(default=False)

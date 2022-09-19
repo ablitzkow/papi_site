@@ -68,7 +68,7 @@ def ultimas_perguntas(request):
         # 'usuario_pergunta':perguntas.nick_pergunta,
         }
     print(">>>",pergunta,contexto)
-    return render(request,'perguntas/ultimas_perguntas.html', contexto )
+    return render(request,'perguntas/ultimas_perguntas.html', contexto)
 
 
 def filtro_ultimas_perguntas(request):

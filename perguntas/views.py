@@ -61,13 +61,14 @@ def pergunta(request, pergunta_id):
 
 def ultimas_perguntas(request):
     perguntas = Pergunta.objects.order_by('-data').filter(publicada=True)[0:100]
+    id = set(pergunta.pk for pergunta in perguntas)
+    comentarios = Comentario.objects.filter(id_pergunta__in = id)
     contexto = {
-        'perguntas' : perguntas,            
+        'perguntas' : perguntas,
+        'comentarios':comentarios,            
         'faculdade_select':None,
         'disciplina_select':None,
-        # 'usuario_pergunta':perguntas.nick,
         }
-    print(">>>",pergunta,contexto)
     return render(request,'perguntas/ultimas_perguntas.html', contexto)
 
 

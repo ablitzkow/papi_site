@@ -13,6 +13,8 @@ class Pergunta(models.Model):
     faculdade = models.CharField(max_length=150)
     data = models.DateTimeField(default=datetime.now, blank=True)
     publicada = models.BooleanField(default=False)
+    comentario_check = models.BooleanField(default=False)
+    denuncia = models.BooleanField(default=False)
     def __str__(self):
         id_str = str(self.id)
         return id_str

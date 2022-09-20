@@ -6,6 +6,7 @@ def score(user,user_id):
     email = user
     #Verifica o números de colaborações em PERGUTNAS efetuadas
     perguntas = Pergunta.objects.filter(user=user_id)
+    print(">>>",perguntas)
     id = set(pergunta.pk for pergunta in perguntas)
     qtd_perguntas = len(list(id))
 

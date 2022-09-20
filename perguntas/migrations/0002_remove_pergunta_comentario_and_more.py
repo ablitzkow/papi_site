@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
     operations = [
         migrations.RemoveField(
             model_name='pergunta',
-            name='comentario',
+            name='comentario', 
         ),
         migrations.RemoveField(
             model_name='pergunta',

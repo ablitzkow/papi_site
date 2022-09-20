@@ -45,4 +45,4 @@ class Migration(migrations.Migration):
             old_name='email_revisor',
             new_name='email',
         ),
-    ]
+    ] 

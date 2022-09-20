@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='pergunta',
-            name='nick_pergunta',
+            name='nick_pergunta', 
             field=models.CharField(default='', max_length=200),
             preserve_default=False,
         ),

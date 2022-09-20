@@ -31,8 +31,9 @@ class Comentario(models.Model):
 class Revisao(models.Model):
     id_pergunta = models.ForeignKey(Pergunta, on_delete=models.CASCADE)
     email =  models.CharField(max_length=200 , blank=True)
-    revisao = models.TextField(blank=True,max_length=2000)
+    comentario_revisao = models.TextField(blank=True,max_length=2000)
     revisada = models.BooleanField(default=False)
+    
 
 class LikeBtn(models.Model):
     id_pergunta = models.ForeignKey(Pergunta, on_delete=models.CASCADE)

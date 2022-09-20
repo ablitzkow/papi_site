@@ -4,8 +4,9 @@ from usuarios.models import Assinante
 def colaborador_aleatorio(comentario):
     assinante_random = Assinante.objects.filter(mensalidade=True).order_by('?').first()
     while comentario:
+        print("AAAA", assinante_random,assinante_random.foto)
         if assinante_random:
-            if assinante_random.email != comentario.email_comentario:
+            if assinante_random.email != comentario.email:
                 assinante_random = Assinante.objects.get(email=assinante_random.email)
                 break
         else:

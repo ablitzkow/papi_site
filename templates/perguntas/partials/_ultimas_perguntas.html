@@ -138,8 +138,8 @@
                             padding-left:10px; border-radius: 10px 10px 0px 0px;
                             margin-top: 1px ; background:white;">
                                 <div class="row" style="block-size:auto">  
-                                    <div style="margin-left:10px">{{ pergunta.faculdade }} | {{ pergunta.disciplina }} {% if pergunta.comentario != '' %} </div>
-                                    <div  style="right:10px; position: absolute;"><font color="red"> &nbsp;&nbsp; RESPONDIDA </font>{% endif %}</div>
+                                    <div style="margin-left:10px">{{ pergunta.faculdade }} | {{ pergunta.disciplina }}</div>
+                                    <div  style="right:10px; position: absolute;">{% if pergunta.comentario_check == True %}<font color="red"> &nbsp;&nbsp; RESPONDIDA </font>{% endif %}</div>
                                 </div>
                             </div>
                         <div class="col-sm" style="position:relative;">

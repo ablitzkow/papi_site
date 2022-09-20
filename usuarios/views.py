@@ -397,12 +397,12 @@ def form_revisar(request):
     id = request.POST['id_pergunta']
     revisao = request.POST['revisao_efetuada']
     pergunta = get_object_or_404(Pergunta,id=id)
+    comentario = get_object_or_404(Comentario,id_pergunta = id)
     #Verifica se já houve pedido de revisão
-    revisao_feita = Revisao.objects.create(id_pergunta=pergunta,email=request.user.email,revisao=revisao)
-    revisao_feita.save()
-    rev = Revisao.objects.create(pergunta_id=pergunta)
+
+    rev = Revisao.objects.create(id_pergunta=pergunta,email=request.user.email,revisao=revisao)
     rev.save()
-    Comentario.objects.update(pergunta_id=id,revisao_solicitada=True , revisao_qtd=pergunta.revisao_qtd+1)
+    Comentario.objects.update(id_pergunta=id,revisao_solicitada=True , revisao_qtd=comentario.revisao_qtd+1)
 
     #verifica se há revisão anterior (Cria ou insere mais um comentário)
     # print("xxx",Revisao.objects.filter(email=request.user.email,id_pergunta=id).exists())

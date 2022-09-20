@@ -79,7 +79,7 @@
             <!-- Então há comentário feito -->
                 <hr> <center><b><h3>COMENTÁRIO</h4></b><br></center>
             <!-- Insere dados do assinante que fez o comentário -->
-            {% if usuario_assinante_comentario.mensalidade == True %}
+            {% if usuario_assinante_comentario.mensalidade == False %}
                 {% include 'perguntas/partials/_pub_pergunta.html' %}
             {% else %}
                 Comentário de {{usuario_anonimo}}
@@ -95,9 +95,7 @@
         <div class="col col-sm">
             <div style="max-width:100%; text-align: justify;position: relative; padding-top: 2%;">
                 <p style="color: #af92dc;font-weight: bold  ;">Resposta:<br>
-                <p style="color: #4d2d2d"></p> {{ comentario.comentario }} Coloque no fogo à temperatura normal. As propriedades antiaderentes do revestimento são afetadas pelo superaquecimento repetido, portanto, é recomendável reduzir o fogo após 2 ou 3 minutos, caso você coloque a parte vazia no fogo.
-                - Você pode utilizar utensílios de metal, desde que não sejam afiados (não use misturadores).
-                - Após o uso, lave-as com água e sabão usando uma esponja, um pano macio ou uma escova de náilon.</p>
+                <p style="color: #4d2d2d"></p> {{ comentario.comentario }} XXXXX</p>
             </div>
         </div>
     </div>

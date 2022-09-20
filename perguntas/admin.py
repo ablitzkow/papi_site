@@ -14,7 +14,7 @@ class ListandoComentarios(admin.ModelAdmin):
     list_display_links = ('id', 'comentario')
 
 class ListandoRevisoes(admin.ModelAdmin):
-    list_display = ('id', 'id_pergunta', 'email')
+    list_display = ('id', 'id_pergunta', 'email','revisao')
     list_display_links = ('id', 'id_pergunta')
     search_fields = ['id_pergunta__id'] #ótimo search
     list_per_page = 20

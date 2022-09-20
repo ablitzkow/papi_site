@@ -47,10 +47,12 @@ def pergunta(request, pergunta_id):
         else:
             print("eee")
             contexto = {
-            'usuario_assinante_comentario' : usuario_assinante_comentario(comentario.email_comentario),
+            'usuario_assinante_comentario' : usuario_assinante_comentario(comentario.email),
             'usuario_logado_assinante':None,
             'assinante_random':colaborador_aleatorio(comentario),
             'pergunta' : pergunta,
+            'comentario': comentario,
+            'assinante' :assinante,
             'my_like' : False,
             'likes_count':likes_count,
             }

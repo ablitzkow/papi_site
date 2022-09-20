@@ -16,7 +16,7 @@ def pergunta(request, pergunta_id):
         #Obtém dados de quem respondeu a pergunta
         if Comentario.objects.filter(id_pergunta=pergunta.id).exists():
             comentario = get_object_or_404(Comentario,id_pergunta=pergunta.id)
-            assinante = get_object_or_404(Assinante, email = comentario.email_comentario)
+            assinante = get_object_or_404(Assinante, email = comentario.email)
 
         else:
             comentario = None
@@ -60,12 +60,12 @@ def pergunta(request, pergunta_id):
 
 
 def ultimas_perguntas(request):
-    perguntas = Pergunta.objects.order_by('-date_pergunta').filter(publicada=True)[0:100]
+    perguntas = Pergunta.objects.order_by('-data').filter(publicada=True)[0:100]
     contexto = {
         'perguntas' : perguntas,            
         'faculdade_select':None,
         'disciplina_select':None,
-        # 'usuario_pergunta':perguntas.nick_pergunta,
+        # 'usuario_pergunta':perguntas.nick,
         }
     print(">>>",pergunta,contexto)
     return render(request,'perguntas/ultimas_perguntas.html', contexto)
@@ -78,11 +78,11 @@ def filtro_ultimas_perguntas(request):
         status = request.POST['status']
         
         if status == 'TODAS':
-            perguntas = Pergunta.objects.order_by('-date_pergunta').filter(faculdade__contains=faculdade,disciplina__contains=disciplina,publicada=True)[0:100]
+            perguntas = Pergunta.objects.order_by('-data').filter(faculdade__contains=faculdade,disciplina__contains=disciplina,publicada=True)[0:100]
         elif status == 'AGUARDANDO COMENTÁRIOS':
-            perguntas = Pergunta.objects.order_by('-date_pergunta').filter(faculdade__contains=faculdade,disciplina__contains=disciplina, comentario__exact = '' ,publicada=True)[0:100]
+            perguntas = Pergunta.objects.order_by('-data').filter(faculdade__contains=faculdade,disciplina__contains=disciplina, comentario__exact = '' ,publicada=True)[0:100]
         elif status == 'RESPONDIDAS':
-            perguntas = Pergunta.objects.order_by('-date_pergunta').filter(faculdade__contains=faculdade,disciplina__contains=disciplina, publicada=True).exclude(comentario__exact ='')[0:100]
+            perguntas = Pergunta.objects.order_by('-data').filter(faculdade__contains=faculdade,disciplina__contains=disciplina, publicada=True).exclude(comentario__exact ='')[0:100]
         
         print(">>>AAS",faculdade,disciplina)
         contexto = {
@@ -95,7 +95,7 @@ def filtro_ultimas_perguntas(request):
         return render(request,'perguntas/ultimas_perguntas.html', contexto )
 
     else:
-        perguntas = Pergunta.objects.order_by('-date_pergunta').filter(faculdade='UNICESUMAR',disciplina='GESTÃO',publicada=True)[0:100]
+        perguntas = Pergunta.objects.order_by('-data').filter(faculdade='UNICESUMAR',disciplina='GESTÃO',publicada=True)[0:100]
     contexto = {
         'perguntas' : perguntas,            
         'faculdade_select':None,
@@ -106,7 +106,7 @@ def filtro_ultimas_perguntas(request):
 
 
 def buscar(request):
-    lista_perguntas = Pergunta.objects.order_by('-date_pergunta').filter(publicada=True)
+    lista_perguntas = Pergunta.objects.order_by('-data').filter(publicada=True)
 
     if 'buscar' in request.GET:
         nome_a_buscar = request.GET['buscar']
@@ -131,6 +131,7 @@ def ver_minha_colaboracao(request,pergunta_id):
 
 def assinante_ran(pergunta):
     import random
+    #REFAZERRRR EMAIL COMENTARIO
     #Obtém todos os assinante atuais
     assinantes = Assinante.objects.filter( mensalidade=True)
     #cria uma lista de todos os assintantes
@@ -139,7 +140,6 @@ def assinante_ran(pergunta):
         email.append(assinantes[i].email)
     print("list_email",email)
     #Faz uma escolha aleatória dentro da lista
-    print("email ass",pergunta.email_comentario)
     while(pergunta.email_comentario):
         email_random = random.choice(email)
         if email_random != pergunta.email_comentario:

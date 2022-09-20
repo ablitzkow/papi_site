@@ -10,7 +10,7 @@ def score(user,user_id):
     qtd_perguntas = len(list(id))
 
     #Verifica o números de colaborações em COMENTÁRIOS
-    comentarios = Comentario.objects.filter(email_comentario=email)
+    comentarios = Comentario.objects.filter(email=email)
     ids = set(comentario.id for comentario in comentarios)
     qtd_respostas = len(list(ids))
 

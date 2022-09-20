@@ -22,7 +22,7 @@
 
             <div class="row row-sm">
 
-                <div style="width:31%; height:5px ; padding-left:2%;margin-block-start:0.4em;"><a href="https://api.whatsapp.com/send?phone={{ assinante.whatsapp }}&text=Olá, peguei seu contato no Papiron!"><img src="{% static 'img/core-img/whatsapp.png' %}"width="90%"></a></div>
+                <div style="width:31%; height:5px ; padding-left:2%;margin-block-start:0.4em;"><a href="https://api.whatsapp.com/send?phone=+55{{ assinante.whatsapp_ddd }}{{ assinante.whatsapp }}&text=Olá, peguei seu contato no Papiron!"><img src="{% static 'img/core-img/whatsapp.png' %}"width="90%"></a></div>
                 
                 {% if assinante.instagram != '' %}
                 <div style="width:31%; margin-block-start:0.5em;padding-left:5px;"><a href="{{ assinante.instagram }}" class="social" ><img src="{% static 'img/core-img/instagram02.png' %}" style="width:80%;"></a></div>
@@ -75,7 +75,7 @@
 
                     <div class="row row-sm" style="margin-top:-20px;">
 
-                        <div style="width:80px; height:5px ; padding-left:2%;margin-block-start:0.5em;"><a href="https://api.whatsapp.com/send?phone={{ assinante.whatsapp }}&text=Olá, peguei seu contato no Papiron!"><img src="{% static 'img/core-img/whatsapp.png' %}"width="90%"></a></div>
+                        <div style="width:80px; height:5px ; padding-left:2%;margin-block-start:0.5em;"><a href="https://api.whatsapp.com/send?phone=+55{{ assinante.whatsapp_ddd }}{{ assinante.whatsapp }}&text=Olá, peguei seu contato no Papiron!"><img src="{% static 'img/core-img/whatsapp.png' %}"width="90%"></a></div>
                         
                         {% if assinante.instagram != '' %}
                         <div style="width:75px; margin-block-start:0.6em;padding-left:7px;"><a href="{{ assinante.instagram }}" class="social" ><img src="{% static 'img/core-img/instagram02.png' %}" style="width:80%;"></a></div>

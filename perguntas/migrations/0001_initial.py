@@ -38,7 +38,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('email_revisor', models.CharField(blank=True, max_length=200)),
-                ('comentario_revisao', models.TextField(blank=True, max_length=2000)),
+                ('revisao', models.TextField(blank=True, max_length=2000)),
                 ('revisada', models.BooleanField(default=False)),
                 ('id_pergunta', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='perguntas.pergunta')),
             ],

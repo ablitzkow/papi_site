@@ -125,7 +125,7 @@ def logout(request):
 def dashboard(request):
     if request.user.is_authenticated:
         id = request.user.id
-        perguntas = Pergunta.objects.order_by('-date_pergunta').filter(user=id)
+        perguntas = Pergunta.objects.order_by('-data').filter(user=id)
         dados_assinante = perfil_assinante(request)
 
         dados = {
@@ -183,11 +183,11 @@ def meu_perfil(request):
 
 def meus_comentarios(request):
     email_user = request.user.email
-    perguntas = Comentario.objects.order_by('-date_pergunta').filter(email_comentario=email_user)
+    comentarios = Comentario.objects.order_by('-data').filter(email=email_user)
     assinante = perfil_assinante(request)
 
     dados = {
-        'perguntas' : perguntas ,
+        'perguntas' : comentarios ,
         'dados_assinante' : assinante,
     }
     return render(request, 'usuarios/meus_comentarios.html', dados)
@@ -195,7 +195,7 @@ def meus_comentarios(request):
 def minhas_perguntas(request):
     id = request.user.id
     assinante = perfil_assinante(request)
-    perguntas = Pergunta.objects.order_by('-date_pergunta').filter(user=id)
+    perguntas = Pergunta.objects.order_by('-data').filter(user=id)
 
     dados = {
         'perguntas' : perguntas,
@@ -213,9 +213,9 @@ def form_pergunta(request):
         disciplina = request.POST['disciplina']
         pergunta = remove_emojis(pergunta)
         intro_pergunta = pergunta[0:150]
-        nick_pergunta = nick(user)
+        nick = nick(user)
         print(intro_pergunta)
-        pergunta_feita = Pergunta.objects.create(user=user, email_pergunta=user.email,nick_pergunta = nick_pergunta , pergunta=pergunta, intro_pergunta = intro_pergunta , disciplina=disciplina, faculdade=faculdade)
+        pergunta_feita = Pergunta.objects.create(user=user, email=user.email,nick = nick , pergunta=pergunta, intro_pergunta = intro_pergunta , disciplina=disciplina, faculdade=faculdade)
         pergunta_feita.save()
         if Assinante.objects.filter(email=request.user.email).exists():
             score(request.user.email,request.user.id)
@@ -369,37 +369,23 @@ def form_dados(request):
                 img = img.resize((120,120),Image.ANTIALIAS)
                 img.save(path_file)
                 img.close()
-
-                print("Trocou")
                 Assinante.objects.filter(assinante=user).update(nome=first_name,sobrenome=last_name,whatsapp=whatsapp,whatsapp_ddd=whatsapp_ddd,instagram=instagram,linkedIn=linkedIn,facebook=facebook,descricao=descricao, foto=media+name_file)
             else:
-                print("Não troca")
                 Assinante.objects.filter(assinante=user).update(nome=first_name,sobrenome=last_name,whatsapp=whatsapp,whatsapp_ddd=whatsapp_ddd,instagram=instagram,linkedIn=linkedIn,facebook=facebook,descricao=descricao)
         
 
-            # Salva todas as novas informações (Email e CPF são imutáveis) 
-            
+        # Salva todas as novas informações (Email e CPF são imutáveis) 
         User.objects.filter(email=request.user.email).update(first_name=first_name,last_name=last_name,username=request.user.email)
         
         print('Dados salvos com sucesso')
         return redirect('../meus_dados')
     else:
-        #
         return render(request, 'index.html')
 
 def revisar(request):
     dados_assinante = perfil_assinante(request)
     id = request.POST['id_pergunta']
     pergunta = get_object_or_404(Pergunta,id=id)
-    # Pergunta.objects.filter(id=id).update(revisao_solicitada=True,revisao_qtd=pergunta.revisao_qtd+1)
-
-    # #verifica se há revisão anterior (Cria ou insere mais um comentário)
-    # if not Revisao.objects.filter(id_pergunta=id).exists():
-    #     revisao_feita = Revisao.objects.create(id_pergunta=pergunta,email_revisor=request.user.email,comentario_revisao ="Essa é a revisão")
-    #     revisao_feita.save()
-    # else:
-    #     Revisao.objects.filter(id=id).update(email_revisor=request.user.email,comentario_revisao ="Essa é a revisão da revisaõ 2")
-    print("REVISAR", dados_assinante)
     contexto = {
         'dados_assinante' : dados_assinante,
         'pergunta' : pergunta
@@ -409,16 +395,16 @@ def revisar(request):
 def form_revisar(request):
     dados_assinante = perfil_assinante(request)
     id = request.POST['id_pergunta']
-    comentario_revisao = request.POST['revisao_efetuada']
+    revisao = request.POST['revisao_efetuada']
     pergunta = get_object_or_404(Pergunta,id=id)
     Pergunta.objects.filter(id=id).update(revisao_solicitada=True,revisao_qtd=pergunta.revisao_qtd+1)
     #verifica se há revisão anterior (Cria ou insere mais um comentário)
-    print("xxx",Revisao.objects.filter(email_revisor=request.user.email,id_pergunta=id).exists())
-    if not Revisao.objects.filter(email_revisor=request.user.email,id_pergunta=id).exists():
-        revisao_feita = Revisao.objects.create(id_pergunta=pergunta,email_revisor=request.user.email,comentario_revisao=comentario_revisao)
+    print("xxx",Revisao.objects.filter(email=request.user.email,id_pergunta=id).exists())
+    if not Revisao.objects.filter(email=request.user.email,id_pergunta=id).exists():
+        revisao_feita = Revisao.objects.create(id_pergunta=pergunta,email=request.user.email,revisao=revisao)
         revisao_feita.save()
     else:
-        Revisao.objects.filter(email_revisor=request.user.email,id_pergunta=id).update(email_revisor=request.user.email,comentario_revisao=comentario_revisao)
+        Revisao.objects.filter(email=request.user.email,id_pergunta=id).update(email=request.user.email,revisao=revisao)
     
     contexto = {
         'dados_assinante' : dados_assinante
@@ -427,9 +413,9 @@ def form_revisar(request):
     
 def ver_minha_colaboracao(request, pergunta_id):
 
-    pergunta = get_object_or_404(Pergunta, pk=pergunta_id)
+    comentario = get_object_or_404(Comentario, pk=pergunta_id)
     #Obtém o email de que eventualmente ja respondeu a pergunta
-    email_user_pergunta = pergunta.email_comentario
+    email_user_pergunta = comentario.email
 
     try:
         #Dados do usuário logado
@@ -441,6 +427,9 @@ def ver_minha_colaboracao(request, pergunta_id):
     try:
         assinante=None
         usuario_logado=None
+        #####
+        ##### VERIFICAR O TRECHO ABAIXO, SUBSTITUIR PELO MÉTODO ASSINANTE(REQUEST)
+        #####
         #Verifica se quem respondeu está assinante
         if email_user_pergunta:
             assinante =  Assinante.objects.filter(email=email_user_pergunta, mensalidade=True)
@@ -462,20 +451,20 @@ def ver_minha_colaboracao(request, pergunta_id):
         contexto = {
         'dados_assinante': assinante,
         'usuario_logado':usuario_logado,
-        'pergunta' : pergunta,
+        'pergunta' : comentario,
         'usuario_assinante_comentario':assinante ,
         }
         
-        return render(request,'pergunta.html', contexto )
+        return render(request,'perguntas/pergunta.html', contexto )
     
     except AttributeError:
 
         contexto = {
-            'pergunta' : pergunta,
+            'pergunta' : comentario,
             'assinante' : None ,
             'usuario_logado':None,
         }
-        return render(request,'pergunta.html', contexto )
+        return render(request,'perguntas/pergunta.html', contexto )
 
 def perfil_assinante(request):
     email_user = request.user.email

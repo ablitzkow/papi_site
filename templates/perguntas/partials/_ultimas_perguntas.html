@@ -107,7 +107,7 @@
                             bottom: 0;
                             margin-left: 10px;
                             margin-bottom: 2px ; background:whitesmoke;">  
-                                    Postado por {{ pergunta.user }} em {{ pergunta.date_pergunta|date:'d/m/Y' }} </a>
+                                    Postado por {{ pergunta.nick }} em {{ pergunta.data|date:'d/m/Y' }} </a>
                                 </div>
                         </div>
                         <div>&nbsp;</div>
@@ -163,7 +163,7 @@
                         font-weight:normal;
                         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin-left: 10px; margin-top: 5px;"
                         >  
-                                Postado por {{usuario_pergunta}} em {{ pergunta.date_pergunta|date:'d/m/Y' }} 
+                                Postado por {{pergunta.nick}} em {{ pergunta.data|date:'d/m/Y' }} 
                             </div>
                     </div>
                     <div>&nbsp;</div>

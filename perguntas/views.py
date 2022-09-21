@@ -7,7 +7,7 @@ from usuarios.views import perfil_assinante
 
 
 def pergunta(request, pergunta_id):
-    from perguntas.met_pergunta import colaborador_aleatorio,usuario_assinante_comentario,usuario_logado_assinante, nick
+    from perguntas.met_pergunta import colaborador_aleatorio,usuario_assinante_comentario,usuario_logado_assinante, nick_user
     # Dados da pergunta
     if Pergunta.objects.filter(pk=pergunta_id,publicada=True).exists():
         pergunta = get_object_or_404(Pergunta, pk=pergunta_id)

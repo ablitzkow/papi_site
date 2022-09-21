@@ -38,8 +38,8 @@
                                     <li><a href="{% url 'logout' %}">sair</a></li>
                                 {% else %}
                                     <li><a href="{% url 'cadastro_email' %}">cadastro</a></li>
-                                    <li><a href="{% url 'login' %}">login</a></li>
-                                    <li><a href="{% url 'login' %}">fazer uma pergunta</a></li>
+                                    <li><a href="{% url 'login'%}?action=logar">login</a></li>
+                                    <li><a href="{% url 'login'%}?action=perguntar">fazer uma pergunta</a></li>
                                     <li><a href="{% url 'ultimas_perguntas' %}">últimas perguntas</a></li>
                                     <li><a href="{% url 'assessores' %}">Assessores</a></li>
                                     <li><a href="{% url 'planos' %}">Planos</a></li>

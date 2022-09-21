@@ -1,3 +1,4 @@
+import re
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib import auth
@@ -88,12 +89,11 @@ def cadastro(request):
         return render(request, 'usuarios/form_email.html')
 
 def login(request):
-    print(">>",request.user.is_authenticated,request.method)
+    print(">>",request.user.is_authenticated,request.method, request.GET['action'])
     if not request.user.is_authenticated:
         if request.method == 'POST':
             email = request.POST['email'].lower()
             senha = request.POST['senha']
-
             user=None
             try:
                 user = User.objects.get(email=email.lower()).username
@@ -104,7 +104,10 @@ def login(request):
             if user is not None:
                 auth.login(request, user)
                 print('login realizado com sucesso')
-                return redirect('dashboard')
+                if request.GET['action']=="logar":
+                    return redirect('dashboard')
+                else:
+                    return redirect('form_pergunta')
             else:
                 erro_a_exibir = {
                         'erro' : 'Usuário/Senha não conferem!'
@@ -112,7 +115,7 @@ def login(request):
                 print('\nAlgo errado não estava certo!\n',user,email,senha)
                 
                 return render(request,'usuarios/login.html',erro_a_exibir)
-        return render(request,'usuarios/login.html')
+        return render(request,'usuarios/login.html',{'action':request.GET['action']})
     else:
         return render(request,'usuarios/dashboard.html')
 

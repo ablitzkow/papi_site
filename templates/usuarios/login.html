@@ -13,7 +13,7 @@
         <div class="panel">
             <div class="form"><br><br>      
                     <h2 class="h3 text-center" text-color="white">Faça seu Login</h2>
-                    <form action="{% url 'login' %}" method="post">
+                    <form action="{% url 'login' %}?action={{action}}" method="post">
                         {% csrf_token %}
                         <div class="col">
                             <div class="form-group">

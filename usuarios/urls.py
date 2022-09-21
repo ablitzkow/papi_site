@@ -2,10 +2,10 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
+    path('dashboard', views.dashboard, name='dashboard'),
     path('cadastro', views.cadastro, name='cadastro'),
     path('login', views.login, name='login'),
     path('logout', views.logout, name='logout'),
-    path('dashboard', views.dashboard, name='dashboard'),
     path('meus_dados', views.meus_dados, name='meus_dados'),
     path('minhas_perguntas', views.minhas_perguntas, name='minhas_perguntas'),
     path('<int:pergunta_id>', views.ver_minha_colaboracao, name='ver_minha_colaboracao'),

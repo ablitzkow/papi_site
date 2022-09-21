@@ -17,3 +17,6 @@ urlpatterns = [
     path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(template_name="usuarios/password/reset_senha_concluido.html"), name="password_reset_complete"),
 ]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
+from django.contrib.sitemaps.views import sitemap
+path('sitemap.xml', sitemap, {'sitemaps': 'sitemaps'},
+     name='django.contrib.sitemaps.views.sitemap')

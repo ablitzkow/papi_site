@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib import auth
-from perguntas.met_pergunta import nick
 from perguntas.models import Comentario, Pergunta, Revisao , LikeBtn
 from usuarios.models import Assinante , Registro_Email
 from usuarios.score import score
@@ -204,7 +203,7 @@ def minhas_perguntas(request):
     return render(request, 'usuarios/minhas_perguntas.html', dados)
 
 def form_pergunta(request):
-    from perguntas.met_pergunta import remove_emojis
+    from perguntas.met_pergunta import remove_emojis, nick_user
     if request.method == 'POST':
         user = get_object_or_404(User, pk=request.user.id)
         pergunta = request.POST['pergunta']
@@ -213,7 +212,7 @@ def form_pergunta(request):
         disciplina = request.POST['disciplina']
         pergunta = remove_emojis(pergunta)
         intro_pergunta = pergunta[0:150]
-        nick = nick(user)
+        nick = nick_user(user)
         print(intro_pergunta)
         pergunta_feita = Pergunta.objects.create(user=user, email=user.email,nick = nick , pergunta=pergunta, intro_pergunta = intro_pergunta , disciplina=disciplina, faculdade=faculdade)
         pergunta_feita.save()

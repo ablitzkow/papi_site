@@ -60,7 +60,7 @@ def remove_emojis(data):
                       "]+", re.UNICODE)
     return re.sub(emoj, '', data)
 
-def nick(user):
+def nick_user(user):
     d = str(user.date_joined)
     id_user = d[d.find(' ')-1:d.find(':')].replace(':','').replace(' ','')
     nick = str(user)[:str(user).find('@')]+id_user

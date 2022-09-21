@@ -28,7 +28,8 @@ Ver Table do BD
 
 ver COLUNA de uma Table
 	\d nome_coluna;
-	\d+ nome_coluna;   (DIGITE q  PARA SAIR)
+	 nome_coluna;   (DIGITE q  PARA SAIR)
+	exemplo: \d perguntas_comentario
 
 
 

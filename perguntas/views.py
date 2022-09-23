@@ -6,14 +6,17 @@ from usuarios.models import Assinante
 from usuarios.views import perfil_assinante
 
 
-def pergunta(request, pergunta_id):
+def pergunta(request, id_url):
+    print(">>>a")
     from perguntas.met_pergunta import colaborador_aleatorio,usuario_assinante_comentario,usuario_logado_assinante, nick_user
     # Dados da pergunta
-    if Pergunta.objects.filter(pk=pergunta_id,publicada=True).exists():
-        pergunta = get_object_or_404(Pergunta, pk=pergunta_id)
+    if Pergunta.objects.filter(id_url=id_url,publicada=True).exists():
+        pergunta = get_object_or_404(Pergunta, id_url=id_url)
         likes_count = LikeBtn.objects.filter(id_pergunta = pergunta.pk).count() # Qtd de Likes
 
         #Obtém dados de quem respondeu a pergunta
+        print(">>>")
+        print(pergunta.id)
         if Comentario.objects.filter(id_pergunta=pergunta.id).exists():
             comentario = get_object_or_404(Comentario,id_pergunta=pergunta.id)
             assinante = get_object_or_404(Assinante, email = comentario.email)

@@ -218,7 +218,8 @@ def form_pergunta(request):
         intro_pergunta = pergunta[0:150]
         nick = nick_user(user)
         print(intro_pergunta)
-        pergunta_feita = Pergunta.objects.create(id = shortuuid.uuid() , user=user, email=user.email,nick = nick , pergunta=pergunta, intro_pergunta = intro_pergunta , disciplina=disciplina, faculdade=faculdade)
+        id_url = shortuuid.uuid() 
+        pergunta_feita = Pergunta.objects.create(id_url=id_url, user=user, email=user.email,nick = nick , pergunta=pergunta, intro_pergunta = intro_pergunta , disciplina=disciplina, faculdade=faculdade)
         pergunta_feita.save()
         if Assinante.objects.filter(email=request.user.email).exists():
             score(request.user.email,request.user.id)
@@ -312,7 +313,7 @@ def form_comentar(request):
         print(">>>",email_user)
         comentario = request.POST['comentario']
         print(comentario)
-        Comentario.objects.create(id_pergunta=id_pergunta, comentario=comentario, email=email_user)
+        Comentario.objects.create(id_pergunta_id=id_pergunta, comentario=comentario, email=email_user)
         score(email_user,request.user.id)
         print('Pergunta salva com sucesso!!!')
         return redirect('dashboard')

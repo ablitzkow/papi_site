@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 class Pergunta(models.Model):
     #dados do usuario que faz a pergunta
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    id = models.CharField(primary_key=True, max_length=22)
+    id_url = models.CharField(max_length=22)
     nick = models.CharField(max_length=200)
     email = models.CharField(max_length=200)
     pergunta = models.TextField(max_length=2500)

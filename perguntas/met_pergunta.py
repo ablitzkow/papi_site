@@ -18,13 +18,11 @@ def colaborador_aleatorio(comentario):
 
 def usuario_assinante_comentario(email_usuario_comentario):
     from django.shortcuts import render, get_object_or_404
-
-    #Verifica se quem respondeu está assinante
     if Assinante.objects.filter(email=email_usuario_comentario, mensalidade=True).exists():
-        #se o quem respondeu estiver assinante
-        return  get_object_or_404(Assinante, email=email_usuario_comentario)
-    else:
-        return None
+            #se o quem respondeu estiver assinante
+            return  get_object_or_404(Assinante, email=email_usuario_comentario)
+    # Retorna None caso quem respondeu não esteja assinante
+    return None
 
 def usuario_logado_assinante(email_usuario):
         from django.shortcuts import render, get_object_or_404

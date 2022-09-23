@@ -1,10 +1,12 @@
 from django.db import models
 from datetime import datetime
 from django.contrib.auth.models import User
+import shortuuid
 
 class Pergunta(models.Model):
     #dados do usuario que faz a pergunta
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    id = models.CharField(primary_key=True, default=shortuuid.uuid(), editable=False , max_length=22)
     nick = models.CharField(max_length=200)
     email = models.CharField(max_length=200)
     pergunta = models.TextField(max_length=2500)

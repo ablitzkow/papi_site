@@ -17,10 +17,12 @@ def pergunta(request, pergunta_id):
         if Comentario.objects.filter(id_pergunta=pergunta.id).exists():
             comentario = get_object_or_404(Comentario,id_pergunta=pergunta.id)
             assinante = get_object_or_404(Assinante, email = comentario.email)
+            email_comentario = usuario_assinante_comentario(comentario.email)
 
         else:
             comentario = None
             assinante = None
+            email_comentario = None
 
         # Verifica se quem está acessando está logado ou é anônimo
         if request.user.is_active: 
@@ -35,6 +37,7 @@ def pergunta(request, pergunta_id):
             contexto = {
             'pergunta'  : pergunta,
             'comentario': comentario,
+            'usuario_assinante_comentario' : email_comentario,
             'assinante' :assinante,
             'usuario_logado_assinante': usuario_logado_assinante(email_usuario),
             'assinante_random':colaborador_aleatorio(comentario),
@@ -47,7 +50,7 @@ def pergunta(request, pergunta_id):
         else:
             print("eee")
             contexto = {
-            'usuario_assinante_comentario' : usuario_assinante_comentario(comentario.email),
+            'usuario_assinante_comentario' : email_comentario ,
             'usuario_logado_assinante':None,
             'assinante_random':colaborador_aleatorio(comentario),
             'pergunta' : pergunta,

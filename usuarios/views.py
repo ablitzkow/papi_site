@@ -312,7 +312,7 @@ def form_comentar(request):
         print(">>>",email_user)
         comentario = request.POST['comentario']
         print(comentario)
-        Pergunta.objects.filter(id=id_pergunta).update(comentario=comentario, email=email_user)
+        Comentario.objects.create(id_pergunta=id_pergunta, comentario=comentario, email=email_user)
         score(email_user,request.user.id)
         print('Pergunta salva com sucesso!!!')
         return redirect('dashboard')

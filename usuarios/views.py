@@ -207,6 +207,7 @@ def minhas_perguntas(request):
 
 def form_pergunta(request):
     from perguntas.met_pergunta import remove_emojis, nick_user
+    import shortuuid
     if request.method == 'POST':
         user = get_object_or_404(User, pk=request.user.id)
         pergunta = request.POST['pergunta']
@@ -217,7 +218,7 @@ def form_pergunta(request):
         intro_pergunta = pergunta[0:150]
         nick = nick_user(user)
         print(intro_pergunta)
-        pergunta_feita = Pergunta.objects.create(user=user, email=user.email,nick = nick , pergunta=pergunta, intro_pergunta = intro_pergunta , disciplina=disciplina, faculdade=faculdade)
+        pergunta_feita = Pergunta.objects.create(id = shortuuid.uuid() , user=user, email=user.email,nick = nick , pergunta=pergunta, intro_pergunta = intro_pergunta , disciplina=disciplina, faculdade=faculdade)
         pergunta_feita.save()
         if Assinante.objects.filter(email=request.user.email).exists():
             score(request.user.email,request.user.id)

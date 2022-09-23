@@ -74,6 +74,7 @@ def ultimas_perguntas(request):
         'faculdade_select':None,
         'disciplina_select':None,
         }
+
     return render(request,'perguntas/ultimas_perguntas.html', contexto)
 
 
@@ -86,9 +87,9 @@ def filtro_ultimas_perguntas(request):
         if status == 'TODAS':
             perguntas = Pergunta.objects.order_by('-data').filter(faculdade__contains=faculdade,disciplina__contains=disciplina,publicada=True)[0:100]
         elif status == 'AGUARDANDO COMENTÁRIOS':
-            perguntas = Pergunta.objects.order_by('-data').filter(faculdade__contains=faculdade,disciplina__contains=disciplina, comentario__exact = '' ,publicada=True)[0:100]
+            perguntas = Pergunta.objects.order_by('-data').filter(faculdade__contains=faculdade,disciplina__contains=disciplina, comentario_check__exact = False ,publicada=True)[0:100]
         elif status == 'RESPONDIDAS':
-            perguntas = Pergunta.objects.order_by('-data').filter(faculdade__contains=faculdade,disciplina__contains=disciplina, publicada=True).exclude(comentario__exact ='')[0:100]
+            perguntas = Pergunta.objects.order_by('-data').filter(faculdade__contains=faculdade,disciplina__contains=disciplina, publicada=True, comentario_check__exact = True)[0:100]
         
         print(">>>AAS",faculdade,disciplina)
         contexto = {

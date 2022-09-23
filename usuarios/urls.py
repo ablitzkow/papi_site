@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from . import forms
 
 urlpatterns = [
     path('dashboard', views.dashboard, name='dashboard'),
@@ -20,8 +21,10 @@ urlpatterns = [
     path('revisar', views.revisar, name='revisar'),
     path('curtir', views.curtir, name='curtir'),
     path('form/revisar', views.form_revisar, name='form_revisar'),
-    path('perfil/<int:perfil_id>', views.perfil, name='perfil'),
+    path('perfil/<str:id_perfil>', views.perfil, name='perfil'),
     path('planos', views.planos, name='planos'),
     path('assessores', views.assessores, name='assessores'),
+    path('incluir_assinante', forms.incluir_assinante, name='incluir_assinante'),
+    path('form_incluir_assinante',forms.form_incluir_assinante, name = 'form_incluir_assinante')
 
 ]

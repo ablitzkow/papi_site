@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<section>
+    <div class="container" style="width:100%;padding-left: 5%;"> 
+        <h4>Inclusão de Novo Assinante</h4><br>
+        <form action="{% url 'form_incluir_assinante' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="col col-sm col-lg-6">
+                <div>E-mail</div>
+                <div><input type="" class="form-control" name="email" placeholder="Insira o email do novo Assinante"></div>
+                <br>
+                <div>CPF</div>
+                <div><input type="" class="form-control" name="cpf" placeholder="Insira o CPF" ></div>
+                <br>
+            </div>
+
+            {% if erro is not None %}
+
+            <section class="alert alert-danger col-5" style="margin-left:15px;" role="alert">
+                
+                {{ erro }} <b> {{email}} </b>
+            </section>
+            {% endif %}
+            
+
+            <div class="col col-sm col-lg-12">
+                <div center>{% include 'partials/_recaptcha.html' %}</div>
+
+                <div class="block"></div>
+        
+                <div><button class="btn delicious-btn mt-30" type="submit">Enviar dados</button></div>
+            </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+{% endblock %}

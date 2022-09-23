@@ -3,8 +3,9 @@ from django.contrib.auth.models import User
 
 class Assinante(models.Model):
     assinante = models.ForeignKey(User, on_delete=models.CASCADE)
+    id_perfil = models.CharField(max_length=5)
     email = models.CharField(max_length=200)
-    nick_assinante = models.CharField(max_length=200,blank=True)
+    nick = models.CharField(max_length=200,blank=True)
     nome = models.CharField(max_length=200)
     sobrenome = models.CharField(max_length=200)
     mensalidade = models.BooleanField(default=False)

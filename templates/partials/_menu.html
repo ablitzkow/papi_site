@@ -6,7 +6,7 @@
             <div class="classy-nav-container breakpoint-off">
                 <div class="container" >
                     <!-- Menu -->
-                    <nav class="classy-navbar justify-content-between" id="deliciousNav" style="height:40px ;">
+                    <nav class="classy-navbar justify-content-between" id="deliciousNav" style="height:55px ; margin-top:5px; z-index:3;">
 
                        <!-- Logo -->
                         <!-- <div class="invisible-sm" style="margin-top:100px ;"><a class="nav-brand  invisible-sm" href="{% url 'index' %}"><img src="{% static 'img/core-img/logo.png' %}" alt=""></a></div> -->
@@ -36,6 +36,10 @@
                                     <li><a href="{% url 'assessores' %}">Assessores</a></li>
                                     <li><a href="{% url 'planos' %}">Planos</a></li>
                                     <li><a href="{% url 'logout' %}">sair</a></li>
+                                    {% if user.is_superuser %}
+                                    <li><a href="{% url 'incluir_assinante' %}">Admin</a></li>
+                                    {% endif %}
+
                                 {% else %}
                                     <li><a href="{% url 'cadastro_email' %}">cadastro</a></li>
                                     <li><a href="{% url 'login'%}?action=logar">login</a></li>

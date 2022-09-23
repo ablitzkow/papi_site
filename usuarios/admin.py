@@ -3,8 +3,8 @@ from django.contrib import admin
 from .models import Assinante,  Registro_Email
 
 class ListandoColaboradores(admin.ModelAdmin):
-    list_display = ('id', 'assinante', 'mensalidade', 'CPF' , 'whatsapp','score')
-    list_display_links = ('id', 'assinante',)
+    list_display = ('id', 'id_perfil', 'assinante', 'mensalidade', 'CPF' , 'whatsapp','score')
+    list_display_links = ('id', 'id_perfil', 'assinante',)
     search_fields = ('assinante',)
     list_filter = ('mensalidade',)
     list_editable = ('mensalidade',)

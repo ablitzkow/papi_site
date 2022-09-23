@@ -1,4 +1,3 @@
-import re
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib import auth
@@ -521,10 +520,9 @@ def curtir(request):
         contexto={"liked":None,"content_id":None}
         return HttpResponse({json.dumps(contexto)}, content_type='application/json')
 
-def perfil(request, perfil_id):
-    perfil = get_object_or_404(Assinante,id=perfil_id)
+def perfil(request, id_perfil):
+    perfil = get_object_or_404(Assinante,id_perfil = id_perfil)
     perfil_geral =get_object_or_404(User,email=perfil.email)
-    print(perfil,perfil_geral)
     score_geral, qtd_likes , qtd_perguntas, qtd_respostas = score(perfil_geral.username,perfil_geral.id)
 
     contexto ={
@@ -555,3 +553,4 @@ def assessores(request):
     }
     print(">>>",assinantes)
     return render(request,'usuarios/assessores.html',contexto)
+

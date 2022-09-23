@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<section>
+    <div class="container" style="width:100%;padding-left: 5%;"> 
+        <br><br><br><br>
+        <h3>Inclusão de assinante efetuada com SUCESSO</h3><br>
+        <br><br>
+        <h3 style="margin-left:100px;">{{user.first_name}} {{user.last_name}} - {{user.email}}</h3>
+        <br><br><br><br>
+    </div>
+</section>
+
+{% endblock %}

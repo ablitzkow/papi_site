@@ -314,6 +314,7 @@ def form_comentar(request):
         comentario = request.POST['comentario']
         print(comentario)
         Comentario.objects.create(id_pergunta_id=id_pergunta, comentario=comentario, email=email_user)
+        Pergunta.objects.filter(id=id_pergunta).update(comentario_check = True)
         score(email_user,request.user.id)
         print('Pergunta salva com sucesso!!!')
         return redirect('dashboard')

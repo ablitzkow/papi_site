@@ -2,11 +2,11 @@ from django.contrib import admin
 from .models import Comentario,Pergunta,Revisao,LikeBtn
 
 class ListandoPerguntas(admin.ModelAdmin):
-    list_display = ('id', 'id_url' ,'pergunta', 'faculdade', 'disciplina' , 'publicada')
+    list_display = ('id', 'id_url' ,'pergunta', 'faculdade', 'disciplina' , 'publicada', 'comentario_check')
     list_display_links = ('id', 'id_url' ,'pergunta')
     search_fields = ('pergunta','id')
     list_filter = ('faculdade',)
-    list_editable = ('publicada',)
+    list_editable = ('publicada', 'comentario_check')
     list_per_page = 10
 
 class ListandoComentarios(admin.ModelAdmin):

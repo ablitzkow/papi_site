@@ -31,7 +31,7 @@
 
 
 <!-- Renderiza este bloco caso não tenha comentários ainda -->
-{% if comentario.comentario == '' %}
+{% if pergunta.comentario_check == False %}
     <div class="container invisible-lg">
         <div class="col" >
             <!-- Se ainda não houver, verifica se o usuário logado é assinante -->
@@ -72,7 +72,8 @@
 
 
 <!-- Renderiza este bloco caso já tenha comentários -->
-{% if comentario.comentario != '' %}
+{% if pergunta.comentario_check == True %}
+
     <br>
     <div class="container invisible-lg">
         <div>
@@ -142,7 +143,7 @@
 </div>
 
 <!-- Renderiza este bloco caso não tenha comentários ainda -->
-{% if comentario.comentario == '' %}
+{% if pergunta.comentario_check == False %}
     <div class="container invisible-sm" style="width:80%;">
         <div class="col" >
             <!-- Se ainda não houver, verifica se o usuário logado é assinante -->
@@ -183,7 +184,7 @@
 
 
 <!-- Renderiza este bloco caso já tenha comentários -->
-{% if comentario.comentario != '' %}
+{% if pergunta.comentario_check == True %}
     <br>
     <div class="container invisible-sm">
         <div>

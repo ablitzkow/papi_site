@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TESTE</title>
+</head>
+<body>
+    
+
+    <H1>DEPLOY TEST</H1>
+    <form action="captcha" method="POST">
+        <div class="col col-sm col-lg-6">
+            <div>E-mail</div>
+            <div><input type="" class="form-control" name="email" placeholder="Insira o email do novo Assinante"></div>
+            <br>
+            <div>CPF</div>
+            <div><input type="" class="form-control" name="cpf" placeholder="Insira o CPF" ></div>
+            <br>
+        </div>
+    {{form.Captcha}}
+    {% csrf_token %}
+    <input type="submit">
+    </form>
+</body>
+</html>

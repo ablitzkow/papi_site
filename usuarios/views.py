@@ -6,7 +6,7 @@ from usuarios.models import Assinante , Registro_Email
 from usuarios.score import score
 
 
-def cadastro(request):
+def dados_cadastro(request):
     if request.method == 'POST':
         first_name = request.POST['first_name']
         last_name = request.POST['last_name']
@@ -19,7 +19,7 @@ def cadastro(request):
             erro_a_exibir = {
                 'erro' : 'Email já cadastrado'
             }
-            return render(request,'usuarios/cadastro.html', erro_a_exibir)
+            return render(request,'usuarios/form/dados_cadastro.html', erro_a_exibir)
         
         #verifica se as senhas são iguais
         elif password != password2:
@@ -30,7 +30,7 @@ def cadastro(request):
                 'erro' : 'Senhas não coincidem'
             }
             print("Senhas não coincidem")
-            return render(request,'usuarios/cadastro.html', contexto)
+            return render(request,'usuarios/form/dados_cadastro.html', contexto)
             
         #verifica a segurança da senha
         else:
@@ -43,7 +43,7 @@ def cadastro(request):
                     'erro' : 'Senha insegura, insira no mínimo 8 caracteres',
                 }
                 print('senha insegura')
-                return render(request,'usuarios/cadastro.html', contexto)
+                return render(request,'usuarios/form/dados_cadastro.html', contexto)
             #verifica se possuí 1 minúscula, 1 maiúscula e 1 número
             lower , upper , number = False , False , False
             for letra in password:
@@ -82,10 +82,9 @@ def cadastro(request):
                     'erro' : 'Senha insegura, insira no mínimo: 1 letra minúscula, 1 maiúscula e 1 número',
                 }
                 print('senha insegura')
-                return render(request,'usuarios/cadastro.html', contexto)
+                return render(request,'usuarios/form/dados_cadastro.html', contexto)
     else:
-        print("foi por request")
-        return render(request, 'usuarios/form_email.html')
+        return redirect('cadastro')
 
 def login(request):
     print(">>",request.user.is_authenticated,request.method, request.GET['action'])
@@ -203,107 +202,6 @@ def minhas_perguntas(request):
         'dados_assinante' : assinante,
     }
     return render(request, 'usuarios/minhas_perguntas.html', dados)
-
-def form_pergunta(request):
-    from perguntas.met_pergunta import remove_emojis, nick_user
-    import shortuuid
-    if request.method == 'POST':
-        user = get_object_or_404(User, pk=request.user.id)
-        pergunta = request.POST['pergunta']
-        print(request.POST['pergunta'])
-        faculdade = request.POST['faculdade']
-        disciplina = request.POST['disciplina']
-        pergunta = remove_emojis(pergunta)
-        intro_pergunta = pergunta[0:150]
-        nick = nick_user(user)
-        print(intro_pergunta)
-        id_url = shortuuid.uuid() 
-        pergunta_feita = Pergunta.objects.create(id_url=id_url, user=user, email=user.email,nick = nick , pergunta=pergunta, intro_pergunta = intro_pergunta , disciplina=disciplina, faculdade=faculdade)
-        pergunta_feita.save()
-        if Assinante.objects.filter(email=request.user.email).exists():
-            score(request.user.email,request.user.id)
-        print('Pergunta salva com sucesso')
-        return redirect('dashboard')
-    else:
-        print('algo deu ruim')
-        return render(request, 'usuarios/form_pergunta.html')
-
-def cadastro_email(request):
-    import string
-    alfa_minu = list(string.ascii_lowercase)
-    alfa_maiusc = list(string.ascii_uppercase)
-    print(alfa_minu,alfa_maiusc, 'a' in alfa_minu, 'G' in alfa_maiusc, 'x' in alfa_maiusc)
-    return render(request,'usuarios/form_email.html')
-
-def form_email(request):
-    from random import randint
-    from datetime import datetime
-    from django.core.mail import send_mail
-
-    email = request.POST['email'].lower()
-    #verifica se o email já está cadastrado:
-    if not User.objects.filter(email=email).exists():
-        code = randint(100000,999999)
-        date = datetime.now()
-        print("code:",code)
-
-        if Registro_Email.objects.filter(email_register=email).exists():
-            Registro_Email.objects.filter(email_register=email).update(code_sent=code,data_code=date)
-        else:
-            Registro_Email.objects.create(email_register=email,code_sent=code,data_code=date)
-
-        contexto = {
-            'email' : email,
-                }
-        send_mail('Código de Verificação - '+str(code), 'Seu código é '+str(code), 'contato@papiron.com.br',
-          [email], fail_silently=False)
-
-        return render(request,'usuarios/form_email_code.html',contexto)
-    else:
-        contexto = {
-            'email' : email,
-            'erro' : 'E-mail já cadastrado'
-                }
-
-        return render(request,'usuarios/form_email.html',contexto)
-
-def form_email_code(request):
-    from datetime import datetime
-    if request.method == 'POST':
-        email = request.POST['email_register']
-        code = request.POST['code']
-        code_save = get_object_or_404(Registro_Email,email_register=email)
-
-        #verifica a expiração do código, válido até o final do dia
-        date = code_save.data_code
-        date_now = datetime.now().date()
-
-        if str(code) == str(code_save.code_sent) and date==date_now:
-            print("Código OK") 
-            contexto = {
-                'email' : email,
-                 }
-            return render(request,'usuarios/cadastro.html',contexto)
-        
-        #caso o código esteja expirado
-        elif date!=date_now:
-            print("Código expirado", code , code_save.code_sent)
-            contexto = {
-                'email' : email,
-                'erro': 'Código expirado'
-                }
-            return render(request,'usuarios/form_email_code.html',contexto)
-        
-        else:
-            print("Código ERRADO", code , code_save.code_sent)
-            contexto = {
-                'email' : email,
-                'erro': 'Código incorreto'
-                }
-            return render(request,'usuarios/form_email_code.html',contexto)
-        
-    else:
-        return render(request, 'index.html')
 
 def form_comentar(request):
     if request.method == 'POST':

@@ -43,7 +43,8 @@
                             </div>
 
                             <div class="col-12">
-                                <div center>{% include 'partials/_recaptcha.html' %}</div>
+                                <div center>{{form.Captcha}}</div>
+                                {% if erro %} {{erro}}{% endif %}
 
                                 <div class="block"></div>
                            

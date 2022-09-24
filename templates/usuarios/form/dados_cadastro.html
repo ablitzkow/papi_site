@@ -17,7 +17,7 @@
             <div class="col-12">
                 <div class="contact-form-area">
                     {% if email %}
-                    <form action="{% url 'cadastro' %}" method="post">
+                    <form action="{% url 'dados_cadastro' %}" method="post">
                             {% csrf_token %}
                         <div class="row"> 
                             <div class="col-12 col-lg-12">
@@ -64,7 +64,7 @@
                     <section class="alert alert-danger"  role="alert">
                         {{ erro }}
                     </section>
-                    <div>Para cadastrar novo email:&nbsp;&nbsp;&nbsp;<a href="{% url 'cadastro_email' %}" class="s-btn-normal">&nbsp;&nbsp;&nbsp;Novo email&nbsp;&nbsp;</a></div>
+                    <div>Para cadastrar novo email:&nbsp;&nbsp;&nbsp;<a href="{% url 'cadastro' %}" class="s-btn-normal">&nbsp;&nbsp;&nbsp;Novo email&nbsp;&nbsp;</a></div>
                     <div>&nbsp;</div>
                     <div>Recupere sua senha:&nbsp;&nbsp;&nbsp;<a href="{% url 'reset_password' %}" class="s-btn-normal">&nbsp;&nbsp;&nbsp;Recuperar&nbsp;&nbsp;</a></div>
                     {% endif %}

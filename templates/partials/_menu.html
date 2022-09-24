@@ -2,11 +2,11 @@
 <!-- ##### Menu Area Start ##### -->
 <header class="header-area" style="z-index:2;">
         <!-- Navbar Area -->
-        <div class="delicious-main-menu" style="margin-left: auto;">
+        <div class="delicious-main-menu" style="margin-left: auto; max-height:20px;">
             <div class="classy-nav-container breakpoint-off">
                 <div class="container" >
                     <!-- Menu -->
-                    <nav class="classy-navbar justify-content-between" id="deliciousNav" style="height:55px ; margin-top:5px; z-index:3;">
+                    <nav class="classy-navbar justify-content-between" id="deliciousNav" style="height:55px ; margin-top:-7px; z-index:3;">
 
                        <!-- Logo -->
                         <!-- <div class="invisible-sm" style="margin-top:100px ;"><a class="nav-brand  invisible-sm" href="{% url 'index' %}"><img src="{% static 'img/core-img/logo.png' %}" alt=""></a></div> -->
@@ -41,7 +41,7 @@
                                     {% endif %}
 
                                 {% else %}
-                                    <li><a href="{% url 'cadastro_email' %}">cadastro</a></li>
+                                    <li><a href="{% url 'cadastro' %}">cadastro</a></li>
                                     <li><a href="{% url 'login'%}?action=logar">login</a></li>
                                     <li><a href="{% url 'login'%}?action=perguntar">fazer uma pergunta</a></li>
                                     <li><a href="{% url 'ultimas_perguntas' %}">últimas perguntas</a></li>

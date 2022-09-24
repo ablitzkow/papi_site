@@ -29,7 +29,6 @@
     </div>
 </div>
 
-
 <!-- Renderiza este bloco caso não tenha comentários ainda -->
 {% if pergunta.comentario_check == False %}
     <div class="container invisible-lg">
@@ -73,17 +72,16 @@
 
 <!-- Renderiza este bloco caso já tenha comentários -->
 {% if pergunta.comentario_check == True %}
-
     <br>
     <div class="container invisible-lg">
         <div>
             <!-- Então há comentário feito -->
                 <hr> <center><b><h3>COMENTÁRIO</h4></b><br></center>
             <!-- Insere dados do assinante que fez o comentário -->
-            {% if usuario_assinante_comentario.mensalidade == False %}
+            {% if assinante.mensalidade == True %}
                 {% include 'perguntas/partials/_pub_pergunta.html' %}
             {% else %}
-                Comentário de {{usuario_anonimo}}
+                Comentário de {{assinante.nick}}
             {% endif %}    
             <div class="receipe-content-area" style="max-width:60%; text-align: left; font-weight: bold">
                 <!-- <br><br>Veja o comentário feito pelo assessor:<br><br> -->
@@ -96,7 +94,7 @@
         <div class="col col-sm">
             <div style="max-width:100%; text-align: justify;position: relative; padding-top: 2%;">
                 <p style="color: #af92dc;font-weight: bold  ;">Resposta:<br>
-                <p style="color: #4d2d2d"></p> {{ comentario.comentario }} XXXXX</p>
+                <p style="color: #4d2d2d"></p> {{ comentario.comentario }}</p>
             </div>
         </div>
     </div>

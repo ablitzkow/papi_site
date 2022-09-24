@@ -44,7 +44,14 @@
 
                             <div class="col-12">
                                 <div center>{{form.Captcha}}</div>
-                                {% if erro %} {{erro}}{% endif %}
+
+                                <!-- Informa que houve erro no repactha -->
+                                {% if erro %} <br>
+                                <section class="alert alert-danger"  role="alert" style="width:300px;">
+                                    {{ erro }}
+                                    <div>
+                                 </section> <br> <br>
+                                {% endif %}
 
                                 <div class="block"></div>
                            

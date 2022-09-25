@@ -8,9 +8,10 @@
                 <div class="receipe-headline my-5">
                     <span>{{ pergunta.data_pergunta}}</span>
                     <div class="receipe-duration">
+                        {% if pergunta.publicada == False %}<h6 style="color:red;font-weight:bold;">Não publicada</h6>{% endif %}
                         <h6>Instituição: {{pergunta.faculdade}}</h6>
                         <h6>Disciplina: {{pergunta.disciplina}}</h6>
-                        <h6> Postado por : {{pergunta.nick}}</h6> em {{pergunta.data|date:'d/m/Y'  }} 
+                        <h6> Postado por : {{pergunta.nick}}</h6> em {{pergunta.data|date:'d/m/Y'  }}
                     </div>
                 </div>
             </div>

@@ -10,59 +10,56 @@ def pergunta(request, id_url):
     print(">>>a")
     from perguntas.met_pergunta import colaborador_aleatorio,usuario_assinante_comentario,usuario_logado_assinante, nick_user
     # Dados da pergunta
-    if Pergunta.objects.filter(id_url=id_url,publicada=True).exists():
+    if Pergunta.objects.filter(id_url=id_url).exists():
+        #Obtém a pergunta pelo ID
         pergunta = get_object_or_404(Pergunta, id_url=id_url)
-        likes_count = LikeBtn.objects.filter(id_pergunta = pergunta.pk).count() # Qtd de Likes
+        if pergunta.publicada == True or pergunta.email == request.user.email:
+            likes_count = LikeBtn.objects.filter(id_pergunta = pergunta.pk).count() # Qtd de Likes
+            
+            #Obtém dados de quem respondeu a pergunta
+            if Comentario.objects.filter(id_pergunta=pergunta.id).exists():
+                comentario = get_object_or_404(Comentario,id_pergunta=pergunta.id)
+                assinante = get_object_or_404(Assinante, email = comentario.email)
+                email_comentario = usuario_assinante_comentario(comentario.email)
+            else:
+                comentario = None
+                assinante = None
+                email_comentario = None
 
-        #Obtém dados de quem respondeu a pergunta
-        print(">>>")
-        print(pergunta.id)
-        if Comentario.objects.filter(id_pergunta=pergunta.id).exists():
-            comentario = get_object_or_404(Comentario,id_pergunta=pergunta.id)
-            assinante = get_object_or_404(Assinante, email = comentario.email)
-            email_comentario = usuario_assinante_comentario(comentario.email)
+            # Verifica se quem está acessando está logado ou é anônimo
+            if request.user.is_active: 
+                email_usuario = request.user.email
+                # Verifica se o usuário logado deu Like na pergunta.
+                my_like = False
+                if LikeBtn.objects.filter(user = request.user , id_pergunta = pergunta.id).exists():
+                    my_like = True
+                    likes_count -= 1
 
-        else:
-            comentario = None
-            assinante = None
-            email_comentario = None
-
-        # Verifica se quem está acessando está logado ou é anônimo
-        if request.user.is_active: 
-            email_usuario = request.user.email
-            # Verifica se o usuário logado deu Like na pergunta.
-            my_like = False
-            if LikeBtn.objects.filter(user = request.user , id_pergunta = pergunta.id).exists():
-                my_like = True
-                likes_count -= 1
-
-            #gera o usuário para as perguntas
-            contexto = {
-            'pergunta'  : pergunta,
-            'comentario': comentario,
-            'usuario_assinante_comentario' : email_comentario,
-            'assinante' :assinante,
-            'usuario_logado_assinante': usuario_logado_assinante(email_usuario),
-            'assinante_random':colaborador_aleatorio(comentario),
-            'my_like' : my_like,
-            'likes_count':likes_count,
-            }
-            print(contexto)
-            return render(request,'perguntas/pergunta.html', contexto )
-        
-        else:
-            print("eee")
-            contexto = {
-            'usuario_assinante_comentario' : email_comentario ,
-            'usuario_logado_assinante':None,
-            'assinante_random':colaborador_aleatorio(comentario),
-            'pergunta' : pergunta,
-            'comentario': comentario,
-            'assinante' :assinante,
-            'my_like' : False,
-            'likes_count':likes_count,
-            }
-            return render(request,'perguntas/pergunta.html', contexto )
+                contexto = {
+                'pergunta'  : pergunta,
+                'comentario': comentario,
+                'usuario_assinante_comentario' : email_comentario,
+                'assinante' :assinante,
+                'usuario_logado_assinante': usuario_logado_assinante(email_usuario),
+                'assinante_random':colaborador_aleatorio(comentario),
+                'my_like' : my_like,
+                'likes_count':likes_count,
+                }
+                print(contexto)
+                return render(request,'perguntas/pergunta.html', contexto )
+            
+            else:
+                contexto = {
+                'usuario_assinante_comentario' : email_comentario ,
+                'usuario_logado_assinante':None,
+                'assinante_random':colaborador_aleatorio(comentario),
+                'pergunta' : pergunta,
+                'comentario': comentario,
+                'assinante' :assinante,
+                'my_like' : False,
+                'likes_count':likes_count,
+                }
+                return render(request,'perguntas/pergunta.html', contexto )
     else:
         return render(request,'index.html')
 

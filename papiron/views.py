@@ -6,4 +6,4 @@ def index(request):
 
 def sitemap(request):
     from . import settings
-    return HttpResponse(open(str(settings.BASE_DIR)+'/sitemap.xml').read(), content_type='text/xml')
+    return HttpResponse(open(str(settings.BASE_DIR)+'/papiron/sitemap.xml').read(), content_type='text/xml')

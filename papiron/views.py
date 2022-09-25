@@ -5,5 +5,5 @@ def index(request):
     return render(request,'index.html')
 
 def sitemap(request):
-    return HttpResponse(open('sitemap.xml').read(), content_type='text/xml')
-    # return render (request,"sitemap.xml")
+    from . import settings
+    return HttpResponse(open(str(settings.BASE_DIR)+'/sitemap.xml').read(), content_type='text/xml')

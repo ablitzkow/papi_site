@@ -24,4 +24,4 @@ path('sitemap.xml', sitemap, {'sitemaps': 'sitemaps'},
 path('sitemap2.xml', sitemap, {'sitemaps': 'sitemaps'},
      name='django.contrib.sitemaps.views.sitemap') 
 path('sitemap', sitemap, {'sitemaps': sitemap},
- name='django.contrib.sitemaps.views.sitemap') 
+ name='django.contrib.sitemaps.views.sitemap')

@@ -266,8 +266,10 @@ pyvenv.cfg
 pip-selfcheck.json
 
 # Specific files #
+# Se o arquivo já foi rastreado, não adianta apenas inserir aqui ele continuará
+# rastreado, para que o arquivo não seja mais rastreado pode se usar o comando:
+# git rm --cached file.extfile
 papiron/settings.py
-.papiron/sitemap.xml
-*sitemap.xml
+papiron/sitemap.xml
 
 # End of https://www.toptal.com/developers/gitignore/api/python,venv,django

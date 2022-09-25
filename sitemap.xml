@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset>
     <url>
-      <loc>https://www.papiron.com.br/perguntas/ultimas_perguntas/</loc>
+      <loc>https://www.papiron.com.br/perguntas/ultimas/ultimas_perguntas</loc>
       <lastmod>2022-09-21</lastmod>
     </url>
     <url>
@@ -9,7 +9,7 @@
       <lastmod>2022-09-21</lastmod>
     </url>
     <url>
-      <loc>https://www.papiron.com.br/usuarios/assessores/</loc>
+      <loc>https://www.papiron.com.br/usuarios/assessores</loc>
       <lastmod>2022-09-21</lastmod>
-    </url>
-<url><loc>3</loc><lastmod>2022-22-09</lastmod></url></urlset>
+    </url> 
+</urlset>

@@ -40,8 +40,8 @@ def pergunta(request, id_url):
                 'comentario': comentario,
                 'usuario_assinante_comentario' : email_comentario,
                 'assinante' :assinante,
-                'usuario_logado_assinante': usuario_logado_assinante(email_usuario),
                 'assinante_random':colaborador_aleatorio(comentario),
+                'usuario_logado_assinante': usuario_logado_assinante(email_usuario),
                 'my_like' : my_like,
                 'likes_count':likes_count,
                 }

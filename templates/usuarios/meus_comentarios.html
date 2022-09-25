@@ -20,8 +20,8 @@
                     <div class="row-18 row-sm-12 col-lg-12">
                         <div>
                             <div class="contact-area">
-                                <a href="{% url 'ver_minha_colaboracao' pergunta.id %}" style="font-size:14px;font-weight:normal;font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;";>
-                                    [{{ pergunta.data|date:'d/m/Y' }}] - {{ pergunta.intro_pergunta }} ... 
+                                <a href="{% url 'pergunta' pergunta.id_url %}" style="font-size:14px;font-weight:normal;font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;";>
+                                    [{{ pergunta.data|date:'d/m/Y' }}] - {{ pergunta.intro_pergunta }} 
                                     <hr { border: 4;
                                         border-top: 1px solid #094CFA;}>
                                 </a>

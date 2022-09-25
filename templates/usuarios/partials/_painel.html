@@ -32,7 +32,7 @@
             <a href="{% url 'minhas_perguntas' %}"><img src="{% static 'img/itens-img/duvida.png' %}" alt="" width="75" height="75"><br>Minhas Perguntas</a>
         </div>
 
-        {% if dados_assinante %}
+        {% if assinante %}
             <div class="col" style="text-align:center">
                 <a href="{% url 'meus_comentarios' %}"><img src="{% static 'img/itens-img/colabora.png' %}" alt="" width="75" height="75"><br>Minhas Colaborações</a>
             </div>

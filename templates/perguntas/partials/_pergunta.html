@@ -14,7 +14,7 @@
                         <h6> Postado por : {{pergunta.nick}}</h6> em {{pergunta.data|date:'d/m/Y'  }}
                     </div>
                 </div>
-            </div>
+            </div> 
         </div>
     </div>
 </div>
@@ -136,7 +136,7 @@
     <div class="col col-sm col-lg-10" style="max-width: fit-content; padding-top:1%">
         <div style="max-width:100%; text-align: justify;">
             <p style="color: #936bd0;font-weight: bold  ;">Pergunta:<br>
-            <p style="color: #4d2d2d">{{pergunta.pergunta}} </p>
+            <p style="color: #4d2d2d">{% autoescape off %}{{pergunta.pergunta}} {% endautoescape %}</p>
         </div>
     </div>
 </div>

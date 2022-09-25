@@ -8,7 +8,7 @@
 
 <!-- Renderiza este bloco caso não tenha comentários ainda -->
 {% if pergunta.comentario != '' %}
-    {% if dados_assinante.mensalidade == True %}
+    {% if assinante.mensalidade == True %}
         <div class="container">
             <div class="col col-sm col-lg-10">
                 <form action="{% url 'form_revisar' %}" method="post" enctype="multipart/form-data"> 

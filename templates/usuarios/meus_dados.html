@@ -19,18 +19,18 @@
                     <div>Sobrenome</div>
                     <div><input type="" class="form-control" name="last_name" value="{{ user.last_name }}"></input></div>
                     <br>
-                    {% if dados_assinante %}
+                    {% if assinante %}
                     <label for="file"><b>Dados de Assinante</b></label>
                     <br>
                     <div>CPF</div>
-                    <div><input type="" class="form-control" name="cpf" value="{{ dados_assinante.CPF }}" disabled="disabled"></div>
-                    <div><input type="hidden" name="cpf" value= "{{dados_assinante.CPF}}"></input>&nbsp;</div>
+                    <div><input type="" class="form-control" name="cpf" value="{{ assinante.CPF }}" disabled="disabled"></div>
+                    <div><input type="hidden" name="cpf" value= "{{assinante.CPF}}"></input>&nbsp;</div>
      
                     <div class="row" style="width:100%; margin-left:-10px">
                         <div style="width:25%;">
                             <div class="col">
                                 <div style="width:100%;">DDD</div>
-                                <div style="width:100%;"><input type="" class="form-control" name="whatsapp_ddd" value="{{ dados_assinante.whatsapp_ddd }}" placeholder="DDD"></input></div>
+                                <div style="width:100%;"><input type="" class="form-control" name="whatsapp_ddd" value="{{ assinante.whatsapp_ddd }}" placeholder="DDD"></input></div>
                             </div>
                         </div>
 
@@ -38,26 +38,26 @@
                         <div style="width:80%;">
                             <div class="col" style="width:100%; margin-right: auto;">
                                 <div>Whatsapp (sem DDD)</div>
-                                <div style="width:105%;"><input type="" class="form-control" name="whatsapp" value="{{ dados_assinante.whatsapp }}" placeholder="Celular do contato whatsapp sem DDD"></input></div>
+                                <div style="width:105%;"><input type="" class="form-control" name="whatsapp" value="{{ assinante.whatsapp }}" placeholder="Celular do contato whatsapp sem DDD"></input></div>
                             </div>
                         </div>
 
                     </div>
                     <br>
                     <div>Instagram</div>
-                    <div><input type="" class="form-control" name="instagram" value="{{ dados_assinante.instagram }}"></input></div>
+                    <div><input type="" class="form-control" name="instagram" value="{{ assinante.instagram }}"></input></div>
                     <br>
                     <div>LinkedIn</div>
-                    <div><input type="" class="form-control" name="linkedIn" value="{{ dados_assinante.linkedIn }}"></input></div>
+                    <div><input type="" class="form-control" name="linkedIn" value="{{ assinante.linkedIn }}"></input></div>
                     <br>
                     <div>Facebook</div>
-                    <div><input type="" class="form-control" name="facebook" value="{{ dados_assinante.facebook }}"></input></div>
+                    <div><input type="" class="form-control" name="facebook" value="{{ assinante.facebook }}"></input></div>
                     <br>
                     <div>Breve relato :</div>
-                    {% if dados_assinante.descricao == '' %}
-                    <div><textarea type="" class="form-control" cols="8" rows="6" name="descricao" value="{{ dados_assinante.descricao }}"  placeholder="Utilize 1000 caracteres" ></textarea></div>
+                    {% if assinante.descricao == '' %}
+                    <div><textarea type="" class="form-control" cols="8" rows="6" name="descricao" value="{{ assinante.descricao }}"  placeholder="Utilize 1000 caracteres" ></textarea></div>
                     {% else %}
-                    <div><textarea type="" class="form-control" cols="8" rows="6" name="descricao" value="{{ dados_assinante.descricao }}" >{{ dados_assinante.descricao }}"</textarea></div>
+                    <div><textarea type="" class="form-control" cols="8" rows="6" name="descricao" value="{{ assinante.descricao }}" >{{ assinante.descricao }}"</textarea></div>
                     {% endif %}
 
 
@@ -66,7 +66,7 @@
                     
                     <div class="row">
                         <div class="col"><input type="file" class="form-control"  name="foto" style="width:100%;margin-top:30px;font-size: 12px;"></div>
-                        <!-- <div class="col"><img src="{{dados_assinante.foto}}" alt="" width="100%"></div> -->
+                        <!-- <div class="col"><img src="{{assinante.foto}}" alt="" width="100%"></div> -->
                     </div>
                     {% endif %}
                     <br>

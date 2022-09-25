@@ -91,7 +91,7 @@
 <div class="container invisible-lg" style="width:100%;padding-top:20px;" >
 
     <div class="col-sm col-lg">
-        <img src="{{ dados_assinante.foto.url }}" alt="" style="display: block;border-radius:80px;
+        <img src="{{ assinante.foto.url }}" alt="" style="display: block;border-radius:80px;
         margin-left: auto;
         margin-right: auto;
         width: 80px;height:80px;">
@@ -102,7 +102,7 @@
     margin-right: auto;">
 
         <div class="center_pontos" style="width:fit-content;margin-left: auto;margin-right: auto;padding-top:3px;">
-            &nbsp;&nbsp;&nbsp;{{ dados_assinante.score }} <img src="{% static 'img/core-img/mini-logo.png' %}" alt="" width="20px" style="margin-left:-7px;margin-top:-6px;margin-right:-4px;">tos&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;{{ assinante.score }} <img src="{% static 'img/core-img/mini-logo.png' %}" alt="" width="20px" style="margin-left:-7px;margin-top:-6px;margin-right:-4px;">tos&nbsp;&nbsp;&nbsp;
         </div>
 
     </div>
@@ -129,53 +129,53 @@
     </div>
     
     <div class="container"  style="padding-bottom:150px;">
-        {% if dados_assinante %}
+        {% if assinante %}
             <div style="width:80%; text-align: justify;font-style: italic;margin-left: auto;margin-right: auto; ">
-                "{{ dados_assinante.descricao }}"
+                "{{ assinante.descricao }}"
 
             </div>
             <!-- Insere dados Whatsapp -->
             <div class="social">
                 <div style="width:200px;">
-                    <a href="https://api.whatsapp.com/send?phone=+55{{ dados_assinante.whatsapp_ddd }}{{ dados_assinante.whatsapp }}&text=Olá, peguei seu contato no Papiron!"><img src="{% static 'img/core-img/whatsapp.png' %}" class="social"></a>
+                    <a href="https://api.whatsapp.com/send?phone=+55{{ assinante.whatsapp_ddd }}{{ assinante.whatsapp }}&text=Olá, peguei seu contato no Papiron!"><img src="{% static 'img/core-img/whatsapp.png' %}" class="social"></a>
                 </div>
                 <div  class="social_contato">
-                    <a href="https://api.whatsapp.com/send?phone=+55{{ dados_assinante.whatsapp_ddd }}{{ dados_assinante.whatsapp }}&text=Olá, peguei seu contato no Papiron!" class="social"><i class="fa fa-whatsapp" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{ dados_assinante.whatsapp_ddd }} {{ dados_assinante.whatsapp }} <br></a>
+                    <a href="https://api.whatsapp.com/send?phone=+55{{ assinante.whatsapp_ddd }}{{ assinante.whatsapp }}&text=Olá, peguei seu contato no Papiron!" class="social"><i class="fa fa-whatsapp" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{ assinante.whatsapp_ddd }} {{ assinante.whatsapp }} <br></a>
                 </div>
             </div>
             
             <!-- Insere dados Instagram -->
-            {% if dados_assinante.instagram != '' %}
+            {% if assinante.instagram != '' %}
             <div class="social">
-                <a href="{{ dados_assinante.instagram }}" class="social" ><img src="{% static 'img/core-img/instagram02.png' %}" class="social"></a>
+                <a href="{{ assinante.instagram }}" class="social" ><img src="{% static 'img/core-img/instagram02.png' %}" class="social"></a>
                 <div  class="social_contato"> 
-                    <a href="{{ dados_assinante.instagram }}" class="social"><i class="fa fa-instagram"></i>&nbsp;&nbsp;&nbsp;{{ dados_assinante.instagram }} </a>
+                    <a href="{{ assinante.instagram }}" class="social"><i class="fa fa-instagram"></i>&nbsp;&nbsp;&nbsp;{{ assinante.instagram }} </a>
                 </div>
             </div>
             {% endif %}
             
             <!-- Insere dados LinkedIn -->
-            {% if dados_assinante.linkedIn  !=  '' %}
+            {% if assinante.linkedIn  !=  '' %}
             <div class="social">
                 <div style="width:130px;">
-                    <a href="{{ dados_assinante.linkedIn }}" class="social" ><img src="{% static 'img/core-img/linkedin.png' %}" class="social"></a>
+                    <a href="{{ assinante.linkedIn }}" class="social" ><img src="{% static 'img/core-img/linkedin.png' %}" class="social"></a>
                 </div>
 
                 <div  class="social_contato"> 
-                    <a href="{{ dados_assinante.linkedIn }}" class="social" ><i class="fa fa-linkedin" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{ dados_assinante.linkedIn }} </a>
+                    <a href="{{ assinante.linkedIn }}" class="social" ><i class="fa fa-linkedin" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{ assinante.linkedIn }} </a>
                 </div>
             </div>
             {% endif %}
 
             <!-- Insere dados Facebook -->
-            {% if dados_assinante.facebook  !=  '' %}
+            {% if assinante.facebook  !=  '' %}
             <div class="social">
                 <div style="max-width:150px;">
-                    <a href="{{ dados_assinante.facebook }}" class="social" ><img src="{% static 'img/core-img/facebook.png' %}" class="social"></a>   
+                    <a href="{{ assinante.facebook }}" class="social" ><img src="{% static 'img/core-img/facebook.png' %}" class="social"></a>   
                 </div>
             
                 <div class="social_contato">
-                    <a href="{{ dados_assinante.facebook }}" class="social"><i class="fa fa-facebook" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{ dados_assinante.facebook }} </a>
+                    <a href="{{ assinante.facebook }}" class="social"><i class="fa fa-facebook" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{ assinante.facebook }} </a>
                 </div>
             </div>
             {% endif %}
@@ -194,7 +194,7 @@
                 <div class="col">
 
                     <div >
-                        <img src="{{ dados_assinante.foto.url }}" alt="" style="display: block;border-radius:100%;
+                        <img src="{{ assinante.foto.url }}" alt="" style="display: block;border-radius:100%;
                         margin-left: auto;
                         margin-right: auto;
                         width: 100%;height:100%;">
@@ -202,7 +202,7 @@
 
 
                     <div class="center_pontos" style="width:80px ;margin-left: auto;margin-right: auto;padding-top:3px;">
-                        &nbsp;&nbsp;&nbsp;{{ dados_assinante.score }} <img src="{% static 'img/core-img/mini-logo.png' %}" alt="" width="15px" style="margin-left:-7px;margin-top:-6px;margin-right:-4px;">tos&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;{{ assinante.score }} <img src="{% static 'img/core-img/mini-logo.png' %}" alt="" width="15px" style="margin-left:-7px;margin-top:-6px;margin-right:-4px;">tos&nbsp;&nbsp;&nbsp;
                     </div>
 <!-- 
                     <div class="center" style="width:fit-content;margin-left: auto;margin-right: auto;padding-top:3px;margin-top: 10px;">
@@ -263,53 +263,53 @@
     </div>
     
     <div class="container"  style="padding-bottom:150px;">
-        {% if dados_assinante %}
+        {% if assinante %}
             <div style="width:80%; text-align: justify;font-style: italic;margin-left: auto;margin-right: auto; ">
-                "{{ dados_assinante.descricao }}"
+                "{{ assinante.descricao }}"
 
             </div>
             <!-- Insere dados Whatsapp -->
             <div class="social">
                 <div style="width:200px;">
-                    <a href="https://api.whatsapp.com/send?phone=+55{{ dados_assinante.whatsapp_ddd }}{{ dados_assinante.whatsapp }}&text=Olá, peguei seu contato no Papiron!"><img src="{% static 'img/core-img/whatsapp.png' %}" class="social"></a>
+                    <a href="https://api.whatsapp.com/send?phone=+55{{ assinante.whatsapp_ddd }}{{ assinante.whatsapp }}&text=Olá, peguei seu contato no Papiron!"><img src="{% static 'img/core-img/whatsapp.png' %}" class="social"></a>
                 </div>
                 <div  class="social_contato">
-                    <a href="https://api.whatsapp.com/send?phone=+55{{ dados_assinante.whatsapp_ddd }}{{ dados_assinante.whatsapp }}&text=Olá, peguei seu contato no Papiron!" class="social"><i class="fa fa-whatsapp" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{ dados_assinante.whatsapp_ddd }} {{ dados_assinante.whatsapp }} <br></a>
+                    <a href="https://api.whatsapp.com/send?phone=+55{{ assinante.whatsapp_ddd }}{{ assinante.whatsapp }}&text=Olá, peguei seu contato no Papiron!" class="social"><i class="fa fa-whatsapp" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{ assinante.whatsapp_ddd }} {{ assinante.whatsapp }} <br></a>
                 </div>
             </div>
             
             <!-- Insere dados Instagram -->
-            {% if dados_assinante.instagram != '' %}
+            {% if assinante.instagram != '' %}
             <div class="social">
-                <a href="{{ dados_assinante.instagram }}" class="social" ><img src="{% static 'img/core-img/instagram02.png' %}" class="social"></a>
+                <a href="{{ assinante.instagram }}" class="social" ><img src="{% static 'img/core-img/instagram02.png' %}" class="social"></a>
                 <div  class="social_contato"> 
-                    <a href="{{ dados_assinante.instagram }}" class="social"><i class="fa fa-instagram"></i>&nbsp;&nbsp;&nbsp;{{ dados_assinante.instagram }} </a>
+                    <a href="{{ assinante.instagram }}" class="social"><i class="fa fa-instagram"></i>&nbsp;&nbsp;&nbsp;{{ assinante.instagram }} </a>
                 </div>
             </div>
             {% endif %}
             
             <!-- Insere dados LinkedIn -->
-            {% if dados_assinante.linkedIn  !=  '' %}
+            {% if assinante.linkedIn  !=  '' %}
             <div class="social">
                 <div style="width:130px;">
-                    <a href="{{ dados_assinante.linkedIn }}" class="social" ><img src="{% static 'img/core-img/linkedin.png' %}" class="social"></a>
+                    <a href="{{ assinante.linkedIn }}" class="social" ><img src="{% static 'img/core-img/linkedin.png' %}" class="social"></a>
                 </div>
 
                 <div  class="social_contato"> 
-                    <a href="{{ dados_assinante.linkedIn }}" class="social" ><i class="fa fa-linkedin" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{ dados_assinante.linkedIn }} </a>
+                    <a href="{{ assinante.linkedIn }}" class="social" ><i class="fa fa-linkedin" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{ assinante.linkedIn }} </a>
                 </div>
             </div>
             {% endif %}
 
             <!-- Insere dados Facebook -->
-            {% if dados_assinante.facebook  !=  '' %}
+            {% if assinante.facebook  !=  '' %}
             <div class="social">
                 <div style="max-width:150px;">
-                    <a href="{{ dados_assinante.facebook }}" class="social" ><img src="{% static 'img/core-img/facebook.png' %}" class="social"></a>   
+                    <a href="{{ assinante.facebook }}" class="social" ><img src="{% static 'img/core-img/facebook.png' %}" class="social"></a>   
                 </div>
             
                 <div class="social_contato">
-                    <a href="{{ dados_assinante.facebook }}" class="social"><i class="fa fa-facebook" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{ dados_assinante.facebook }} </a>
+                    <a href="{{ assinante.facebook }}" class="social"><i class="fa fa-facebook" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{ assinante.facebook }} </a>
                 </div>
             </div>
             {% endif %}

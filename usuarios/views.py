@@ -126,11 +126,11 @@ def dashboard(request):
     if request.user.is_authenticated:
         id = request.user.id
         perguntas = Pergunta.objects.order_by('-data').filter(user=id)
-        dados_assinante = perfil_assinante(request)
+        assinante = perfil_assinante(request)
 
         dados = {
             'perguntas' : perguntas,
-            'dados_assinante' : dados_assinante
+            'assinante' : assinante
         }
         return render(request, 'usuarios/dashboard.html', dados)
     else:
@@ -141,17 +141,17 @@ def meus_dados(request):
     email_user = request.user.email
     #Verifica se o usuário é assinante
     if Assinante.objects.filter(email=email_user).exists():
-        dados_assinante = get_object_or_404(Assinante, email=email_user)
+        assinante = get_object_or_404(Assinante, email=email_user)
     else:
-        dados_assinante = None
+        assinante = None
 
     dados_geral  = get_object_or_404(User, email=email_user)
 
     dados = {
-        'dados_assinante' : dados_assinante,
+        'assinante' : assinante,
         'dados_geral' : dados_geral,
     }
-    print(dados_assinante)
+    print(assinante)
     return render(request, 'usuarios/meus_dados.html', dados)
 
 def meu_perfil(request):
@@ -171,7 +171,7 @@ def meu_perfil(request):
     score_geral, qtd_likes , qtd_perguntas, qtd_respostas = score(dados_usuario.username,dados_usuario.id)
     dados = {
         'dados_usuario' : dados_usuario,
-        'dados_assinante' : assinante,
+        'assinante' : assinante,
         'data_registro' : data_registro,
         'qtd_perguntas': qtd_perguntas,
         'qtd_respostas':qtd_respostas,
@@ -184,11 +184,15 @@ def meu_perfil(request):
 def meus_comentarios(request):
     email_user = request.user.email
     comentarios = Comentario.objects.order_by('-data').filter(email=email_user)
+    ids = set(comentario.id_pergunta_id for comentario in comentarios)
+    print("\n\n\n\n>>>>a",ids)
+    perguntas = Pergunta.objects.order_by('-data').filter(id__in = ids)
+    print(perguntas)
     assinante = perfil_assinante(request)
 
     dados = {
-        'perguntas' : comentarios ,
-        'dados_assinante' : assinante,
+        'perguntas' : perguntas ,
+        'assinante' : assinante,
     }
     return render(request, 'usuarios/meus_comentarios.html', dados)
 
@@ -199,7 +203,7 @@ def minhas_perguntas(request):
 
     dados = {
         'perguntas' : perguntas,
-        'dados_assinante' : assinante,
+        'assinante' : assinante,
     }
     return render(request, 'usuarios/minhas_perguntas.html', dados)
 
@@ -285,17 +289,17 @@ def form_dados(request):
         return render(request, 'index.html')
 
 def revisar(request):
-    dados_assinante = perfil_assinante(request)
+    assinante = perfil_assinante(request)
     id = request.POST['id_url']
     pergunta = get_object_or_404(Pergunta,id_url=id)
     contexto = {
-        'dados_assinante' : dados_assinante,
+        'assinante' : assinante,
         'pergunta' : pergunta
     }
     return render(request, 'usuarios/revisao.html',contexto)
     
 def form_revisar(request):
-    dados_assinante = perfil_assinante(request)
+    assinante = perfil_assinante(request)
     
     id = request.POST['id_url']
     print("Aqui",id)
@@ -319,7 +323,7 @@ def form_revisar(request):
     #     Revisao.objects.filter(email=request.user.email,id_pergunta=id).update(email=request.user.email,revisao=revisao)
     
     contexto = {
-        'dados_assinante' : dados_assinante
+        'assinante' : assinante
     }
     return render(request, 'usuarios/revisao_envio.html',contexto)
     
@@ -361,7 +365,7 @@ def ver_minha_colaboracao(request, pergunta_id):
                 usuario_logado = None
 
         contexto = {
-        'dados_assinante': assinante,
+        'assinante': assinante,
         'usuario_logado':usuario_logado,
         'pergunta' : comentario,
         'usuario_assinante_comentario':assinante ,
@@ -396,9 +400,9 @@ def curtir(request):
 
         if request.method == "POST":
             id = request.POST.get('content_id')
-            pergunta = get_object_or_404(Pergunta,id=id)
+            comentario = get_object_or_404(Comentario,id_pergunta=id)
             # dados do usuário assinante -> para calcular a pontuação
-            user_score = pergunta.user
+            user_score = comentario.email
             user_score_id = get_object_or_404(User,email=user_score).id
             
             # insere like no BD ou apaga se retirar a curtida
@@ -409,9 +413,10 @@ def curtir(request):
             else:
                 
                 like_status = True
-                LikeBtn.objects.create(user=request.user,id_pergunta=pergunta,likes=like_status)
+                LikeBtn.objects.create(user=request.user,id_pergunta=get_object_or_404(Pergunta,id=id),likes=like_status)
                 
         #cálculo da pontuação
+        print(user_score,user_score_id)
         score(user_score,user_score_id)
         contexto={"liked":like_status,"content_id":id}
 
@@ -429,7 +434,7 @@ def perfil(request, id_perfil):
 
     contexto ={
         'dados_usuario': perfil_geral,
-        'dados_assinante':perfil,
+        'assinante':perfil,
         'data_registro' : perfil_geral.date_joined,
         'qtd_perguntas': qtd_perguntas,
         'qtd_respostas': qtd_respostas,

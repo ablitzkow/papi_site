@@ -64,16 +64,21 @@ def form_pergunta(request):
     from usuarios.score import score
     import shortuuid
     from usuarios.forms import ReCaptcha
+
     if request.method == 'POST':
+        print("mandou pergunta")
         form = ReCaptcha(request.POST)
         if form.is_valid():
             user = get_object_or_404(User, pk=request.user.id)
             pergunta = request.POST['pergunta']
-            print(request.POST['pergunta'])
+            if len(pergunta)>=150:
+                intro_pergunta = pergunta[0:150]
+            else:
+                intro_pergunta = pergunta+'...'
+            pergunta = '<p style="color:black">'+pergunta.replace('\n','</p><p style="color:black">')+'</p>'
             faculdade = request.POST['faculdade']
             disciplina = request.POST['disciplina']
             pergunta = remove_emojis(pergunta)
-            intro_pergunta = pergunta[0:150]
             nick = nick_user(user)
             print(intro_pergunta)
             id_url = shortuuid.uuid() 
@@ -84,7 +89,7 @@ def form_pergunta(request):
                 assinante = get_object_or_404(Assinante, email = request.user.email)
                 score(request.user.email,request.user.id)
                 contexto = {
-                    'dados_assinante':assinante,
+                    'assinante':assinante,
                 }
             print('Pergunta salva com sucesso')
             return redirect('minhas_perguntas')
@@ -93,6 +98,7 @@ def form_pergunta(request):
             return render(request, 'usuarios/form_pergunta.html',{'form':form,'erro':'Captcha Inválido'})
 
     else:
+        print("agora")
         form = ReCaptcha()
         return render(request, 'usuarios/form_pergunta.html',{'form':form})
 

@@ -286,8 +286,8 @@ def form_dados(request):
 
 def revisar(request):
     dados_assinante = perfil_assinante(request)
-    id = request.POST['id_pergunta']
-    pergunta = get_object_or_404(Pergunta,id=id)
+    id = request.POST['id_url']
+    pergunta = get_object_or_404(Pergunta,id_url=id)
     contexto = {
         'dados_assinante' : dados_assinante,
         'pergunta' : pergunta
@@ -296,9 +296,13 @@ def revisar(request):
     
 def form_revisar(request):
     dados_assinante = perfil_assinante(request)
-    id = request.POST['id_pergunta']
+    
+    id = request.POST['id_url']
+    print("Aqui",id)
+    print("Aqui00")
     revisao = request.POST['revisao_efetuada']
-    pergunta = get_object_or_404(Pergunta,id=id)
+    pergunta = get_object_or_404(Pergunta,id_url=id)
+    print("Aqui")
     comentario = get_object_or_404(Comentario,id_pergunta = id)
     #Verifica se já houve pedido de revisão
 

@@ -18,7 +18,7 @@ def pergunta(request, id_url):
             
             #Obtém dados de quem respondeu a pergunta
             if Comentario.objects.filter(id_pergunta=pergunta.id).exists():
-                comentario = get_object_or_404(Comentario,id_pergunta=pergunta.id)
+                comentario = get_object_or_404(Comentario,id_pergunta_id=pergunta.id)
                 assinante = get_object_or_404(Assinante, email = comentario.email)
                 email_comentario = usuario_assinante_comentario(comentario.email)
             else:

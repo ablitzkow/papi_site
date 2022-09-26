@@ -2,7 +2,7 @@
 <!-- Bloco para Assessores solicitarem revisão -->
 <!-- Verifica se é assinante -->
 {% if usuario_logado_assinante != None %}
-    {% if pergunta.comentario != '' %}
+    {% if pergunta.comentario_check == True %}
         <div class="container">
             <div class="row row-sm row-lg-12">
                 

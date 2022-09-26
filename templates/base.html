@@ -219,7 +219,7 @@ html.html__responsive, html.html__responsive body {
 
   {% include 'partials/_header.html' %}
 
-    <div class="menu invisible-sm btn_top_container" style="margin-left:20%;">
+    <div class="menu invisible-sm btn_top_container" {% if user.is_superuser %} style="margin-left:20%;margin-top:-10px; z-index:3" {% else %}  style="margin-left:20%;" {% endif %}>
       {% include 'partials/_menu.html' %}
     </div>
 

@@ -94,8 +94,6 @@ def analisar_perguntas(request):
         return render(request,'500.html')
 
 
-
-
 def filtro_ultimas_perguntas(request):
     if request.method == 'POST':   
         faculdade = request.POST['faculdade']

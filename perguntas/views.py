@@ -66,12 +66,11 @@ def pergunta(request, id_url):
 
 
 def ultimas_perguntas(request):
-    perguntas = Pergunta.objects.order_by('-data').filter(publicada=True)[0:100]
-    id = set(pergunta.pk for pergunta in perguntas)
-    comentarios = Comentario.objects.filter(id_pergunta_id__in = id)
+    from datetime import datetime, timedelta
+    data = datetime.today()-timedelta(days=30)
+    perguntas = Pergunta.objects.order_by('-data').filter(data__gte=data,publicada=True)[0:100]
     contexto = {
-        'perguntas' : perguntas,
-        'comentarios':comentarios,            
+        'perguntas' : perguntas,        
         'faculdade_select':None,
         'disciplina_select':None,
         }

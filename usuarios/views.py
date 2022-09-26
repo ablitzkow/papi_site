@@ -207,22 +207,6 @@ def minhas_perguntas(request):
     }
     return render(request, 'usuarios/minhas_perguntas.html', dados)
 
-def form_comentar(request):
-    if request.method == 'POST':
-        id_pergunta = request.POST['teste']
-        email_user = request.user.email
-        print(">>>",email_user)
-        comentario = request.POST['comentario']
-        print(comentario)
-        Comentario.objects.create(id_pergunta_id=id_pergunta, comentario=comentario, email=email_user)
-        Pergunta.objects.filter(id=id_pergunta).update(comentario_check = True)
-        score(email_user,request.user.id)
-        print('Pergunta salva com sucesso!!!')
-        return redirect('dashboard')
-    else:
-        print('algo deu ruim')
-        return render(request, 'usuarios/form_pergunta.html')
-
 def form_dados(request):
     from django.shortcuts import get_object_or_404
     from django.http import HttpResponse
@@ -411,7 +395,6 @@ def curtir(request):
                 LikeBtn.objects.filter(pk=like_user.pk).delete()
                 like_status=False
             else:
-                
                 like_status = True
                 LikeBtn.objects.create(user=request.user,id_pergunta=get_object_or_404(Pergunta,id=id),likes=like_status)
                 

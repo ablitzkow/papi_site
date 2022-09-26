@@ -5,7 +5,7 @@ from usuarios.models import Assinante
 def score(user,user_id):
     email = user
     #Verifica o números de colaborações em PERGUNTAS efetuadas
-    perguntas = Pergunta.objects.filter(user=user_id)
+    perguntas = Pergunta.objects.filter(user=user_id,publicada=True)
     id = set(pergunta.pk for pergunta in perguntas)
     qtd_perguntas = len(list(id))
 

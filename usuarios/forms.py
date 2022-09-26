@@ -2,6 +2,7 @@ import email
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib import auth
+from perguntas.met_pergunta import nick_user
 from perguntas.models import Comentario, Pergunta, Revisao , LikeBtn
 from usuarios.models import Assinante , Registro_Email
 from django import forms
@@ -58,7 +59,6 @@ def form_incluir_assinante(request):
         print(contexto)
         return render(request, 'usuarios/form/incluir_assinante.html',contexto)
 
-
 def form_pergunta(request):
     from perguntas.met_pergunta import remove_emojis, nick_user
     from usuarios.score import score
@@ -66,21 +66,18 @@ def form_pergunta(request):
     from usuarios.forms import ReCaptcha
 
     if request.method == 'POST':
-        print("mandou pergunta")
         form = ReCaptcha(request.POST)
         if form.is_valid():
             user = get_object_or_404(User, pk=request.user.id)
             pergunta = request.POST['pergunta']
             if len(pergunta)>=150:
-                intro_pergunta = pergunta[0:150]
+                intro_pergunta = pergunta[0:150].replace("<b>","").replace("</b>","").replace("<i>","").replace("<br>","").replace("<p>","").replace("</p>","").replace("<hr>","")
             else:
-                intro_pergunta = pergunta+'...'
-            pergunta = '<p style="color:black">'+pergunta.replace('\n','</p><p style="color:black">')+'</p>'
+                intro_pergunta = pergunta[0:150].replace("<b>","").replace("</b>","").replace("<i>","").replace("<br>","").replace("<p>","").replace("</p>","").replace("<hr>","")+'...'
             faculdade = request.POST['faculdade']
             disciplina = request.POST['disciplina']
             pergunta = remove_emojis(pergunta)
             nick = nick_user(user)
-            print(intro_pergunta)
             id_url = shortuuid.uuid() 
             pergunta_feita = Pergunta.objects.create(id_url=id_url, user=user, email=user.email,nick = nick , pergunta=pergunta, intro_pergunta = intro_pergunta , disciplina=disciplina, faculdade=faculdade)
             pergunta_feita.save()
@@ -91,16 +88,30 @@ def form_pergunta(request):
                 contexto = {
                     'assinante':assinante,
                 }
-            print('Pergunta salva com sucesso')
             return redirect('minhas_perguntas')
         else:
             form = ReCaptcha()
             return render(request, 'usuarios/form_pergunta.html',{'form':form,'erro':'Captcha Inválido'})
 
     else:
-        print("agora")
         form = ReCaptcha()
         return render(request, 'usuarios/form_pergunta.html',{'form':form})
+
+def form_comentar(request):
+    from usuarios.score import score
+    if request.method == 'POST':
+        id_pergunta = request.POST['teste']
+        email_user = request.user.email
+        comentario = request.POST['comentario']
+        nick = nick_user(request.user)
+        print(nick)
+        Comentario.objects.create(id_pergunta_id=id_pergunta, comentario=comentario, email=email_user,nick=nick)
+        Pergunta.objects.filter(id=id_pergunta).update(comentario_check = True)
+        score(email_user,request.user.id)
+        return redirect('dashboard')
+    else:
+        return render(request, 'usuarios/form_pergunta.html')
+
 
 def cadastro(request):
     from random import randint
@@ -149,7 +160,6 @@ def cadastro(request):
         contexto = {
                 'form': form,}
     return render(request, 'usuarios/form/cadastro.html',contexto)
-
 
 
 def form_email_code(request):

@@ -25,7 +25,7 @@
     <div class="col col-sm col-lg-10" style="max-width: fit-content; padding-top:1%">
         <div style="max-width:100%; text-align: justify;">
             <p style="color: #af92dc;font-weight: bold  ;">Pergunta:<br>
-            <p style="color: #4d2d2d">{% autoescape off %}{{pergunta.pergunta}}{% endautoescape %} </p>
+            <p style="color: #4d2d2d">{% autoescape off %}{{pergunta_texto}}{% endautoescape %} </p>
         </div>
     </div>
 </div>
@@ -96,7 +96,7 @@
         <div class="col col-sm">
             <div style="max-width:100%; text-align: justify;position: relative; padding-top: 2%;">
                 <p style="color: #af92dc;font-weight: bold  ;">Resposta:<br>
-                <p style="color: #4d2d2d"></p> {{ comentario.comentario }}</p>
+                <p style="color: #4d2d2d"></p> {{ comentario_texto }}</p>
             </div>
         </div>
     </div>
@@ -120,7 +120,7 @@
 {% if assinante_random != None %}
 <div class="invisible-lg" style="padding-bottom: 90px">
     <div class="receipe-content-area" style="width:90%; text-align: left; font-weight: bold; padding-left:15px; padding-top: 50px;">
-        {% if comentario.comentario == '' %}
+        {% if pergunta.comentario_check == False %}
             Ninguém respondeu essa pergunta, mas não se preocupe, entre em contato com o Assessor para te ajudar:<br>
         {% else %}
             Caso ainda tenha dúvidas, entre em contato com o Assessor:
@@ -140,7 +140,7 @@
     <div class="col col-sm col-lg-10" style="max-width: fit-content; padding-top:1%">
         <div style="max-width:100%; text-align: justify;">
             <p style="color: #936bd0;font-weight: bold  ;">Pergunta:<br>
-            <p style="color: #4d2d2d">{% autoescape off %}{{pergunta.pergunta}} {% endautoescape %}</p>
+            <p style="color: #4d2d2d">{% autoescape off %}{{pergunta_texto}} {% endautoescape %}</p>
         </div>
     </div>
 </div>
@@ -193,42 +193,33 @@
         <div>
             <!-- Então há comentário feito -->
                 <hr> <center><b><h3>COMENTÁRIO</h4></b><br></center>
-            <!-- Insere dados do assinante que fez o comentário -->
-
-            {% include 'perguntas/partials/_pub_pergunta.html' %}
-   
+            <!-- Insere dados do assinante que fez o comentário, além do comentário-->
+            {% autoescape off %}
+                {% include 'perguntas/partials/_pub_pergunta.html' %}
+            {% endautoescape %}
             <div class="receipe-content-area" style="max-width:60%; text-align: left; font-weight: bold">
             </div>
         </div>
     </div>
 {% endif %}
 
-
-<div class="invisible-sm">
-    {% include 'perguntas/partials/_btn_revisao.html' %}
-</div>
-
     
 <!-- Espaço para publicidade do Assessor, não deve aparecer para outros assessores -->
 {% if assinante_random != None %}
-{% autoescape off %}
-<div class="container" style="width:80%;padding-bottom:150px;">
+<div class="container" style="width:80%;padding-bottom:150px; margin-top:-40px;">
     <div class="invisible-sm" style="padding-bottom: 10px">
         <div class="receipe-content-area" style="width:90%; text-align: left; font-weight: bold; padding-left:15px; padding-top: 10px;">
-            {% if comentario.comentario == '' %}
-            <br><br> Ninguém respondeu essa pergunta, mas não se preocupe, entre em contato com o Assessor para te ajudar:<br>
+            {% if pergunta.comentario_check == False %}
+                <br><br> Ninguém respondeu essa pergunta, mas não se preocupe, entre em contato com o Assessor para te ajudar:<br>
             {% else %}
                 <br><hr>
                 Caso ainda tenha dúvidas, entre em contato com o Assessor:
             {% endif %}
-            <br><br>
         </div>
         {% include 'perguntas/partials/_pub_pergunta_random.html' %}
     </div>
 </div>
-{% endautoescape %}
 {% endif %}
-
 
 
 <!-- End Area Desktop -->

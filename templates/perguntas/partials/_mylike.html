@@ -1,27 +1,28 @@
 {% if my_like == False %}
     <a name="{{ pergunta.pk }}" style="font-size:24px; color:black" class="likin" id="co" color="black"><i class="fa fa-heart" aria-hidden="true" class="likin"></i></a>
+    
+    {% if likes_count == 0 %}
+        Se gostou da resposta, agradeça ao colaborador, seja o primeiro
+    {% endif %} 
         
+    
+    {% if likes_count > 1 %} 
+        {{ likes_count }} agradeceram
+    {% endif %}
+
+    {% if likes_count == 1 %} 
+        1 agradeceu
+    {% endif %} 
+
+
 {% else %}
     <a name="{{ pergunta.pk }}" style="font-size:24px; color:red" class="likin" id="co" ><i class="fa fa-heart" aria-hidden="true" class="likin" color="red"></i></a>
     
-{% endif %}
-
-{% if likes_count > 1 %} 
-    {% if my_like == True %}
-        Você , {{ likes_count }} agradeceram
-    {% else %}
-        {{ likes_count }} agradeceram
+    {% if likes_count > 0 %} 
+            Você , {{ likes_count }} agradeceram
     {% endif %}
-{% endif %}
     
-{% if likes_count == 1 %} 
-    {% if my_like == True %}
-        Você agradeceu. 
-    {% else %}
-        1 agradeceu
+    {% if likes_count == 0 %} 
+        Você agradeceu
     {% endif %} 
-{% endif %} 
-
-{% if likes_count == 0 %}
-    Se gostou da resposta, agradeça ao colaborador, seja o primeiro
 {% endif %}

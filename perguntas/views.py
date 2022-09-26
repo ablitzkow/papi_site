@@ -14,17 +14,18 @@ def pergunta(request, id_url):
         pergunta = get_object_or_404(Pergunta, id_url=id_url)
         if pergunta.publicada == True or pergunta.email == request.user.email:
             likes_count = LikeBtn.objects.filter(id_pergunta = pergunta.pk).count() # Qtd de Likes
-            
             #Obtém dados de quem respondeu a pergunta
             if Comentario.objects.filter(id_pergunta=pergunta.id).exists():
                 comentario = get_object_or_404(Comentario,id_pergunta_id=pergunta.id)
                 assinante = get_object_or_404(Assinante, email = comentario.email)
                 email_comentario = usuario_assinante_comentario(comentario.email)
+                comentario_texto = comentario.comentario.replace('\n','<br>')
             else:
                 comentario = None
                 assinante = None
                 email_comentario = None
-
+                comentario_texto = None
+            
             # Verifica se quem está acessando está logado ou é anônimo
             if request.user.is_active: 
                 email_usuario = request.user.email
@@ -33,10 +34,12 @@ def pergunta(request, id_url):
                 if LikeBtn.objects.filter(user = request.user , id_pergunta = pergunta.id).exists():
                     my_like = True
                     likes_count -= 1
-                print(">>>>W",my_like,likes_count)
+                pergunta_texto = pergunta.pergunta.replace('\n','<br>')
                 contexto = {
                 'pergunta'  : pergunta,
                 'comentario': comentario,
+                'pergunta_texto':pergunta_texto,
+                'comentario_texto':comentario_texto,
                 'usuario_assinante_comentario' : email_comentario,
                 'assinante' :assinante,
                 'assinante_random':colaborador_aleatorio(comentario),
@@ -44,7 +47,6 @@ def pergunta(request, id_url):
                 'my_like' : my_like,
                 'likes_count':likes_count,
                 }
-                print(contexto)
                 return render(request,'perguntas/pergunta.html', contexto )
             
             else:

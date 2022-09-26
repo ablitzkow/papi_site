@@ -20,8 +20,8 @@
                     <div class="row-18 row-sm-12 col-lg-12">
                         <div>
                             <div class="contact-area">
-                                <a href="{% url 'pergunta' pergunta.id %}" style="font-size:14px;font-weight:normal;font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;";>
-                                    {{ pergunta.intro_pergunta }} ... <br>
+                                <a href="{% url 'pergunta' pergunta.id_url %}" style="font-size:14px;font-weight:normal;font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;";>
+                                    {{ pergunta.intro_pergunta }}<br>
                                     <div style="font-size:10px; color:rgb(137, 179, 193)">  
                                         Postado por {{ pergunta.nick }} em {{ pergunta.data|date:'d/m/Y' }} 
                                     </div>

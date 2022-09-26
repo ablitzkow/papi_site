@@ -7,7 +7,6 @@ from usuarios.views import perfil_assinante
 
 
 def pergunta(request, id_url):
-    print(">>>a")
     from perguntas.met_pergunta import colaborador_aleatorio,usuario_assinante_comentario,usuario_logado_assinante, nick_user
     # Dados da pergunta
     if Pergunta.objects.filter(id_url=id_url).exists():
@@ -34,7 +33,7 @@ def pergunta(request, id_url):
                 if LikeBtn.objects.filter(user = request.user , id_pergunta = pergunta.id).exists():
                     my_like = True
                     likes_count -= 1
-
+                print(">>>>W",my_like,likes_count)
                 contexto = {
                 'pergunta'  : pergunta,
                 'comentario': comentario,
@@ -113,19 +112,26 @@ def filtro_ultimas_perguntas(request):
 
 
 def buscar(request):
-    lista_perguntas = Pergunta.objects.order_by('-data').filter(publicada=True)
-
+    busca = ''
     if 'buscar' in request.GET:
-        nome_a_buscar = request.GET['buscar']
-        if buscar:
-            lista_perguntas = lista_perguntas.filter(pergunta__icontains=nome_a_buscar)
+        busca = request.GET['buscar']
+    else:
+        busca = request.POST['buscar']
 
-    dados = {
-        'perguntas' : lista_perguntas,
-        'busca' : nome_a_buscar
-    }
+    if Pergunta.objects.order_by('-data').filter(pergunta__icontains=busca,publicada=True).exists():
+        lista_perguntas = Pergunta.objects.order_by('-data').filter(publicada=True)
+        perguntas = lista_perguntas.filter(pergunta__icontains=busca)
+    else:
+        perguntas = None
 
-    return render(request, 'perguntas/buscar.html', dados)
+    contexto = {
+        'perguntas' : perguntas,           
+        'faculdade_select':None,
+        'disciplina_select':None,
+        'busca' : busca
+        }
+
+    return render(request, 'perguntas/resultado_busca.html', contexto)
 
 
 def ver_minha_colaboracao(request,pergunta_id):

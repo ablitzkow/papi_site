@@ -6,7 +6,8 @@
             <div class="classy-nav-container breakpoint-off">
                 <div class="container" >
                     <!-- Menu -->
-                    <nav class="classy-navbar justify-content-between" id="deliciousNav" style="height:55px ; margin-top:-7px; z-index:3;">
+                    <!-- Menu Desktop -->
+                    <nav class="classy-navbar justify-content-between invisible-sm" id="deliciousNav"  {% if user.is_superuser %} style="height:100px ; margin-top:-0px; z-index:3;" {% else %}  style="height:100px ; margin-top:-20px; z-index:3;" {% endif %} ">
 
                        <!-- Logo -->
                         <!-- <div class="invisible-sm" style="margin-top:100px ;"><a class="nav-brand  invisible-sm" href="{% url 'index' %}"><img src="{% static 'img/core-img/logo.png' %}" alt=""></a></div> -->
@@ -27,7 +28,7 @@
                             <!-- Nav Start -->
                             
                             <div class="classynav">
-                                <ul>
+                                <ul style="z-index:5000;">
                                 {% if user.is_authenticated %}
                                     <li><a href="{% url 'index' %}">home</a></li>
                                     <li><a href="{% url 'dashboard' %}">Meu Painel</a></li>
@@ -37,7 +38,9 @@
                                     <li><a href="{% url 'planos' %}">Planos</a></li>
                                     <li><a href="{% url 'logout' %}">sair</a></li>
                                     {% if user.is_superuser %}
-                                    <li><a href="{% url 'incluir_assinante' %}">Admin</a></li>
+                                    <li><a href="{% url 'incluir_assinante' %}">Cadastrar Assinante</a></li>
+                                    <li><a href="{% url 'index' %}">Analisar Perguntas</a></li>
+                                    <li><a href="{% url 'index' %}">Incluir Pgto</a></li>
                                     {% endif %}
 
                                 {% else %}
@@ -59,6 +62,63 @@
                             <!-- Nav End -->
                         </div>
                     </nav>
+
+                    <!-- Menu Smartphone -->
+                    <nav class="classy-navbar justify-content-between invisible-lg" id="deliciousNav"  style="height:40px ; margin-top:-0px; z-index:3;">
+
+                        <!-- Logo -->
+                         <!-- <div class="invisible-sm" style="margin-top:100px ;"><a class="nav-brand  invisible-sm" href="{% url 'index' %}"><img src="{% static 'img/core-img/logo.png' %}" alt=""></a></div> -->
+ 
+                         <!-- Navbar Toggler -->
+                         <div class="classy-navbar-toggler" style="margin-left:5px;">
+                             <span class="navbarToggler"><span></span><span></span><span></span></span>
+                         </div>
+ 
+                         <!-- Menu -->
+                         <div class="classy-menu">
+ 
+                             <!-- close btn -->
+                             <div class="classycloseIcon">
+                                 <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                             </div>
+ 
+                             <!-- Nav Start -->
+                             
+                             <div class="classynav">
+                                 <ul style="z-index:5000;">
+                                 {% if user.is_authenticated %}
+                                     <li><a href="{% url 'index' %}">home</a></li>
+                                     <li><a href="{% url 'dashboard' %}">Meu Painel</a></li>
+                                     <li><a href="{% url 'form_pergunta' %}">fazer uma pergunta</a></li>
+                                     <li><a href="{% url 'ultimas_perguntas' %}">últimas perguntas</a></li>
+                                     <li><a href="{% url 'assessores' %}">Assessores</a></li>
+                                     <li><a href="{% url 'planos' %}">Planos</a></li>
+                                     <li><a href="{% url 'logout' %}">sair</a></li>
+                                     {% if user.is_superuser %}
+                                     <li><a href="{% url 'incluir_assinante' %}">Cadastrar Assinante</a></li>
+                                     <li><a href="{% url 'index' %}">Analisar Perguntas</a></li>
+                                     <li><a href="{% url 'index' %}">Incluir Pgto</a></li>
+                                     {% endif %}
+ 
+                                 {% else %}
+                                     <li><a href="{% url 'cadastro' %}">cadastro</a></li>
+                                     <li><a href="{% url 'login'%}?action=logar">login</a></li>
+                                     <li><a href="{% url 'login'%}?action=perguntar">fazer uma pergunta</a></li>
+                                     <li><a href="{% url 'ultimas_perguntas' %}">últimas perguntas</a></li>
+                                     <li><a href="{% url 'assessores' %}">Assessores</a></li>
+                                     <li><a href="{% url 'planos' %}">Planos</a></li>
+                                 {% endif %}
+                                 </ul>
+                                 <!-- Formulario de busca -->
+                                 <div class="search-btn">
+                                     <i class="fa fa-search" aria-hidden="true"></i>
+                                 </div>
+                                 <!-- Formulario de busca -->
+ 
+                             </div>
+                             <!-- Nav End -->
+                         </div>
+                     </nav>
                 </div>
             </div>
         </div>

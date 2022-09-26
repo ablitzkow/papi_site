@@ -39,7 +39,7 @@
                                     <li><a href="{% url 'logout' %}">sair</a></li>
                                     {% if user.is_superuser %}
                                     <li><a href="{% url 'incluir_assinante' %}">Cadastrar Assinante</a></li>
-                                    <li><a href="{% url 'index' %}">Analisar Perguntas</a></li>
+                                    <li><a href="{% url 'analisar_perguntas' %}">Analisar Perguntas</a></li>
                                     <li><a href="{% url 'index' %}">Incluir Pgto</a></li>
                                     {% endif %}
 
@@ -96,7 +96,7 @@
                                      <li><a href="{% url 'logout' %}">sair</a></li>
                                      {% if user.is_superuser %}
                                      <li><a href="{% url 'incluir_assinante' %}">Cadastrar Assinante</a></li>
-                                     <li><a href="{% url 'index' %}">Analisar Perguntas</a></li>
+                                     <li><a href="{% url 'analisar_perguntas' %}">Analisar Perguntas</a></li>
                                      <li><a href="{% url 'index' %}">Incluir Pgto</a></li>
                                      {% endif %}
  

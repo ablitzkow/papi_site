@@ -78,6 +78,24 @@ def ultimas_perguntas(request):
     return render(request,'perguntas/ultimas_perguntas.html', contexto)
 
 
+def analisar_perguntas(request):
+    if request.user.is_superuser:
+        from datetime import datetime, timedelta
+        data = datetime.today()-timedelta(days=7)
+        perguntas = Pergunta.objects.order_by('-data').filter(data__gte=data,publicada=False)[0:100]
+        contexto = {
+            'perguntas' : perguntas,        
+            'faculdade_select':None,
+            'disciplina_select':None,
+            }
+
+        return render(request,'perguntas/analisar_perguntas.html', contexto)
+    else:
+        return render(request,'500.html')
+
+
+
+
 def filtro_ultimas_perguntas(request):
     if request.method == 'POST':   
         faculdade = request.POST['faculdade']

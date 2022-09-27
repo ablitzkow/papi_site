@@ -12,6 +12,7 @@ urlpatterns = [
     path('perguntas/', include('perguntas.urls')), 
     path('usuarios/', include('usuarios.urls')),
     path('sm/sitemap',views.sitemap,name='sitemap'),
+    path('Yudo7wmr4/gera_sitemap',views.gera_sitemap,name='gera_sitemap'),
     path('reset_password/', auth_views.PasswordResetView.as_view(template_name="usuarios/password/reset_senha.html"), name="reset_password"),
     path('reset_password_sent/', auth_views.PasswordResetDoneView.as_view(template_name="usuarios/password/reset_senha_envio.html"), name="password_reset_done"),
     path('reset/<uidb64>/<token>', auth_views.PasswordResetConfirmView.as_view(template_name="usuarios/password/reset_senha_confirmacao.html"), name="password_reset_confirm"),

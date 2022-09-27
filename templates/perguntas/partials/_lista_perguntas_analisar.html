@@ -1,0 +1,192 @@
+{% load static %}
+    <div class="container ">
+        <div class="col invisible-lg">
+            {% if busca %} 
+            <div> 
+                <h4>Pesquisando por: <i>{{busca}}</i></h4><br>
+            </div>
+        </div>
+
+        <div class="col invisible-sm"  style="padding-left:20%;">
+
+            <div> 
+                <h4>Pesquisando por: <i>{{busca}}</i></h4><br>
+            </div>
+        </div>
+
+            {% else %}
+            <div>
+                <h4>Últimas Perguntas</h4><br>
+            </div>
+             
+            <div class="row row-sm row-6" style="padding-left:3%">
+                {% if disciplina_select or faculdade_select %} 
+                    Pesquisando por: 
+                    {% if not faculdade_select == "" %} 
+                        {{faculdade_select}} -
+                    {% else %}
+                        TODAS -
+                    {% endif %}  
+
+                    {% if not disciplina_select == "" %}  
+                        {{disciplina_select}}
+                    {% else %}
+                        TODAS - 
+                    {% endif %}  
+                        {{status_select}}<br>
+                {% endif %}
+                     
+            </div>
+        </div>
+
+        <div class="container" style="padding-bottom:50px;">
+            <div class="row">      
+                <div style="padding: 0%;width: 100%;">
+                    <form action="{% url 'filtro_ultimas_perguntas' %}" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                        <div class="row row-lg-12" style="width:100%;">
+                            <div class="col col-lg-3">
+                                <label for="file"><b>Faculdade</b></label>
+                                <select name="faculdade" style="height: 10px; width:10px;">
+                                    <option value="">TODAS</option>
+                                    {% include 'partials/forms/_faculdade.html' %}
+                                </select>
+                            </div>
+                        
+                            <div class="col col-lg-3">
+                                <label for="file"> <b> Disciplina</b></label>
+                                <select name="disciplina">
+                                    <option value="">TODAS</option>
+                                    {% include 'partials/forms/_disciplina.html' %}
+                                </select>
+                            </div>
+
+                            <div class="col col-lg-3">
+                                <label for="file"> <b> Status</b></label>
+                                <select name="status">
+                                    <option value="TODAS" selected="selected" >TODAS</option>
+                                    <option value="AGUARDANDO COMENTÁRIOS"  {% if status_select == "AGUARDANDO COMENTÁRIOS" %} selected="selected" {% endif %}>AGUARDANDO COMENTÁRIOS</option>
+                                    <option value="RESPONDIDAS"             {% if status_select == "RESPONDIDAS" %} selected="selected" {% endif %} >RESPONDIDAS</option>
+                                </select>
+                                
+                            </div>
+
+                            <div class="col col-lg-3 invisible-sm" style="padding-top:14px">
+                                <button class="btn delicious-btn mt-15" style="height:60px;width:100%;" type="submit">Filtrar</button>
+                            </div>
+
+                            <div class="col col-sm invisible-lg" style="padding-top:14px">
+                                <button class="btn delicious-btn mt-15" style="height:60px;width:100%;" type="submit">Filtrar</button>
+                            </div>
+                        </div>
+                    </form>    
+                </div>
+            </div>
+        </div>
+        {% endif %} 
+        <!-- endif fecha o if que renderiza os filtros da última pesquisa -->
+
+
+    <!-- ùltima perguntas - Smartphoneview -->
+
+    <div class="container invisible-lg" style="padding-bottom:200px;">
+        <div class="row">
+            <div class="col col-sm col-lg-8">        
+                {% if perguntas %}
+                    {% for pergunta in perguntas %}
+                    <!-- Single Best Receipe Area -->
+                    <div class="row-18 row-sm-12 col-lg-12">
+                        <div  style="border:1px solid ; border-radius: 10px; min-height:100px; background:whitesmoke;position:inherit;">
+                            <div style="font-size:10px; color:rgb(137, 179, 193); position: relative;
+                                top: 0; font-weight: bolder;
+                                margin-left: 0px;
+                                padding-left:10px; border-radius: 10px 10px 0px 0px;
+                                margin-top: 1px ; background:white;">
+                                    <div class="row" style="block-size:auto">  
+                                        <div style="margin-left:10px">{{ pergunta.faculdade }} | {{ pergunta.disciplina }} {% if pergunta.comentario_check == True %} </div>
+                                        <div  style="right:10px; position: absolute;"><font color="red"> &nbsp;&nbsp; RESPONDIDA </font>{% endif %}</div>
+                                    </div>
+                                </div>
+                            <div class="col-sm" style="position:relative;">
+
+                                
+
+                                <div>
+                                    <a href="{% url 'pergunta' pergunta.id_url %}" style="font-size:12px;font-weight:normal;font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin-left: 10px; margin-top: 5px;";>
+                                    {{ pergunta.pergunta }} <br>
+                                    
+                                    
+                                    <!-- <hr { border: 4;
+                                        border-top: 1px solid #094CFA;}> -->
+                                </div>
+                            </div>
+                            <div style="font-size:10px; color:rgb(137, 179, 193); position: absolute;
+                            bottom: 0;
+                            margin-left: 10px;
+                            margin-bottom: 2px ; background:whitesmoke;">  
+                                    Postado por {{ pergunta.nick }} em {{ pergunta.data|date:'d/m/Y' }} </a>
+                                </div>
+                        </div>
+                        <div>&nbsp;</div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                {% endif %}
+            </div>
+        </div>  
+    </div>
+
+
+ <!-- ùltima perguntas - Desktop -->
+
+ <div class="container invisible-sm" style="padding-bottom:200px;">
+    <div class="row">
+        <!-- <div class="col col-lg-2"> &nbsp;</div> -->
+
+        <div class="col col-lg-18">        
+            {% if perguntas %}
+                {% for pergunta in perguntas %}
+                <div class="row-18 row-sm-12 col-lg-12">
+                    <div  style="border:1px solid ; border-radius: 10px; min-height:100px; background:whitesmoke;position:inherit;">
+                        <div style="font-size:10px; color:rgb(137, 179, 193); position: relative;
+                            top: 0; font-weight: bolder;
+                            margin-left: 0px;
+                            padding-left:10px; border-radius: 10px 10px 0px 0px;
+                            margin-top: 1px ; background:white;">
+                                <div class="row" style="block-size:auto">  
+                                    <div style="margin-left:10px">{{ pergunta.faculdade }} | {{ pergunta.disciplina }}</div>
+                                    <div  style="right:10px; position: absolute;">{% if pergunta.comentario_check == True %}<font color="red"> &nbsp;&nbsp; RESPONDIDA </font>{% endif %}</div>
+                                </div>
+                            </div>
+                        <div class="col-sm" style="position:relative;">
+
+                            
+
+                            <div>
+                                <a href="{% url 'pergunta' pergunta.id_url %}" style="font-size:15px;font-weight:normal;font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin-left: 10px; margin-top: 15px;";>
+                                {{ pergunta.pergunta }} <br>
+                            </div>
+                        </div>&nbsp;</a>
+                        <div style="color:rgb(137, 179, 193); position: absolute;
+                        bottom: 0;
+                        margin-left: 10px;
+                        margin-bottom: 2px ; background:whitesmoke;          
+                        font-size:11px;
+                        font-weight:normal;
+                        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin-left: 10px; margin-top: 5px;"
+                        >  
+                                Postado por {{pergunta.nick}} em {{ pergunta.data|date:'d/m/Y' }} 
+                            </div>
+                    </div>
+                    <div>&nbsp;</div>
+                </div>
+                {% endfor %}
+            {% else %}
+            {% endif %}
+        </div>
+        <!-- <div class="col col-lg-2"> &nbsp;</div> -->
+
+    </div>  
+</div>
+
+

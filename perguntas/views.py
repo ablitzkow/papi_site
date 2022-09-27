@@ -181,7 +181,7 @@ def assinante_ran(pergunta):
     return assinante
 
 
-######### Def para Robots #######
+######### def para Robots #######
 
 def auto_publicar(request):
     from django.http import HttpResponse

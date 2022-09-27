@@ -101,7 +101,6 @@ def login(request):
                 pass
             if user is not None:
                 auth.login(request, user)
-                print('login realizado com sucesso')
                 if request.GET['action']=="logar":
                     return redirect('dashboard')
                 else:
@@ -110,7 +109,6 @@ def login(request):
                 erro_a_exibir = {
                         'erro' : 'Usuário/Senha não conferem!'
                     }
-                print('\nAlgo errado não estava certo!\n',user,email,senha)
                 
                 return render(request,'usuarios/login.html',erro_a_exibir)
         return render(request,'usuarios/login.html',{'action':request.GET['action']})

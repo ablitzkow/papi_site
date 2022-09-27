@@ -36,6 +36,7 @@ def pergunta(request, id_url):
                     likes_count -= 1
                 pergunta_texto = pergunta.pergunta.replace('\n','<br>')
                 contexto = {
+                'title' : 'Papiron - '+pergunta.faculdade+' - '+pergunta.intro_pergunta,
                 'pergunta'  : pergunta,
                 'comentario': comentario,
                 'pergunta_texto':pergunta_texto,

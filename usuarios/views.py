@@ -414,6 +414,7 @@ def perfil(request, id_perfil):
     score_geral, qtd_likes , qtd_perguntas, qtd_respostas = score(perfil_geral.username,perfil_geral.id)
 
     contexto ={
+        'title': 'Papiron - '+perfil.nome+' '+perfil.sobrenome,
         'dados_usuario': perfil_geral,
         'assinante':perfil,
         'data_registro' : perfil_geral.date_joined,

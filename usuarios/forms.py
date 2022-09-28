@@ -69,7 +69,7 @@ def form_pergunta(request):
         form = ReCaptcha(request.POST)
         if form.is_valid():
             user = get_object_or_404(User, pk=request.user.id)
-            pergunta = request.POST['pergunta']
+            pergunta = request.POST['pergunta'][:5000]
             if len(pergunta)>=150:
                 intro_pergunta = pergunta[0:150].replace("<b>","").replace("</b>","").replace("<i>","").replace("<br>","").replace("<p>","").replace("</p>","").replace("<hr>","")+'...'
             else:
@@ -88,7 +88,7 @@ def form_pergunta(request):
                 contexto = {
                     'assinante':assinante,
                 }
-            return redirect('minhas_perguntas')
+            return render(request, 'perguntas/'+id_url+'.html')
         else:
             form = ReCaptcha()
             return render(request, 'usuarios/form_pergunta.html',{'form':form,'erro':'Captcha Inválido'})
@@ -98,17 +98,78 @@ def form_pergunta(request):
         return render(request, 'usuarios/form_pergunta.html',{'form':form})
 
 def form_comentar(request):
+    from usuarios.forms import ReCaptcha
     from usuarios.score import score
     if request.method == 'POST':
-        id_pergunta = request.POST['teste']
-        email_user = request.user.email
+        form = ReCaptcha(request.POST)
         comentario = request.POST['comentario']
-        nick = nick_user(request.user)
-        print(nick)
-        Comentario.objects.create(id_pergunta_id=id_pergunta, comentario=comentario, email=email_user,nick=nick)
-        Pergunta.objects.filter(id=id_pergunta).update(comentario_check = True)
-        score(email_user,request.user.id)
-        return redirect('dashboard')
+        id_pergunta = request.POST['id']
+        if form.is_valid():
+            id_pergunta = request.POST['id']
+            email_user = request.user.email
+            comentario = request.POST['comentario']
+            nick = nick_user(request.user)
+            Comentario.objects.create(id_pergunta_id=id_pergunta, comentario=comentario, email=email_user,nick=nick)
+            Pergunta.objects.filter(id=id_pergunta).update(comentario_check = True)
+            score(email_user,request.user.id)
+            id_url = get_object_or_404(Pergunta,id=id_pergunta).id_url
+            return render(request, '../perguntas/'+id_url+'.html')
+        else:
+            from perguntas.met_pergunta import colaborador_aleatorio,usuario_assinante_comentario,usuario_logado_assinante
+            form = ReCaptcha()
+            # id = request.POST['id']
+            # id_url = get_object_or_404(Pergunta,id=id).id_url
+            # print("ID_URL",id_url,comentario)
+
+            # contexto = {
+            #     'recaptcha':form,
+            #     'erro_recaptcha_comentario':'Recaptcha Inválido',
+            #     'pre_comentario':comentario}
+
+            # return render(request, 'perguntas/pergunta.html',{'recaptcha':form,'erro_recaptcha_comentario':'Recaptcha Inválido'})
+            pergunta = get_object_or_404(Pergunta, id = id_pergunta)
+            likes_count = LikeBtn.objects.filter(id_pergunta = pergunta.pk).count() # Qtd de Likes
+            # Formata pelo tamanho da pergunta
+            if len(pergunta.pergunta)>=1750:
+                n = pergunta.pergunta[700:].find("\n")
+                pergunta_inicio = pergunta.pergunta[:700+n].replace('\n','<br>')
+                pergunta_fim = pergunta.pergunta[700+n+1:].replace('\n','<br>')
+            else:
+                pergunta_inicio = None
+                pergunta_fim = None
+
+            email_usuario = request.user.email
+            # Verifica se o usuário logado deu Like na pergunta.
+            my_like = False
+            if LikeBtn.objects.filter(user = request.user , id_pergunta = pergunta.id).exists():
+                my_like = True
+                likes_count -= 1
+            pergunta_texto = pergunta.pergunta.replace('\n','<br>')
+
+            # Verifica se tem comentário, para enviar form Recaptcha
+            if not pergunta.comentario_check:
+                from usuarios.forms import ReCaptcha
+                recapactha = ReCaptcha()
+            else:
+                recapactha = None
+            
+            contexto = {
+            'title' : 'Papiron - '+pergunta.faculdade+' - '+pergunta.intro_pergunta,
+            'pergunta'  : pergunta,
+            'comentario': comentario,
+            'pergunta_texto':pergunta_texto,
+            'pergunta_inicio':pergunta_inicio,
+            'pergunta_fim':pergunta_fim,
+            'usuario_logado_assinante': usuario_logado_assinante(email_usuario),
+            'my_like' : my_like,
+            'likes_count':likes_count,
+            'recapactha' : recapactha ,
+            'erro_recaptcha_comentario':'Recaptcha Inválido',
+            'pre_comentario':comentario
+            }
+            return render(request,'perguntas/pergunta.html', contexto )
+
+   
     else:
         return render(request, 'usuarios/form_pergunta.html')
 

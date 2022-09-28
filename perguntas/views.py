@@ -14,6 +14,14 @@ def pergunta(request, id_url):
         pergunta = get_object_or_404(Pergunta, id_url=id_url)
         if pergunta.publicada == True or pergunta.email == request.user.email:
             likes_count = LikeBtn.objects.filter(id_pergunta = pergunta.pk).count() # Qtd de Likes
+            # Formata pelo tamanho da pergunta
+            if len(pergunta.pergunta)>=1750:
+                n = pergunta.pergunta[700:].find("\n")
+                pergunta_inicio = pergunta.pergunta[:700+n].replace('\n','<br>')
+                pergunta_fim = pergunta.pergunta[700+n+1:].replace('\n','<br>')
+            else:
+                pergunta_inicio = None
+                pergunta_fim = None
             #Obtém dados de quem respondeu a pergunta
             if Comentario.objects.filter(id_pergunta=pergunta.id).exists():
                 comentario = get_object_or_404(Comentario,id_pergunta_id=pergunta.id)
@@ -35,11 +43,21 @@ def pergunta(request, id_url):
                     my_like = True
                     likes_count -= 1
                 pergunta_texto = pergunta.pergunta.replace('\n','<br>')
+
+                # Verifica se tem comentário, para enviar form Recaptcha
+                if not pergunta.comentario_check:
+                    from usuarios.forms import ReCaptcha
+                    recapactha = ReCaptcha()
+                else:
+                    recapactha = None
+                
                 contexto = {
                 'title' : 'Papiron - '+pergunta.faculdade+' - '+pergunta.intro_pergunta,
                 'pergunta'  : pergunta,
                 'comentario': comentario,
                 'pergunta_texto':pergunta_texto,
+                'pergunta_inicio':pergunta_inicio,
+                'pergunta_fim':pergunta_fim,
                 'comentario_texto':comentario_texto,
                 'usuario_assinante_comentario' : email_comentario,
                 'assinante' :assinante,
@@ -47,6 +65,7 @@ def pergunta(request, id_url):
                 'usuario_logado_assinante': usuario_logado_assinante(email_usuario),
                 'my_like' : my_like,
                 'likes_count':likes_count,
+                'recapactha' : recapactha ,
                 }
                 return render(request,'perguntas/pergunta.html', contexto )
             

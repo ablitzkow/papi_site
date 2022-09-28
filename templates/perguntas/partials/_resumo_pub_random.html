@@ -1,0 +1,37 @@
+<!-- Smartphone -->
+<!-- Espaço para publicidade do Assessor, não deve aparecer para outros assessores -->
+{% if assinante_random != None %}
+<div class="invisible-lg" style="padding-bottom: 90px">
+    <div class="receipe-content-area" style="width:90%; text-align: left; font-weight: bold; padding-left:15px; padding-top: 50px;">
+        {% if pergunta.comentario_check == False %}
+            Ninguém respondeu essa pergunta, mas não se preocupe, entre em contato com o Assessor para te ajudar:<br>
+        {% else %}
+            Caso ainda tenha dúvidas, entre em contato com o Assessor:
+        {% endif %}
+        <br><br>
+    </div>
+    {% include 'perguntas/partials/_pub_pergunta_random.html' %}
+</div>
+{% endif %}
+
+
+
+<!-- DeskTop -->
+{% if assinante_random != None %}
+<div class="container" style="width:80%;padding-bottom:10px; margin-top:-40px;">
+    <div class="invisible-sm" style="padding-bottom: 10px">
+        <div class="receipe-content-area" style="width:90%; text-align: left; font-weight: bold; padding-left:15px; padding-top: 10px;">
+            {% if pergunta.comentario_check == False %}
+                <br><br> <h5> Se está em apuros e ainda não entendeu como fazer a atividade, entre em contato:</h4><br> <br>
+            {% else %}
+                <br><hr>
+            <h4>Caso ainda tenha dúvidas, entre em contato com o Assessor:</h4><br> <br>
+            {% endif %}
+        </div>
+        {% include 'perguntas/partials/_pub_pergunta_random.html' %}
+    </div>
+</div>
+{% endif %}
+
+
+

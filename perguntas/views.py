@@ -28,6 +28,8 @@ def pergunta(request, id_url):
                 assinante = get_object_or_404(Assinante, email = comentario.email)
                 email_comentario = usuario_assinante_comentario(comentario.email)
                 comentario_texto = comentario.comentario.replace('\n','<br>')
+                if not assinante.mensalidade:
+                    assinante = None
             else:
                 comentario = None
                 assinante = None
@@ -81,7 +83,7 @@ def pergunta(request, id_url):
                 'pergunta_fim':pergunta_fim,
                 'comentario_texto':comentario_texto,
                 'usuario_assinante_comentario' : email_comentario,
-                'assinante': None,
+                'assinante': assinante,
                 'assinante_random':colaborador_aleatorio(comentario),
                 'usuario_logado_assinante': None,
                 'my_like' : False,

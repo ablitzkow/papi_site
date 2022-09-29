@@ -28,13 +28,16 @@ def pergunta(request, id_url):
                 assinante = get_object_or_404(Assinante, email = comentario.email)
                 email_comentario = usuario_assinante_comentario(comentario.email)
                 comentario_texto = comentario.comentario.replace('\n','<br>')
+                assinante_random_descricao = assinante.descricao
                 if not assinante.mensalidade:
                     assinante = None
+                    assinante_random_descricao = None
             else:
                 comentario = None
                 assinante = None
                 email_comentario = None
                 comentario_texto = ""
+                assinante_random_descricao = None
             
             # Verifica se quem está acessando está logado ou é anônimo
             if request.user.is_active: 
@@ -65,6 +68,7 @@ def pergunta(request, id_url):
                 'assinante':assinante,
                 'assinante_random':colaborador_aleatorio(comentario),
                 'usuario_logado_assinante': usuario_logado_assinante(email_usuario),
+                'assinante_random_descricao':assinante_random_descricao,
                 'my_like' : my_like,
                 'likes_count':likes_count,
                 'recaptcha' : recaptcha ,
@@ -86,6 +90,7 @@ def pergunta(request, id_url):
                 'assinante': assinante,
                 'assinante_random':colaborador_aleatorio(comentario),
                 'usuario_logado_assinante': None,
+                'assinante_random_descricao':assinante_random_descricao,
                 'my_like' : False,
                 'likes_count':likes_count,
                 'recaptcha' : None ,

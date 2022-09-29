@@ -6,9 +6,9 @@
     <p style="font-size:8px;color:darkmagenta">PUBLICIDADE</p>
     <div class="receipe-content-area" style="width:90%; text-align: left; font-weight: bold; padding-left:15px; padding-top: 50px;">
         {% if pergunta.comentario_check == False %}
-            Ninguém respondeu essa pergunta, mas não se preocupe, entre em contato com o Assessor para te ajudar:<br>
+            <h5> Se está em apuros e ainda não entendeu como fazer a atividade, entre em contato:</h4><br><br>
         {% else %}
-            Caso ainda tenha dúvidas, entre em contato com o Assessor:
+        <h4>Caso ainda continue com dúvidas após a explicação, entre em contato com o Assessor:</h4><br><br>
         {% endif %}
         <br><br>
     </div>
@@ -27,10 +27,10 @@
         <p style="font-size:8px;color:darkmagenta">PUBLICIDADE</p>
         <div class="receipe-content-area" style="width:90%; text-align: left; font-weight: bold; padding-left:15px; padding-top: 10px;">
             {% if pergunta.comentario_check == False %}
-                <br><br> <h5> Se está em apuros e ainda não entendeu como fazer a atividade, entre em contato:</h4><br> <br>
+                <h5> Se está em apuros e ainda não entendeu como fazer a atividade, entre em contato:</h4><br><br>
             {% else %}
                 <br><hr>
-            <h4>Caso ainda continue com dúvidas após a explicação, entre em contato com o Assessor:</h4><br> <br>
+                <h4>Caso ainda continue com dúvidas após a explicação, entre em contato com o Assessor:</h4><br><br>
             {% endif %}
         </div>
         {% include 'perguntas/partials/_pub_pergunta_random.html' %}

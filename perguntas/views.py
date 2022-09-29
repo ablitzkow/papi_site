@@ -32,7 +32,7 @@ def pergunta(request, id_url):
                 comentario = None
                 assinante = None
                 email_comentario = None
-                comentario_texto = None
+                comentario_texto = ""
             
             # Verifica se quem está acessando está logado ou é anônimo
             if request.user.is_active: 

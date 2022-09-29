@@ -27,17 +27,18 @@ def pergunta(request, id_url):
                 comentario = get_object_or_404(Comentario,id_pergunta_id=pergunta.id)
                 assinante = get_object_or_404(Assinante, email = comentario.email)
                 email_comentario = usuario_assinante_comentario(comentario.email)
-                comentario_texto = comentario.comentario.replace('\n','<br>')
-                assinante_random_descricao = assinante.descricao
+                comentario_texto = comentario.comentario.replace('\n','<br>')  
                 if not assinante.mensalidade:
                     assinante = None
-                    assinante_random_descricao = None
             else:
                 comentario = None
                 assinante = None
                 email_comentario = None
                 comentario_texto = ""
-                assinante_random_descricao = None
+            
+            # Seleciona um colaborador aleatório
+            assinante_aleatorio = colaborador_aleatorio(comentario)
+            assinante_random_descricao = assinante_aleatorio.descricao.replace('\n','<br>')
             
             # Verifica se quem está acessando está logado ou é anônimo
             if request.user.is_active: 
@@ -66,7 +67,7 @@ def pergunta(request, id_url):
                 'comentario_texto':comentario_texto,
                 'usuario_assinante_comentario' : email_comentario,
                 'assinante':assinante,
-                'assinante_random':colaborador_aleatorio(comentario),
+                'assinante_random':assinante_aleatorio,
                 'usuario_logado_assinante': usuario_logado_assinante(email_usuario),
                 'assinante_random_descricao':assinante_random_descricao,
                 'my_like' : my_like,
@@ -88,7 +89,7 @@ def pergunta(request, id_url):
                 'comentario_texto':comentario_texto,
                 'usuario_assinante_comentario' : email_comentario,
                 'assinante': assinante,
-                'assinante_random':colaborador_aleatorio(comentario),
+                'assinante_random':assinante_aleatorio,
                 'usuario_logado_assinante': None,
                 'assinante_random_descricao':assinante_random_descricao,
                 'my_like' : False,

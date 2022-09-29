@@ -47,9 +47,9 @@ def pergunta(request, id_url):
                 # Verifica se tem comentário, para enviar form Recaptcha
                 if not pergunta.comentario_check:
                     from usuarios.forms import ReCaptcha
-                    recapactha = ReCaptcha()
+                    recaptcha = ReCaptcha()
                 else:
-                    recapactha = None
+                    recaptcha = None
                 
                 contexto = {
                 'title' : 'Papiron - '+pergunta.faculdade+' - '+pergunta.intro_pergunta,
@@ -60,12 +60,12 @@ def pergunta(request, id_url):
                 'pergunta_fim':pergunta_fim,
                 'comentario_texto':comentario_texto,
                 'usuario_assinante_comentario' : email_comentario,
-                'assinante' :assinante,
+                'assinante':assinante,
                 'assinante_random':colaborador_aleatorio(comentario),
                 'usuario_logado_assinante': usuario_logado_assinante(email_usuario),
                 'my_like' : my_like,
                 'likes_count':likes_count,
-                'recapactha' : recapactha ,
+                'recaptcha' : recaptcha ,
                 }
                 return render(request,'perguntas/pergunta.html', contexto )
             

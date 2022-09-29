@@ -19,13 +19,22 @@
     </div>
 </div>
 
-<!-- Area smartphone -->
+<!----------------------------------------------------- Area smartphone ------------------------------------------------------------------------->
 
 <div class="container invisible-lg" style="max-width:90%; min-width:60%; border: 1px solid #e0dede; border-radius: 10px; background: whitesmoke">
     <div class="col col-sm col-lg-10" style="max-width: fit-content; padding-top:1%">
         <div style="max-width:100%; text-align: justify;">
             <p style="color: #af92dc;font-weight: bold  ;">Pergunta:<br>
-            <p style="color: #4d2d2d">{% autoescape off %} {% if pergunta_inicio %} {{ pergunta_inicio}} <hr> {{pergunta_fim}} {% else %} {{pergunta_texto}} {% endif %} {% endautoescape %} </p>
+            <p style="color: #4d2d2d"> 
+                {% if pergunta_inicio %} 
+                    {% autoescape off %} {{ pergunta_inicio}} {% endautoescape %}
+                    {% include 'perguntas/partials/_resumo_pub_random.html' %}
+                    {% autoescape off %}{{pergunta_fim}}{% endautoescape %}
+                     
+                {% else %} 
+                    {% autoescape off %}{{pergunta_texto}}{% endautoescape %} 
+                {% endif %} </p>
+        
         </div>
     </div>
 </div>
@@ -40,7 +49,7 @@
                     {% csrf_token %}
                     <div style="width: 100%;padding-left:0%;">
                         <label for="file"><b> <br> Deixe seu comentário:</b></label>
-                        <textarea class="form-control" name="comentario" cols="100" rows="10"></textarea>
+                        <textarea class="form-control" name="comentario" cols="100" rows="10">{{comentario}}</textarea>
                     </div>
                     
                     <div class="row row-sm row-lg-4">
@@ -53,7 +62,7 @@
                                 <button class="btn delicious-btn mt-30" type="submit">Responder</button>
                             </div>
 
-                            <div><input type="hidden" name="id" value= "{{pergunta.id}}"></input>&nbsp;</div>
+                            <div><input type="hidden" name="id_pergunta" value= "{{pergunta.id}}"></input>&nbsp;</div>
 
                             <div class="text-center"  style="width:100%;">
                                     {% include 'partials/_recaptcha.html' %}
@@ -73,8 +82,8 @@
 
 <!-- Renderiza este bloco caso já tenha comentários -->
 {% if pergunta.comentario_check == True %}
-    <br>
     <div class="container invisible-lg">
+        <br>
         <div>
             <!-- Então há comentário feito -->
                 <hr> <center><b><h3>COMENTÁRIO</h4></b><br></center>
@@ -132,9 +141,13 @@
 
 {% endif %}
 
-<!-- End Area smartphone -->  
+<!---------------------------------------------------- End Area smartphone -------------------------------------------------------->  
 
-<!-- Area Desktop -->
+
+
+
+
+<!----------------------------------------------------- Area Desktop -------------------------------------------------------------->
 
 <div class="container invisible-sm" style="max-width:75%; min-width:60%; border: 1px solid #e0dede; border-radius: 10px; background: whitesmoke">
     <div class="col col-sm col-lg-10" style="max-width: fit-content; padding-top:1%">
@@ -163,7 +176,7 @@
                     {% csrf_token %}
                     <div style="width: 100%;padding-left:0%;">
                         <label for="file"><b> <br> Deixe seu comentário:</b></label>
-                        <textarea class="form-control" name="comentario" cols="100" rows="10">{{pre_comentario}}</textarea>
+                        <textarea class="form-control" name="comentario" cols="100" rows="10">{{comentario}}</textarea>
                     </div>
                     
                     <div class="row row-sm row-lg-12">
@@ -174,16 +187,16 @@
                                 <button class="btn delicious-btn mt-30" type="submit">Responder</button>
                             </div>
 
-                            <div><input type="hidden" name="id" value= "{{pergunta.id}}"></input>&nbsp;</div>
+                            <div><input type="hidden" name="id_pergunta" value= "{{pergunta.id}}"></input>&nbsp;</div>
 
                             
                             <div class="col-2" style="padding-top: 30px ;">
-                                <div center>{{recapactha.Captcha}}<br></div>
+                                <div center>{{recaptcha.Captcha}}<br></div>
                             
                             <div class="col-1" style="padding-top: 30px ;">
                                 <!-- Informa que houve erro no repactha -->
                                 {% if erro_recaptcha_comentario %}
-                                <section class="alert alert-danger"  role="alert" style="width:300px;">
+                                <section class="alert alert-danger"  role="alert" style="width:300px;margin-top: -115px;margin-left:310px; ">
                                     {{ erro_recaptcha_comentario }}
                                 </section>
                                 {% endif %}

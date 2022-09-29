@@ -70,16 +70,34 @@ def pergunta(request, id_url):
                 return render(request,'perguntas/pergunta.html', contexto )
             
             else:
+                pergunta_texto = pergunta.pergunta.replace('\n','<br>')
+
                 contexto = {
-                'usuario_assinante_comentario' : email_comentario ,
-                'usuario_logado_assinante':None,
-                'assinante_random':colaborador_aleatorio(comentario),
-                'pergunta' : pergunta,
+                'title' : 'Papiron - '+pergunta.faculdade+' - '+pergunta.intro_pergunta,
+                'pergunta'  : pergunta,
                 'comentario': comentario,
-                'assinante' :assinante,
+                'pergunta_texto':pergunta_texto,
+                'pergunta_inicio':pergunta_inicio,
+                'pergunta_fim':pergunta_fim,
+                'comentario_texto':comentario_texto,
+                'usuario_assinante_comentario' : email_comentario,
+                'assinante': None,
+                'assinante_random':colaborador_aleatorio(comentario),
+                'usuario_logado_assinante': None,
                 'my_like' : False,
                 'likes_count':likes_count,
+                'recaptcha' : None ,
                 }
+                # contexto = {
+                # 'usuario_assinante_comentario' : email_comentario ,
+                # 'usuario_logado_assinante':None,
+                # 'assinante_random':colaborador_aleatorio(comentario),
+                # 'pergunta' : pergunta,
+                # 'comentario': comentario,
+                # 'assinante' :assinante,
+                # 'my_like' : False,
+                # 'likes_count':likes_count,
+                # }
                 return render(request,'perguntas/pergunta.html', contexto )
     else:
         return render(request,'index.html')

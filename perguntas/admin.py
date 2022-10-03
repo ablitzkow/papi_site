@@ -4,7 +4,7 @@ from .models import Comentario,Pergunta,Revisao,LikeBtn
 class ListandoPerguntas(admin.ModelAdmin):
     list_display = ('id', 'id_url' ,'intro_pergunta', 'faculdade', 'disciplina' , 'publicada', 'comentario_check','denuncia')
     list_display_links = ('id', 'id_url' ,'intro_pergunta')
-    search_fields = ('pergunta','id')
+    search_fields = ('pergunta','id','id_url')
     list_filter = ('faculdade','disciplina','denuncia')
     list_editable = ('publicada', 'comentario_check','denuncia')
     list_per_page = 10

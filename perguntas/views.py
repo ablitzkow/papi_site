@@ -15,7 +15,7 @@ def pergunta(request, id_url):
         if pergunta.publicada == True or pergunta.email == request.user.email:
             likes_count = LikeBtn.objects.filter(id_pergunta = pergunta.pk).count() # Qtd de Likes
             # Formata pelo tamanho da pergunta
-            if len(pergunta.pergunta)>=1750:
+            if len(pergunta.pergunta)>=1750: 
                 n = pergunta.pergunta[700:].find("\n")
                 pergunta_inicio = pergunta.pergunta[:700+n].replace('\n','<br>')
                 pergunta_fim = pergunta.pergunta[700+n+1:].replace('\n','<br>')

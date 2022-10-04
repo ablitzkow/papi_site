@@ -30,8 +30,9 @@ def gera_sitemap(request):
             id_url = listi[37:]
             if id_url not in ids:
                 sitemap_delete(file,'https://www.papiron.com.br/perguntas/'+id_url)
-    ####
+   
+    #### reinserir esta linha
     url_ultimas = 'https://www.papiron.com.br/perguntas/ultimas/ultimas_perguntas'
-    xml_alterar_data(file,url_ultimas,data)
+    sitemap_insert(file,url_ultimas,data)
 
     return HttpResponse(status=200, content_type='text/xml')

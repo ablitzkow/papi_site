@@ -28,6 +28,9 @@ def sitemap_delete(file,url_delete):
         loc = url.find(xmls+'loc').text    
         if loc == url_delete:
             root.remove(url)
+    # linha de comando abaixo retira os ns0 ("namespace criados pela tag xmls")
+    ET.register_namespace('','http://www.sitemaps.org/schemas/sitemap/0.9')
+    #Salvar alterações
     tree.write(file)
 
 def merge_xml(file1, file2, output):

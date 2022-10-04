@@ -9,7 +9,7 @@ def sitemap_insert(file, nova_url,data):
     new_url = ET.SubElement(root, 'url')
     new_loc = ET.SubElement(new_url, 'loc')
     new_lastmod = ET.SubElement(new_url, 'lastmod')
-    #Dados do texto do subelemento
+    #Dados do texto do subelemento 
     new_loc.text =  nova_url
     new_lastmod.text = data
     # linha de comando abaixo retira os ns0 ("namespace criados pela tag xmls")

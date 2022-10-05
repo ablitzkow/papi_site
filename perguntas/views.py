@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, get_object_or_404
 from .models import Comentario, Pergunta, LikeBtn
 from usuarios.models import Assinante
-from usuarios.views import perfil_assinante
+from usuarios.views import perfil_assinante 
 
 
 def pergunta(request, id_url):

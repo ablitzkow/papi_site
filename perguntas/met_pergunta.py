@@ -1,19 +1,31 @@
-from usuarios.models import Assinante
+from usuarios.models import Assinante, Especialidade
+from django.shortcuts import get_object_or_404
 
 #Obtém um colaborador aleatório
-def colaborador_aleatorio(comentario):
-    assinante_random = Assinante.objects.filter(mensalidade=True).order_by('?').first()
-    while comentario:
-        print("AAAA", assinante_random,assinante_random.foto)
-        if assinante_random:
-            if assinante_random.email != comentario.email:
-                assinante_random = Assinante.objects.get(email=assinante_random.email)
-                break
-        else:
-            assinante_random = None
-            break
-        assinante_random = Assinante.objects.filter(mensalidade=True).order_by('?').first()
-    print("AAAA", assinante_random,assinante_random.foto)
+
+def colaborador_aleatorio(pergunta , comentario):
+    from django.db.models import Q
+    
+    # if Especialidade.objects.filter(disciplina = pergunta.disciplina).exists():
+    assinante_selecionado = Especialidade.objects.filter(Q(disciplina = pergunta.disciplina) | Q(disciplina='TODAS')).order_by('?').first()
+    print(">>>",assinante_selecionado.assinante)
+    assinante_random = Assinante.objects.filter(email=assinante_selecionado.assinante)
+    assinante_random = get_object_or_404(Assinante,email=assinante_selecionado.assinante)
+    print(assinante_selecionado.assinante , assinante_random.descricao)
+    # else:
+    #     assinante_random = Especialidade.objects.filter(Q(disciplina = pergunta.disciplina) | Q(disciplina='TODAS')).order_by('?').first()
+    # assinante_random = Assinante.objects.filter(mensalidade=True).order_by('?').first()
+    # while comentario:
+    #     print("AAAA", assinante_random,assinante_random.foto)
+    #     if assinante_random:
+    #         if assinante_random.email != comentario.email:
+    #             assinante_random = Assinante.objects.get(email=assinante_random.email)
+    #             break
+    #     else:
+    #         assinante_random = None
+    #         break
+    #     assinante_random = Assinante.objects.filter(mensalidade=True).order_by('?').first()
+    # print("AAAA", assinante_random,assinante_random.foto)
     return assinante_random
 
 def usuario_assinante_comentario(email_usuario_comentario):

@@ -37,7 +37,7 @@ def pergunta(request, id_url):
                 comentario_texto = ""
             
             # Seleciona um colaborador aleatório
-            assinante_aleatorio = colaborador_aleatorio(comentario)
+            assinante_aleatorio = colaborador_aleatorio(pergunta,comentario)
             assinante_random_descricao = assinante_aleatorio.descricao.replace('\n','<br>')
             
             # Verifica se quem está acessando está logado ou é anônimo

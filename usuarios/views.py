@@ -426,7 +426,7 @@ def perfil(request, id_perfil):
     return render(request,"usuarios/perfil.html",contexto)
 
 def planos(request):
-
+    
 
     contexto = {
 

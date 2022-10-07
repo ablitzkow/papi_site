@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Assinante,  Registro_Email
+from .models import Assinante,  Registro_Email , Especialidade
 
 class ListandoColaboradores(admin.ModelAdmin):
     list_display = ('id', 'id_perfil', 'assinante', 'mensalidade', 'CPF' , 'whatsapp','score')
@@ -15,5 +15,12 @@ class ListandoCode(admin.ModelAdmin):
     list_display = ('id', 'email_register', 'code_sent', 'data_code' , 'approve_code')
     list_display_links = ('id', 'email_register',)
 
+class ListandoEspecialidade(admin.ModelAdmin):
+    list_display = ('id', 'assinante', 'faculdade', 'disciplina')
+    list_display_links = ('id', 'faculdade', 'disciplina')
+    list_filter = ('faculdade', 'disciplina')
+
+
 admin.site.register(Assinante, ListandoColaboradores)
 admin.site.register(Registro_Email, ListandoCode)
+admin.site.register(Especialidade, ListandoEspecialidade)

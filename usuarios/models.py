@@ -33,3 +33,8 @@ class Registro_Email(models.Model):
     approve_code = models.BooleanField(default=False)
     def __str__(self):
         return self.email_register
+
+class Especialidade(models.Model):
+    assinante = models.ForeignKey(Assinante, on_delete=models.CASCADE)
+    faculdade = models.CharField(max_length=250,blank=True)
+    disciplina = models.CharField(max_length=250,blank=True)

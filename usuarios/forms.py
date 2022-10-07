@@ -70,10 +70,10 @@ def form_pergunta(request):
         if form.is_valid():
             user = get_object_or_404(User, pk=request.user.id)
             pergunta = request.POST['pergunta'][:5000]
-            if len(pergunta)>=150:
-                intro_pergunta = pergunta[0:150].replace("<b>","").replace("</b>","").replace("<i>","").replace("<br>","").replace("<p>","").replace("</p>","").replace("<hr>","")+'...'
+            if len(pergunta)>=149:
+                intro_pergunta = pergunta[0:149].replace("<b>","").replace("</b>","").replace("<i>","").replace("<br>","").replace("<p>","").replace("</p>","").replace("<hr>","")+'...'
             else:
-                intro_pergunta = pergunta[0:150].replace("<b>","").replace("</b>","").replace("<i>","").replace("<br>","").replace("<p>","").replace("</p>","").replace("<hr>","")
+                intro_pergunta = pergunta[0:149].replace("<b>","").replace("</b>","").replace("<i>","").replace("<br>","").replace("<p>","").replace("</p>","").replace("<hr>","")
             faculdade = request.POST['faculdade']
             disciplina = request.POST['disciplina']
             pergunta = remove_emojis(pergunta)

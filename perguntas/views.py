@@ -1,4 +1,5 @@
 import email
+import re
 from django.contrib.auth.models import User
 from django.shortcuts import render, get_object_or_404
 from .models import Comentario, Pergunta, LikeBtn
@@ -240,3 +241,7 @@ def auto_publicar(request):
     data = datetime.today()-timedelta(days=7)
     perguntas= Pergunta.objects.order_by('-data').filter(data__lte=data,publicada=False).update(publicada=True)
     return HttpResponse(status=200, content='Essas são as perguntas'+str(perguntas))
+
+def rodar(request):
+    perguntas= Pergunta.objects.filter(disciplina='GESTÃO').update(disciplina='GESTÃO PÚBLICA')
+    return render(request,'index.html')

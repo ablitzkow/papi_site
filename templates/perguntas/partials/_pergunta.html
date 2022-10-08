@@ -29,7 +29,7 @@
                 {% if pergunta_inicio %} 
                     {% autoescape off %} {{ pergunta_inicio}} {% endautoescape %}
                     {% include 'perguntas/partials/_resumo_pub_random.html' %}
-                    <div style="margin-top: -120px;" >{% autoescape off %}{{pergunta_fim}}{% endautoescape %}</div>
+                    <div style="margin-top: -80px;" >{% autoescape off %}{{pergunta_fim}}{% endautoescape %}</div>
                 {% else %} 
                     {% autoescape off %}{{pergunta_texto}}{% endautoescape %} 
                 {% endif %} </p>

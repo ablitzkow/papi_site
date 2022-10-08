@@ -159,14 +159,12 @@ def filtro_ultimas_perguntas(request):
         elif status == 'RESPONDIDAS':
             perguntas = Pergunta.objects.order_by('-data').filter(faculdade__contains=faculdade,disciplina__contains=disciplina, publicada=True, comentario_check__exact = True)[0:100]
         
-        print(">>>AAS",faculdade,disciplina)
         contexto = {
             'perguntas' : perguntas,
             'faculdade_select':faculdade,
             'disciplina_select':disciplina,
             'status_select':status,
         }
-        print("WWW",contexto)
         return render(request,'perguntas/ultimas_perguntas.html', contexto )
 
     else:

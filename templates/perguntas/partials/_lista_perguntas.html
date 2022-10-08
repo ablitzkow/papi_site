@@ -29,7 +29,7 @@
                     {% endif %}  
 
                     {% if not disciplina_select == "" %}  
-                        {{disciplina_select}}
+                        {{disciplina_select}} -
                     {% else %}
                         TODAS - 
                     {% endif %}  
@@ -47,23 +47,22 @@
                     <form action="{% url 'filtro_ultimas_perguntas' %}" method="post" enctype="multipart/form-data">
                             {% csrf_token %}
                         <div class="col" style="width:100%;">
-                            <div class="col col-lg-3">
+                            <div class="col col-lg-3" style="margin-top: 30px;">
                                 <label for="file"><b>Faculdade</b></label>
-                                <select name="faculdade" style="height: 10px; width:10px;">
-                                    <option value="">TODAS</option>
+                                <select name="faculdade" >                                   
                                     {% include 'partials/forms/_faculdade.html' %}
                                 </select>
                             </div>
                         
-                            <div class="col col-lg-3">
+                            <div class="col col-lg-3" style="margin-top: 30px;">
                                 <label for="file"> <b> Disciplina</b></label>
                                 <select name="disciplina">
-                                    <option value="">TODAS</option>
+                                    
                                     {% include 'partials/forms/_disciplina.html' %}
                                 </select>
                             </div>
 
-                            <div class="col col-lg-3">
+                            <div class="col col-lg-3" style="margin-top: 30px;">
                                 <label for="file"> <b> Status</b></label>
                                 <select name="status">
                                     <option value="TODAS" selected="selected" >TODAS</option>
@@ -73,11 +72,11 @@
                                 
                             </div>
 
-                            <div class="col col-lg-3 invisible-sm" style="padding-top:14px">
+                            <div class="col col-lg-3 invisible-sm" style="padding-top:14px;">
                                 <button class="btn delicious-btn mt-15" style="height:60px;width:100%;" type="submit">Filtrar</button>
                             </div>
 
-                            <div class="col col-sm invisible-lg" style="padding-top:14px">
+                            <div class="col col-sm invisible-lg"  style="padding-top:14px; margin-top: 30px;">
                                 <button class="btn delicious-btn mt-15" style="height:60px;width:100%;" type="submit">Filtrar</button>
                             </div>
                         </div>
@@ -99,6 +98,7 @@
                                 <label for="file"><b>Faculdade</b></label>
                                 <select name="faculdade" style="height: 10px; width:10px;">
                                     <option value="">TODAS</option>
+                                    
                                     {% include 'partials/forms/_faculdade.html' %}
                                 </select>
                             </div>

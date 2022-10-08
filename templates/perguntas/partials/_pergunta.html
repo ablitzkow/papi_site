@@ -140,6 +140,19 @@
 
 {% endif %}
 
+<!-- Perguntas relacionadas -->
+<div class="container invisible-lg" style="max-width:94%; min-width:80%; border: 1px solid #e0dede; border-radius: 10px; background: whitesmoke">
+    <div class="col col-sm col-lg-10" style="max-width: fit-content; padding-top:1%">
+        <div style="max-width:100%; text-align: justify;">
+            <b>PERGUNTAS RELACIONADAS</b><br><br>
+            {% for pergunta in perguntas_relacionadas%}
+            <p > <a href="{% url 'pergunta' pergunta.id_url %}" style="color: #936bd0;font-size: 0.7em  ;">{{pergunta.intro_pergunta}}</a>
+                <hr>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
 <!---------------------------------------------------- End Area smartphone -------------------------------------------------------->  
 
 
@@ -238,7 +251,7 @@
 {% endif %}
 
 <!-- Perguntas relacionadas -->
-<div class="container" style="max-width:75%; min-width:60%; border: 1px solid #e0dede; border-radius: 10px; background: whitesmoke">
+<div class="container invisible-sm" style="max-width:75%; min-width:60%; border: 1px solid #e0dede; border-radius: 10px; background: whitesmoke">
     <div class="col col-sm col-lg-10" style="max-width: fit-content; padding-top:1%">
         <div style="max-width:100%; text-align: justify;">
             <b>PERGUNTAS RELACIONADAS</b><br><br>

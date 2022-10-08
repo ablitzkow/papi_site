@@ -29,8 +29,7 @@
                 {% if pergunta_inicio %} 
                     {% autoescape off %} {{ pergunta_inicio}} {% endautoescape %}
                     {% include 'perguntas/partials/_resumo_pub_random.html' %}
-                    {% autoescape off %}{{pergunta_fim}}{% endautoescape %}
-                     
+                    <div style="margin-top: -120px;" >{% autoescape off %}{{pergunta_fim}}{% endautoescape %}</div>
                 {% else %} 
                     {% autoescape off %}{{pergunta_texto}}{% endautoescape %} 
                 {% endif %} </p>
@@ -94,7 +93,7 @@
                 Comentário de {{assinante.nick}}
             {% endif %}    
             <div class="receipe-content-area" style="max-width:60%; text-align: left; font-weight: bold">
-                <!-- <br><br>Veja o comentário feito pelo assessor:<br><br> -->
+                <!-- Veja o comentário feito pelo assessor: -->
             </div>
         </div>
     </div>

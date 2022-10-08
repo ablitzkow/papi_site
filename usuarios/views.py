@@ -425,13 +425,12 @@ def perfil(request, id_perfil):
     }
     return render(request,"usuarios/perfil.html",contexto)
 
-def planos(request):
+def equipe(request):
     
-
     contexto = {
 
     }
-    return render(request,'usuarios/planos.html',contexto)
+    return render(request,'usuarios/equipe.html',contexto)
 
 def assessores(request):    
     assinantes = Assinante.objects.filter(mensalidade=True).order_by('?')

@@ -131,7 +131,7 @@
     <div class="container"  style="padding-bottom:150px;">
         {% if assinante %}
             <div style="width:80%; text-align: justify;font-style: italic;margin-left: auto;margin-right: auto; ">
-                "{% autoescape off %}{{ assinante.descricao }}{% endautoescape %}"
+                {% autoescape off %}{{ assinante.descricao }}{% endautoescape %}
 
             </div>
             <!-- Insere dados Whatsapp -->
@@ -265,7 +265,7 @@
     <div class="container"  style="padding-bottom:150px;">
         {% if assinante %}
             <div style="width:80%; text-align: justify;font-style: italic;margin-left: auto;margin-right: auto; ">
-                "{% autoescape off %}{{ assinante.descricao }}{% endautoescape %}"
+                {% autoescape off %}{{ assinante.descricao }}{% endautoescape %}
 
             </div>
             <!-- Insere dados Whatsapp -->

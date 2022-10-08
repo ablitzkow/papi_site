@@ -243,7 +243,7 @@ def auto_publicar(request):
     return HttpResponse(status=200, content='Essas são as perguntas'+str(perguntas))
 
 def rodar(request):
-    perguntas= Pergunta.objects.filter(disciplina='ADMINISTRAÇÃO')
+    perguntas= Pergunta.objects.filter(publicada=True)
     ids = set(pergunta.pk for pergunta in perguntas)
     print("IDS::",ids)
     for id in ids:

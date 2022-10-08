@@ -49,7 +49,8 @@
                         <div class="col" style="width:100%;">
                             <div class="col col-lg-3" style="margin-top: 30px;">
                                 <label for="file"><b>Faculdade</b></label>
-                                <select name="faculdade" >                                   
+                                <select name="faculdade" > 
+                                    <option value=""             {% if disciplina_select == ""         %} selected="selected" {% endif %}>TODAS</option>
                                     {% include 'partials/forms/_faculdade.html' %}
                                 </select>
                             </div>
@@ -57,7 +58,7 @@
                             <div class="col col-lg-3" style="margin-top: 30px;">
                                 <label for="file"> <b> Disciplina</b></label>
                                 <select name="disciplina">
-                                    
+                                    <option value=""             {% if disciplina_select == ""         %} selected="selected" {% endif %}>TODAS</option>
                                     {% include 'partials/forms/_disciplina.html' %}
                                 </select>
                             </div>

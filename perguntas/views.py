@@ -243,5 +243,13 @@ def auto_publicar(request):
     return HttpResponse(status=200, content='Essas são as perguntas'+str(perguntas))
 
 def rodar(request):
-    perguntas= Pergunta.objects.filter(disciplina='COMPUTAÇÃO').update(disciplina='ADS - ANÁLISE E DESENVOLVIMENTO DE SISTEMAS')
+    perguntas= Pergunta.objects.filter(disciplina='ADMINISTRAÇÃO')
+    ids = set(pergunta.pk for pergunta in perguntas)
+    print("IDS::",ids)
+    for id in ids:
+        pergunta = get_object_or_404(Pergunta, pk=id)
+        intro_pergunta = pergunta.pergunta[0:390].replace("<b>","").replace("</b>","").replace("<i>","").replace("<br>","").replace("<p>","").replace("</p>","").replace("<hr>","")+'...'
+        print(id, len(intro_pergunta), intro_pergunta)
+        Pergunta.objects.filter(pk=id).update(intro_pergunta=intro_pergunta)
+
     return render(request,'index.html')

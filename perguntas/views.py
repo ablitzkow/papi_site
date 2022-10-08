@@ -243,5 +243,5 @@ def auto_publicar(request):
     return HttpResponse(status=200, content='Essas são as perguntas'+str(perguntas))
 
 def rodar(request):
-    perguntas= Pergunta.objects.filter(disciplina='GESTÃO').update(disciplina='GESTÃO PÚBLICA')
+    perguntas= Pergunta.objects.filter(disciplina='COMPUTAÇÃO').update(disciplina='ADS - ANÁLISE E DESENVOLVIMENTO DE SISTEMAS')
     return render(request,'index.html')

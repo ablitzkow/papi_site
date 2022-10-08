@@ -9,7 +9,7 @@ class Pergunta(models.Model):
     nick = models.CharField(max_length=200)
     email = models.CharField(max_length=200)
     pergunta = models.TextField(max_length=6000)
-    intro_pergunta = models.TextField(max_length=153)
+    intro_pergunta = models.TextField(max_length=303)
     disciplina = models.CharField(max_length=150)
     faculdade = models.CharField(max_length=150)
     data = models.DateTimeField(default=datetime.now, blank=True)

@@ -39,6 +39,10 @@ def pergunta(request, id_url):
             # Seleciona um colaborador aleatório
             assinante_aleatorio = colaborador_aleatorio(pergunta,comentario)
             assinante_random_descricao = assinante_aleatorio.descricao.replace('\n','<br>')
+
+            # Relaciona 10 perguntas ligadas a disciplina
+            if Pergunta.objects.filter(disciplina=pergunta.disciplina).exists():
+                perguntas_relacionadas = Pergunta.objects.order_by('-data').filter(disciplina=pergunta.disciplina, publicada = True)[0:10]
             
             # Verifica se quem está acessando está logado ou é anônimo
             if request.user.is_active: 
@@ -64,6 +68,7 @@ def pergunta(request, id_url):
                 'pergunta_texto':pergunta_texto,
                 'pergunta_inicio':pergunta_inicio,
                 'pergunta_fim':pergunta_fim,
+                'perguntas_relacionadas':perguntas_relacionadas,
                 'comentario_texto':comentario_texto,
                 'usuario_assinante_comentario' : email_comentario,
                 'assinante':assinante,

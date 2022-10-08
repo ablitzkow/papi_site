@@ -44,7 +44,7 @@
                 <div style="padding: 0%;width: 100%;">
                     <form action="{% url 'filtro_ultimas_perguntas' %}" method="post" enctype="multipart/form-data">
                             {% csrf_token %}
-                        <div class="row row-lg-12" style="width:100%;">
+                        <div class="col" style="width:100%;">
                             <div class="col col-lg-3">
                                 <label for="file"><b>Faculdade</b></label>
                                 <select name="faculdade" style="height: 10px; width:10px;">

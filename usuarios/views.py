@@ -456,13 +456,9 @@ def whatsapp(request):
     stat = Stat_WhatsApp.objects.create(assinante=user_publicidade,id_url=id_url)
     stat.save()
 
-    # id_pergunta=get_object_or_404(Assinante,email=user_publicidade.email)
-
     response = redirect("https://api.whatsapp.com/send?phone=+55"+zap+"&text=Olá, peguei seu contato no Papiron!\n\nwww.papiron.com.br/perguntas/"+id_url)
     return response
 
-    # HTTPResponse("https://api.whatsapp.com/send?phone=+55"+request.GET['zap'])
-    # redirect("https://api.whatsapp.com/send?phone=+55"+request.GET['zap'])
 
 def stats_whatsapp(request):
 
@@ -470,9 +466,15 @@ def stats_whatsapp(request):
     dados_cadastro = get_object_or_404(Assinante,email=request.user.email)
     dados_usuario = get_object_or_404(User,email=request.user.email)
 
+    if Assinante.objects.filter(email=request.user.email).exists():
+        assinante = get_object_or_404(Assinante,email=request.user.email)
+    else:
+        assinante = None
+
     contexto = {'clicks_whatsapp':cliques,
                 'dados_cadastro': dados_cadastro,
                 'dados_usuario' : dados_usuario,
-    
+                'assinante': assinante,
     }
+
     return render(request,'usuarios/stats_whatsapp.html',contexto)

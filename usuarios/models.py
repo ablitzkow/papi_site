@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from datetime import datetime
 
 class Assinante(models.Model):
     assinante = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -38,3 +39,9 @@ class Especialidade(models.Model):
     assinante = models.ForeignKey(Assinante, on_delete=models.CASCADE)
     faculdade = models.CharField(max_length=250,blank=True)
     disciplina = models.CharField(max_length=250,blank=True)
+
+class Stat_WhatsApp(models.Model):
+    assinante = models.ForeignKey(Assinante, on_delete=models.CASCADE)
+    data = models.DateTimeField(default=datetime.now, blank=True)
+    id_url = models.CharField(max_length=22)
+

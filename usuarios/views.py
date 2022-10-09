@@ -1,3 +1,4 @@
+from http.client import HTTPResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib import auth
@@ -442,4 +443,16 @@ def assessores(request):
     }
     print(">>>",assinantes)
     return render(request,'usuarios/assessores.html',contexto)
+
+def whatsapp(request):
+    dados=request.GET['zap']
+    zap = dados.split(" ").__getitem__(0)
+    id_url = dados.split("id_url=").__getitem__(1)
+
+
+    response = redirect("https://api.whatsapp.com/send?phone=+55"+zap+"&text=Olá, peguei seu contato no Papiron!\n\nwww.papiron.com.br/perguntas/"+id_url)
+    return response
+
+    # HTTPResponse("https://api.whatsapp.com/send?phone=+55"+request.GET['zap'])
+    # redirect("https://api.whatsapp.com/send?phone=+55"+request.GET['zap'])
 

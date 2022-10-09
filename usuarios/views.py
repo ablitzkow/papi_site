@@ -1,10 +1,11 @@
+import email
 from http.client import HTTPResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib import auth
 from perguntas.models import Comentario, Pergunta, Revisao , LikeBtn
-from usuarios.models import Assinante , Registro_Email
-from usuarios.score import score
+from usuarios.models import Assinante , Registro_Email , Stat_WhatsApp
+from usuarios.score import score , eventos_whatsapp
 
 
 def dados_cadastro(request):
@@ -447,8 +448,15 @@ def assessores(request):
 def whatsapp(request):
     dados=request.GET['zap']
     zap = dados.split(" ").__getitem__(0)
+    zap_semDDD = zap[2:]
     id_url = dados.split("id_url=").__getitem__(1)
+    user_publicidade = get_object_or_404(Assinante, whatsapp = zap_semDDD)
+    print("USER",user_publicidade)
 
+    stat = Stat_WhatsApp.objects.create(assinante=user_publicidade,id_url=id_url)
+    stat.save()
+
+    # id_pergunta=get_object_or_404(Assinante,email=user_publicidade.email)
 
     response = redirect("https://api.whatsapp.com/send?phone=+55"+zap+"&text=Olá, peguei seu contato no Papiron!\n\nwww.papiron.com.br/perguntas/"+id_url)
     return response
@@ -456,3 +464,15 @@ def whatsapp(request):
     # HTTPResponse("https://api.whatsapp.com/send?phone=+55"+request.GET['zap'])
     # redirect("https://api.whatsapp.com/send?phone=+55"+request.GET['zap'])
 
+def stats_whatsapp(request):
+
+    cliques = eventos_whatsapp(request.user.email)
+    dados_cadastro = get_object_or_404(Assinante,email=request.user.email)
+    dados_usuario = get_object_or_404(User,email=request.user.email)
+
+    contexto = {'clicks_whatsapp':cliques,
+                'dados_cadastro': dados_cadastro,
+                'dados_usuario' : dados_usuario,
+    
+    }
+    return render(request,'usuarios/stats_whatsapp.html',contexto)

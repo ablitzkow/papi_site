@@ -1,6 +1,8 @@
-from django.shortcuts import render
+import email
+from django.shortcuts import render , get_object_or_404
 from perguntas.models import Pergunta, Comentario , LikeBtn
-from usuarios.models import Assinante
+from usuarios.models import Assinante , Stat_WhatsApp
+
 
 def score(user,user_id):
     email = user
@@ -25,3 +27,13 @@ def score(user,user_id):
     Assinante.objects.filter(email=user).update(score = score_geral)
 
     return score_geral , likes , qtd_perguntas , qtd_respostas
+
+def eventos_whatsapp(user):
+    #Verifica o números de colaborações em PERGUNTAS efetuadas
+    print("user",user)
+    assinante = get_object_or_404(Assinante,email=user)
+    cliques = Stat_WhatsApp.objects.filter(assinante_id= assinante.pk)
+    id = set(clique.id for clique in cliques)
+    print(id)
+    qtd_eventos = len(list(id))
+    return qtd_eventos

@@ -1,0 +1,290 @@
+{% load static %}
+<style>    
+    a.social {
+            margin-bottom:0cm;
+            line-height:normal; 
+            font-size: 1em;
+    }
+    
+    .center {
+        text-align: center;
+        color: white;
+        font-weight:600 ;
+        /* border: 1px solid rgb(120, 1, 1); */
+        background-color:rgb(245, 59, 59) ;
+        border-radius: 20px;
+        width: fit-content;
+        height: 25px;
+        font-size: 12px;
+      }
+
+      .center_pontos {
+        text-align: center;
+        color: #c51215;
+        font-weight:600 ;
+        width: fit-content;
+        height: 25px;
+        font-size: 15px;
+      }
+
+    .pontos{
+        padding-top: 15px;
+        font-size: 13px;
+        text-align: center;
+
+    }
+
+    .pontos_header{
+        padding-top: 15px;
+        font-size: 13px;
+        text-align: center;
+        font-weight:bold;
+
+    }
+
+    .social{
+        padding-top: 10px;
+        width:100%;
+    }
+    
+    .social_contato{
+        padding-left: 10px;
+        width:100%;
+    }
+
+    a.social {
+            padding-top: 30px;
+            border-top: 40px;
+            margin-top:1em;
+            line-height:normal; 
+            font-size:12px;
+            color:#9b9B9B ;
+    }
+
+    img.social{
+        height:30px;
+        padding-left: 10px;
+        margin-inline-start: 0;
+        width: auto;
+        
+    }
+
+    div.score{
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 1em;
+    }
+</style>
+
+<!-- Área Smartphone -->
+<section class="invisible-lg">
+    <div class="col-sm-8 col-lg-8">
+        <div style="line-height:normal; font-size: 2em;font-weight: bold;color:#000000b4 ;">
+            {{dados_usuario.first_name}} {{dados_usuario.last_name}}
+        </div>
+
+
+        <div style="line-height:normal; font-size: 1em;font-weight: bold;color:#9b9B9B ;">
+            Estatísticas de Eventos (cliques)
+        </div>
+    </div>
+
+<div class="container invisible-lg" style="width:100%;padding-top:20px;" >
+
+
+
+    <div class="container">
+        <hr>
+        <div class="row" style="width:100%;padding-top: 5px;margin-left: auto; margin-right: auto; ">
+            <div class="col" style="width:33%">
+                <div class="pontos_header">Whatsapp</div>
+                <div class="pontos">{{ clicks_whatsapp }}</div>
+            </div>
+            <div class="pontos">|</div>
+            <div class="col" style="width:33%">
+                <div class="pontos_header">Instagram</div>
+                <div class="pontos">{{ clicks_instagram }} Em análise</div>
+            </div>
+            <div class="pontos">|</div>
+            <div class="col" style="width:33%">
+                <div class="pontos_header">Outros</div>
+                <div class="pontos">{{ clicks_outros }} Em análise</div>
+            </div>
+        </div>
+        <hr> 
+    </div>
+    
+    <div class="container"  style="padding-bottom:150px;">
+        {% if assinante %}
+            <div style="width:80%; text-align: justify;font-style: italic;margin-left: auto;margin-right: auto; ">
+                {% autoescape off %}{{ assinante.descricao }}{% endautoescape %}
+
+            </div>
+            <!-- Insere dados Whatsapp -->
+            <div class="social">
+                <div style="width:200px;">
+                    <a href="https://api.whatsapp.com/send?phone=+55{{ assinante.whatsapp_ddd }}{{ assinante.whatsapp }}&text=Olá, peguei seu contato no Papiron!"><img src="{% static 'img/core-img/whatsapp.png' %}" class="social"></a>
+                </div>
+                <div  class="social_contato">
+                    <a href="https://api.whatsapp.com/send?phone=+55{{ assinante.whatsapp_ddd }}{{ assinante.whatsapp }}&text=Olá, peguei seu contato no Papiron!" class="social"><i class="fa fa-whatsapp" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{ assinante.whatsapp_ddd }} {{ assinante.whatsapp }} <br></a>
+                </div>
+            </div>
+            
+            <!-- Insere dados Instagram -->
+            {% if assinante.instagram != '' %}
+            <div class="social">
+                <a href="{{ assinante.instagram }}" class="social" ><img src="{% static 'img/core-img/instagram02.png' %}" class="social"></a>
+                <div  class="social_contato"> 
+                    <a href="{{ assinante.instagram }}" class="social"><i class="fa fa-instagram"></i>&nbsp;&nbsp;&nbsp;{{ assinante.instagram }} </a>
+                </div>
+            </div>
+            {% endif %}
+            
+            <!-- Insere dados LinkedIn -->
+            {% if assinante.linkedIn  !=  '' %}
+            <div class="social">
+                <div style="width:130px;">
+                    <a href="{{ assinante.linkedIn }}" class="social" ><img src="{% static 'img/core-img/linkedin.png' %}" class="social"></a>
+                </div>
+
+                <div  class="social_contato"> 
+                    <a href="{{ assinante.linkedIn }}" class="social" ><i class="fa fa-linkedin" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{ assinante.linkedIn }} </a>
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Insere dados Facebook -->
+            {% if assinante.facebook  !=  '' %}
+            <div class="social">
+                <div style="max-width:150px;">
+                    <a href="{{ assinante.facebook }}" class="social" ><img src="{% static 'img/core-img/facebook.png' %}" class="social"></a>   
+                </div>
+            
+                <div class="social_contato">
+                    <a href="{{ assinante.facebook }}" class="social"><i class="fa fa-facebook" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{ assinante.facebook }} </a>
+                </div>
+            </div>
+            {% endif %}
+
+        {% endif %}
+    </div>
+</section>
+
+
+<!-- Área Desktop -->
+
+<div class="container invisible-sm" style="width:50%;padding-top:10px;margin-left: auto; margin-right: auto; border: .05em solid rgb(206, 206, 206); border-radius:40px;margin-top: 60px;" >
+    <div>
+        <div class="row" style="width:75%">
+            <div style="width:20%">
+                <div class="col">
+
+          
+                </div>
+            </div>
+
+            <div style="width:70%">
+
+                <div class="col">
+                    <div style="width:100%">
+                        <div class="col">
+                            <div style="line-height:normal; font-size: 2em;font-weight: bold;color:#000000b4 ;">
+                                {{dados_usuario.first_name}} {{dados_usuario.last_name}}
+                            </div>
+                    
+                    
+                            <div style="line-height:normal; font-size: 1em;font-weight: bold;color:#9b9B9B ;">
+                                Estatísticas de Eventos (cliques):
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" style="width:100%;padding-top: 5px;margin-left: auto;
+    margin-right: auto;">
+
+        <!-- <div class="center" style="width:fit-content;margin-left: auto;margin-right: auto;padding-top:3px;">
+            &nbsp;&nbsp;&nbsp;{{ score_geral }} ptos&nbsp;&nbsp;&nbsp;
+        </div> -->
+
+    </div>
+
+
+    <div class="container">
+        <hr>
+        <div class="row" style="width:100%;padding-top: 5px;margin-left: auto; margin-right: auto; ">
+            <div class="col" style="width:33%">
+                <div class="pontos_header">Whatsapp</div>
+                <div class="pontos">{{ clicks_whatsapp }}</div>
+            </div>
+            <div class="pontos">|</div>
+            <div class="col" style="width:33%">
+                <div class="pontos_header">Instagram</div>
+                <div class="pontos">{{ clicks_instagram }} Em análise</div>
+            </div>
+            <div class="pontos">|</div>
+            <div class="col" style="width:33%">
+                <div class="pontos_header">Outros</div>
+                <div class="pontos">{{ clicks_outros }} Em análise</div>
+            </div>
+        </div>
+        <hr>
+    </div>
+    
+    <div class="container"  style="padding-bottom:150px;">
+        {% if assinante %}
+            <div style="width:80%; text-align: justify;font-style: italic;margin-left: auto;margin-right: auto; ">
+                {% autoescape off %}{{ assinante.descricao }}{% endautoescape %}
+
+            </div>
+            <!-- Insere dados Whatsapp -->
+            <div class="social">
+                <div style="width:200px;">
+                    <a href="https://api.whatsapp.com/send?phone=+55{{ assinante.whatsapp_ddd }}{{ assinante.whatsapp }}&text=Olá, peguei seu contato no Papiron!"><img src="{% static 'img/core-img/whatsapp.png' %}" class="social"></a>
+                </div>
+                <div  class="social_contato">
+                    <a href="https://api.whatsapp.com/send?phone=+55{{ assinante.whatsapp_ddd }}{{ assinante.whatsapp }}&text=Olá, peguei seu contato no Papiron!" class="social"><i class="fa fa-whatsapp" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{ assinante.whatsapp_ddd }} {{ assinante.whatsapp }} <br></a>
+                </div>
+            </div>
+            
+            <!-- Insere dados Instagram -->
+            {% if assinante.instagram != '' %}
+            <div class="social">
+                <a href="{{ assinante.instagram }}" class="social" ><img src="{% static 'img/core-img/instagram02.png' %}" class="social"></a>
+                <div  class="social_contato"> 
+                    <a href="{{ assinante.instagram }}" class="social"><i class="fa fa-instagram"></i>&nbsp;&nbsp;&nbsp;{{ assinante.instagram }} </a>
+                </div>
+            </div>
+            {% endif %}
+            
+            <!-- Insere dados LinkedIn -->
+            {% if assinante.linkedIn  !=  '' %}
+            <div class="social">
+                <div style="width:130px;">
+                    <a href="{{ assinante.linkedIn }}" class="social" ><img src="{% static 'img/core-img/linkedin.png' %}" class="social"></a>
+                </div>
+
+                <div  class="social_contato"> 
+                    <a href="{{ assinante.linkedIn }}" class="social" ><i class="fa fa-linkedin" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{ assinante.linkedIn }} </a>
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Insere dados Facebook -->
+            {% if assinante.facebook  !=  '' %}
+            <div class="social">
+                <div style="max-width:150px;">
+                    <a href="{{ assinante.facebook }}" class="social" ><img src="{% static 'img/core-img/facebook.png' %}" class="social"></a>   
+                </div>
+            
+                <div class="social_contato">
+                    <a href="{{ assinante.facebook }}" class="social"><i class="fa fa-facebook" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{ assinante.facebook }} </a>
+                </div>
+            </div>
+            {% endif %}
+
+        {% endif %}
+    </div>
+</div>

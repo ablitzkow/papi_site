@@ -13,6 +13,7 @@ class Pergunta(models.Model):
     disciplina = models.CharField(max_length=150)
     faculdade = models.CharField(max_length=150)
     data = models.DateTimeField(default=datetime.now, blank=True)
+    pageviews = models.IntegerField(blank=True,default=0)
     publicada = models.BooleanField(default=False)
     comentario_check = models.BooleanField(default=False)
     denuncia = models.BooleanField(default=False)

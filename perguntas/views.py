@@ -61,6 +61,9 @@ def pergunta(request, id_url):
                     recaptcha = ReCaptcha()
                 else:
                     recaptcha = None
+
+                # Incrementa +1 view
+                Pergunta.objects.filter(id_url=id_url).update(pageviews = pergunta.pageviews+1)
                 
                 contexto = {
                 'title' : 'Papiron - '+pergunta.faculdade+' - '+pergunta.intro_pergunta,

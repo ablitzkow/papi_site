@@ -11,8 +11,13 @@ def pergunta(request, id_url):
     from perguntas.met_pergunta import colaborador_aleatorio,usuario_assinante_comentario,usuario_logado_assinante, nick_user
     # Dados da pergunta
     if Pergunta.objects.filter(id_url=id_url).exists():
+        
         #Obtém a pergunta pelo ID
         pergunta = get_object_or_404(Pergunta, id_url=id_url)
+        
+        # Incrementa +1 view
+        Pergunta.objects.filter(id_url=id_url).update(pageviews = pergunta.pageviews+1)
+        
         if pergunta.publicada == True or pergunta.email == request.user.email:
             likes_count = LikeBtn.objects.filter(id_pergunta = pergunta.pk).count() # Qtd de Likes
             # Formata pelo tamanho da pergunta
@@ -61,9 +66,6 @@ def pergunta(request, id_url):
                     recaptcha = ReCaptcha()
                 else:
                     recaptcha = None
-
-                # Incrementa +1 view
-                Pergunta.objects.filter(id_url=id_url).update(pageviews = pergunta.pageviews+1)
                 
                 contexto = {
                 'title' : 'Papiron - '+pergunta.faculdade+' - '+pergunta.intro_pergunta,

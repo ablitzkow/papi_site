@@ -150,6 +150,30 @@ def analisar_perguntas(request):
     else:
         return render(request,'500.html')
 
+def publicar_perguntas(request):
+    if request.method == 'POST':   
+        id_url = request.POST['id_url']
+        action = request.POST['action']
+        print(id_url,action)
+
+        if action == 'publicar':
+            Pergunta.objects.filter(id_url=id_url).update(publicada = True)
+        elif action == 'excluir':
+            Pergunta.objects.filter(id_url=id_url).delete()
+
+        if request.user.is_superuser:
+            from datetime import datetime, timedelta
+            data = datetime.today()-timedelta(days=7)
+            perguntas = Pergunta.objects.order_by('-data').filter(data__gte=data,publicada=False)[0:100]
+            contexto = {
+                'perguntas' : perguntas,        
+                'faculdade_select':None,
+                'disciplina_select':None,
+                }
+
+            return render(request,'perguntas/analisar_perguntas.html', contexto)
+
+    return render(request,'500.html')
 
 def filtro_ultimas_perguntas(request):
     if request.method == 'POST':   

@@ -29,22 +29,16 @@
 
         <div class="col">
             
-            <a href="{% url 'perfil' assinante_random.id_perfil %}"  style="line-height:normal; font-size: 2em;font-weight: bold;color:#9b9B9B ;">{{assinante_random.nome}} {{assinante_random.sobrenome}}</a>
+            <a href="{% url 'perfil' assinante_random.id_perfil %}"  style="line-height:normal; font-size: 2em;font-weight: bold;color:#9b9B9B ;">
+                {{assinante_random.nome}} {{assinante_random.sobrenome}}
+            </a>
 
             <div class="row row-sm">
-
-                <div style="width:150px; height:5px ; padding-left:2%;margin-block-start:0.5em;"><a href="{% url 'whatsapp'%}?zap={{ assinante_random.whatsapp_ddd }}{{ assinante_random.whatsapp }}+id_url={{pergunta.id_url}}"><img src="{% static 'img/core-img/whatsapp.png' %}"width="90%"></a></div>
-
-
-                <!-- <div style="width:100px; height:5px ; padding-left:2%;margin-block-start:0.5em;"><a href="https://api.whatsapp.com/send?phone=+55{{ assinante_random.whatsapp_ddd }}{{ assinante_random.whatsapp }}&text=Olá, peguei seu contato no Papiron!"><img src="{% static 'img/core-img/whatsapp.png' %}"width="90%"></a></div> -->
-<!--                 
-                {% if assinante_random.instagram != '' %}
-                <div style="width:100px; margin-block-start:0.5em;padding-left:5px;"><a href="{{ assinante_random.instagram }}" class="social" ><img src="{% static 'img/core-img/instagram02.png' %}" style="width:80%;"></a></div>
-                {% endif %}
-
-                {% if assinante_random.linkedIn != '' %}
-                <div style="width:80px; margin-block-start:0.5em;padding-left:5px;"><a href="{{ assinante_random.linkedIn }}" class="social" ><img src="{% static 'img/core-img/linkedin.png' %}" style="width:70%;"></a>   </div>
-                {% endif %} -->
+                <div style="width:150px; height:5px ; padding-left:2%;margin-block-start:0.5em;">
+                    <a href="{% url 'whatsapp'%}?zap={{ assinante_random.whatsapp_ddd }}{{ assinante_random.whatsapp }}+id_url={{pergunta.id_url}}">
+                        <img src="{% static 'img/core-img/whatsapp.png' %}"width="90%">
+                    </a>
+                </div>
             </div>
 
         </div>

@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib import auth
 from perguntas.models import Comentario, Pergunta, Revisao , LikeBtn
-from usuarios.models import Assinante , Registro_Email , Stat_WhatsApp
+from usuarios.models import Assinante, Especialidade , Registro_Email , Stat_WhatsApp
 from usuarios.score import score , eventos_whatsapp
 
 
@@ -167,18 +167,26 @@ def meu_perfil(request):
     
     # Dados do assinante
     assinante = perfil_assinante(request)
-    
+
+    # Dados da especialidade do assinante
+    especialidades = None
+    if Especialidade.objects.filter(assinante_id=assinante.id).exists():
+        especialidades = Especialidade.objects.filter(assinante_id=assinante.id)
+
+    print("ESSS",especialidades)
+
     score_geral, qtd_likes , qtd_perguntas, qtd_respostas = score(dados_usuario.username,dados_usuario.id)
     dados = {
         'dados_usuario' : dados_usuario,
         'assinante' : assinante,
+        'especialidades': especialidades,
         'data_registro' : data_registro,
         'qtd_perguntas': qtd_perguntas,
         'qtd_respostas':qtd_respostas,
         'score_geral' : score_geral,
         'qtd_likes' : qtd_likes,
     }
-    print(">>>",dados)
+
     return render(request, 'usuarios/meu_perfil.html', dados)
 
 def meus_comentarios(request):
@@ -227,6 +235,17 @@ def form_dados(request):
             facebook = request.POST['facebook']
             descricao = request.POST['descricao'][:999]
 
+            # Retira dados indesejáveis da descrição
+            lista_proibida = ["script", "java", "meta"]
+            for proibida in lista_proibida:
+                while proibida in descricao.lower():
+                    n = descricao.lower().find(proibida)
+                    l = len(proibida)
+                    descricao = descricao[:n+l-1]+descricao[n+l:]
+                    
+            if ("script" in descricao.lower()) or ("java"  in descricao.lower()):
+                descricao = "Entre em contato com o administrador e informe o erro"
+
 
             print("<<>>",request.FILES.getlist('foto',None) == '[ ]', len(request.FILES.getlist('foto',None))==0, whatsapp_ddd)
             # obtém dados do arquivo de foto
@@ -263,7 +282,7 @@ def form_dados(request):
             else:
                 Assinante.objects.filter(assinante=user).update(nome=first_name,sobrenome=last_name,whatsapp=whatsapp,whatsapp_ddd=whatsapp_ddd,instagram=instagram,linkedIn=linkedIn,facebook=facebook,descricao=descricao)
         
-
+  
         # Salva todas as novas informações (Email e CPF são imutáveis) 
         User.objects.filter(email=request.user.email).update(first_name=first_name,last_name=last_name,username=request.user.email)
         

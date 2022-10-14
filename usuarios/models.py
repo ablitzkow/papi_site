@@ -42,6 +42,8 @@ class Especialidade(models.Model):
     exclusivo = models.BooleanField(default=False)
     rodada = models.BooleanField(default=False)
     peso = models.IntegerField(default=0)
+    def __str__(self):
+        return self.faculdade+" - "+self.disciplina
 
 class Stat_WhatsApp(models.Model):
     assinante = models.ForeignKey(Assinante, on_delete=models.CASCADE)

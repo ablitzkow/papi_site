@@ -178,22 +178,18 @@
                     <a href="{{ assinante.facebook }}" class="social"><i class="fa fa-facebook" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{ assinante.facebook }} </a>
                 </div>
             </div>
-
-            <div>
-                <div>Minhas tutorias:</div>
-
-                {% for faculdad in faculdade %}
-                <div><br><br><b>{{faculdad}}</b></div>
-                    {% for disciplin in disciplina %}
-                    <div> - {{disciplin}}</div>
-                    {% endfor %}
-                {% endfor %}
-
-
-
-
             </div>
             {% endif %}
+
+            <div>
+                <div> <br><br> <b> Onde sou tutor:</b></div>
+
+            {% for esp in especialidades %}
+            <div style="margin-left:30px;"><br><b>- {{esp.faculdade}}/{{esp.disciplina}}</b></div>
+    
+            {% endfor %}
+
+           
 
         {% endif %}
     </div>

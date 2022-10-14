@@ -39,6 +39,9 @@ class Especialidade(models.Model):
     assinante = models.ForeignKey(Assinante, on_delete=models.CASCADE)
     faculdade = models.CharField(max_length=250,blank=True)
     disciplina = models.CharField(max_length=250,blank=True)
+    exclusivo = models.BooleanField(default=False)
+    rodada = models.BooleanField(default=False)
+    peso = models.IntegerField(default=0)
 
 class Stat_WhatsApp(models.Model):
     assinante = models.ForeignKey(Assinante, on_delete=models.CASCADE)

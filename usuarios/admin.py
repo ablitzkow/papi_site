@@ -17,8 +17,8 @@ class ListandoCode(admin.ModelAdmin):
 
 class ListandoEspecialidade(admin.ModelAdmin):
     list_display = ('id', 'assinante', 'faculdade', 'disciplina')
-    list_display_links = ('id', 'faculdade', 'disciplina')
-    list_filter = ('faculdade', 'disciplina')
+    list_display_links = ('id', 'assinante', 'faculdade', 'disciplina')
+    list_filter = ('faculdade', 'disciplina','assinante')
 
 class ListandoStat_WhatsApp(admin.ModelAdmin):
     list_display = ('id', 'assinante', 'data', 'id_url')

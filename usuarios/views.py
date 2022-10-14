@@ -173,7 +173,11 @@ def meu_perfil(request):
     if Especialidade.objects.filter(assinante_id=assinante.id).exists():
         especialidades = Especialidade.objects.filter(assinante_id=assinante.id)
 
-    print("ESSS",especialidades)
+        ######
+        listas = Especialidade.objects.filter(assinante_id=assinante.id).values_list('faculdade', 'disciplina')
+        print("ESSS",listas[0],id)
+
+        ###########
 
     score_geral, qtd_likes , qtd_perguntas, qtd_respostas = score(dados_usuario.username,dados_usuario.id)
     dados = {
@@ -433,6 +437,11 @@ def perfil(request, id_perfil):
     perfil = get_object_or_404(Assinante,id_perfil = id_perfil)
     perfil_geral =get_object_or_404(User,email=perfil.email)
     score_geral, qtd_likes , qtd_perguntas, qtd_respostas = score(perfil_geral.username,perfil_geral.id)
+
+    # Lista de especialidades, vetado no momento
+    # especialidades = None
+    # if Especialidade.objects.filter(assinante_id=perfil.id).exists():
+    #     especialidades = Especialidade.objects.filter(assinante_id=perfil.id)
 
     contexto ={
         'title': 'Papiron - '+perfil.nome+' '+perfil.sobrenome,

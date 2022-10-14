@@ -29,6 +29,7 @@
                                 <div><input type="hidden" name="last_name" value= "{{last_name}}"></input>&nbsp;</div>
                             </div>
 
+                            <div style="font-size:12px; margin-left:15px ">Nome</div>
                             <div class="col-12 col-lg-12">
                                 {% if first_name %}
                                 <input type="text"  class="form-control" name="first_name" placeholder="{{first_name}}" value="{{first_name}}" disabled="disabled" style="background-color: rgb(215, 253, 215);"></input>&nbsp;
@@ -36,6 +37,8 @@
                                 <input type="text" class="form-control" name="first_name" placeholder="Nome"></input>&nbsp;
                                 {% endif  %}
                             </div>
+
+                            <div style="font-size:12px; margin-left:15px ">Sobrenome</div>
                             <div class="col-12 col-lg-12">
                                 {% if first_name %}
                                 <input type="text"  class="form-control" name="last_name" placeholder="{{last_name}}" value="{{last_name}}" disabled="disabled" style="background-color: rgb(215, 253, 215);"></input>&nbsp;
@@ -49,14 +52,28 @@
                                 {% endif %}
                             </div>
                             
+                            
                             <div class="col-12 col-lg-6">
+                                <div style="font-size:12px">Senha</div>
                                 <input type="password" class="form-control" name="password" placeholder="Senha">
                             </div>
+
+                            
                             <div class="col-12 col-lg-6">
+                                <div style="font-size:12px">Confirme sua senha</div>
                                 <input type="password" class="form-control" name="password2" placeholder="Confirme sua senha">
                             </div>
                             <div class="col-12 text-center">
                                 <button class="btn delicious-btn mt-30" type="submit">Cadastrar</button>
+                            </div>
+                            <div class="col-12 col-lg-12" style="font-size:12px;">
+                                <br>A senha deve conter pelo menos:
+                                <div style="margin-left:40px; font-size:10px;">
+                                    - 8 caracteres,<br>
+                                    - 1 número, <br>
+                                    - 1 minúscula e<br>
+                                    - 1 maiúscula
+                                </div>
                             </div>
                         </div>
                     </form>

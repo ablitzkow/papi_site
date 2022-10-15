@@ -12,6 +12,49 @@ def colaborador_aleatorio(pergunta , comentario):
         if Especialidade.objects.filter(disciplina = pergunta.disciplina).count()==1:
             especialista = get_object_or_404(Especialidade,disciplina = pergunta.disciplina)
             assinante_selecionado = especialista.assinante
+            print("\n\n>>>>",especialista.assinante, especialista.rodada)
+
+
+            #Verifica a vez de quem é a de aparecer:
+            if especialista.rodada == True:
+                Especialidade.objects.filter(assinante = especialista.assinante).update(rodada = False)
+                email=especialista.assinante
+            else:
+                Especialidade.objects.filter(assinante = especialista.assinante).update(rodada = True)
+                import random
+                # opçoes = ['blitzkow@gmail.com','mota.christopher@gmail.com']
+                opçoes = ['blitzkow@gmail.com']
+                email = random.choice(opçoes)
+                
+            
+            # Obtém os dados da Assinatura
+            assinante_random = get_object_or_404(Assinante,email=email)
+
+        # Será executado se houver mais de 1 assessor cadastrado, modo aleatório
+        else:
+            assinante_selecionado = Especialidade.objects.filter(Q(disciplina = pergunta.disciplina) | Q(disciplina='TODAS')).order_by('?').first()
+            assinante_random = Assinante.objects.filter(email=assinante_selecionado.assinante)
+            assinante_random = get_object_or_404(Assinante,email=assinante_selecionado.assinante)
+    
+    # Será executado se não houver nenhum assessor cadastrado
+    else:
+        # opçoes = ['blitzkow@gmail.com','mota.christopher@gmail.com']
+        opçoes = ['mota.christopher@gmail.com']
+        email = random.choice(opçoes)
+        assinante_random = get_object_or_404(Assinante,email=email)
+    
+    return assinante_random
+
+
+def colaborador_aleatorio_novo(pergunta , comentario):
+    from django.db.models import Q
+    import random
+    
+    if Especialidade.objects.filter(disciplina = pergunta.disciplina , exclusivo = False).exists():
+        # assinante_selecionado = Especialidade.objects.filter(Q(disciplina = pergunta.disciplina) | Q(disciplina='TODAS')).order_by('?').first()
+        if Especialidade.objects.filter(disciplina = pergunta.disciplina).count()==1:
+            especialista = get_object_or_404(Especialidade,disciplina = pergunta.disciplina)
+            assinante_selecionado = especialista.assinante
             
             # verifica o modelo de peso
             if especialista.peso == 0:
@@ -54,6 +97,9 @@ def colaborador_aleatorio(pergunta , comentario):
         assinante_random = get_object_or_404(Assinante,email=email)
     
     return assinante_random
+
+
+
 
 def usuario_assinante_comentario(email_usuario_comentario):
     from django.shortcuts import render, get_object_or_404

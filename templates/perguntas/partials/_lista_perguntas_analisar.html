@@ -1,20 +1,21 @@
 {% load static %}
     <div class="container ">
-        <div class="col invisible-lg">
-            {% if busca %} 
-            <div> 
-                <h4>Pesquisando por: <i>{{busca}}</i></h4><br>
+        {% if busca %}
+            <div class="col invisible-lg">
+                
+                <div> 
+                    <h4>Pesquisando por: <i>{{busca}}</i></h4><br>
+                </div>
             </div>
-        </div>
 
-        <div class="col invisible-sm"  style="padding-left:20%;">
+            <div class="col invisible-sm"  style="padding-left:20%;">
 
-            <div> 
-                <h4>Pesquisando por: <i>{{busca}}</i></h4><br>
+                <div> 
+                    <h4>Pesquisando por: <i>{{busca}}</i></h4><br>
+                </div>
             </div>
-        </div>
 
-            {% else %}
+        {% else %}
             <div>
                 <h4>Últimas Perguntas</h4><br>
             </div>
@@ -35,59 +36,59 @@
                     {% endif %}  
                         {{status_select}}<br>
                 {% endif %}
-                     
-            </div>
-        </div>
-
-        <div class="container" style="padding-bottom:50px;">
-            <div class="row">      
-                <div style="padding: 0%;width: 100%;">
-                    <form action="{% url 'filtro_ultimas_perguntas' %}" method="post" enctype="multipart/form-data">
-                            {% csrf_token %}
-                        <div class="row row-lg-12" style="width:100%;">
-                            <div class="col col-lg-3">
-                                <label for="file"><b>Faculdade</b></label>
-                                <select name="faculdade" style="height: 10px; width:10px;">
-                                    <option value="">TODAS</option>
-                                    {% include 'partials/forms/_faculdade.html' %}
-                                </select>
-                            </div>
                         
-                            <div class="col col-lg-3">
-                                <label for="file"> <b> Disciplina</b></label>
-                                <select name="disciplina">
-                                    <option value="">TODAS</option>
-                                    {% include 'partials/forms/_disciplina.html' %}
-                                </select>
-                            </div>
+            </div>
+    
+            <div class="container" style="padding-bottom:50px;">
+                <div class="row">      
+                    <div style="padding: 0%;width: 100%;">
+                        <form action="{% url 'filtro_ultimas_perguntas' %}" method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                            <div class="row row-lg-12" style="width:100%;">
+                                <div class="col col-lg-3">
+                                    <label for="file"><b>Faculdade</b></label>
+                                    <select name="faculdade" style="height: 10px; width:10px;">
+                                        <option value="">TODAS</option>
+                                        {% include 'partials/forms/_faculdade.html' %}
+                                    </select>
+                                </div>
+                            
+                                <div class="col col-lg-3">
+                                    <label for="file"> <b> Disciplina</b></label>
+                                    <select name="disciplina">
+                                        <option value="">TODAS</option>
+                                        {% include 'partials/forms/_disciplina.html' %}
+                                    </select>
+                                </div>
 
-                            <div class="col col-lg-3">
-                                <label for="file"> <b> Status</b></label>
-                                <select name="status">
-                                    <option value="TODAS" selected="selected" >TODAS</option>
-                                    <option value="AGUARDANDO COMENTÁRIOS"  {% if status_select == "AGUARDANDO COMENTÁRIOS" %} selected="selected" {% endif %}>AGUARDANDO COMENTÁRIOS</option>
-                                    <option value="RESPONDIDAS"             {% if status_select == "RESPONDIDAS" %} selected="selected" {% endif %} >RESPONDIDAS</option>
-                                </select>
-                                
-                            </div>
+                                <div class="col col-lg-3">
+                                    <label for="file"> <b> Status</b></label>
+                                    <select name="status">
+                                        <option value="TODAS" selected="selected" >TODAS</option>
+                                        <option value="AGUARDANDO COMENTÁRIOS"  {% if status_select == "AGUARDANDO COMENTÁRIOS" %} selected="selected" {% endif %}>AGUARDANDO COMENTÁRIOS</option>
+                                        <option value="RESPONDIDAS"             {% if status_select == "RESPONDIDAS" %} selected="selected" {% endif %} >RESPONDIDAS</option>
+                                    </select>
+                                    
+                                </div>
 
-                            <div class="col col-lg-3 invisible-sm" style="padding-top:14px">
-                                <button class="btn delicious-btn mt-15" style="height:60px;width:100%;" type="submit">Filtrar</button>
-                            </div>
+                                <div class="col col-lg-3 invisible-sm" style="padding-top:14px">
+                                    <button class="btn delicious-btn mt-15" style="height:60px;width:100%;" type="submit">Filtrar</button>
+                                </div>
 
-                            <div class="col col-sm invisible-lg" style="padding-top:14px">
-                                <button class="btn delicious-btn mt-15" style="height:60px;width:100%;" type="submit">Filtrar</button>
+                                <div class="col col-sm invisible-lg" style="padding-top:14px">
+                                    <button class="btn delicious-btn mt-15" style="height:60px;width:100%;" type="submit">Filtrar</button>
+                                </div>
                             </div>
-                        </div>
-                    </form>    
+                        </form>    
+                    </div>
                 </div>
             </div>
-        </div>
-        {% endif %} 
-        <!-- endif fecha o if que renderiza os filtros da última pesquisa -->
+        {% endif %}
+    </div>
+    <!-- endif fecha o if que renderiza os filtros da última pesquisa -->
 
 
-    <!-- ùltima perguntas - Smartphoneview -->
+    <!-- Última perguntas - Smartphoneview -->
 
     <div class="container invisible-sm" style="padding-bottom:200px;">
         <div class="row">

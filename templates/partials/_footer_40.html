@@ -1,0 +1,38 @@
+{% load static %}
+<!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="top_page invisible-lg" style="background-color:rgb(255, 255, 255)">
+      <div class="row row-sm">
+          <!-- <div style="width:52px; margin-block-end:4.7em;padding-left:16px;margin-inline-start: 20px;;"><img src="{% static 'img/core-img/logo.png' %}" alt="" height="25px"></div> -->
+          <ol class="btn_top_container">
+              {% if user.is_authenticated %}
+                  <li><a href="{% url 'dashboard' %}" class="s-btn-white" rel="nofollow" style="text-align:center;padding-left: 10px;padding-right:10px;font-weight:normal ;margin-inline-end: 20px;;">Assessores</a></li>
+                  <li><a href="{% url 'ultimas_perguntas' %}" class="s-btn-white" rel="nofollow" style="text-align:center;padding-left: 10px;padding-right:10px;font-weight:normal ;margin-inline-end: 20px;;">Últimas</a></li>
+                  <li><a href="{% url 'form_pergunta' %}" class="s-btn-white" rel="nofollow" style="text-align:center;">Perguntar</a></li>
+              {% else %}
+                  <li><a href="{% url 'login'%}?action=logar" class="s-btn-normal" rel="nofollow" style="padding-left: 15px;padding-right:15px;font-weight: bold; ">Login</a></li>
+                  <li><a href="{% url 'cadastro' %}" class="s-btn-white" rel="nofollow" style="margin-block-start:1.2em;">Cadastre-se</a></li>
+              {% endif %}
+          </ol>
+          <hr>
+      </div>
+  </div>
+  </footer>
+
+
+  <footer class="invisible-sm">
+    <div class="top_page" style="background-color:rgb(255, 255, 255)">
+      <div class="row row-sm" style="margin-bottom:0px";>
+          <!-- <div style="width:52px; margin-block-end:4.7em;padding-left:16px;margin-inline-start: 20px;;"><img src="{% static 'img/core-img/logo.png' %}" alt="" height="25px"></div> -->
+          <ol class="btn_top_container">
+              {% if user.is_authenticated %}
+                  <li><a href="{% url 'form_pergunta' %}" class="s-btn-white" rel="nofollow" style="margin-left: 200px;">Faça uma  pergunta</a></li>
+              {% else %}
+                  <li><a href="{% url 'login'%}?action=logar" class="s-btn-normal" rel="nofollow" style="padding-left: 15px;padding-right:15px;font-weight: bold; ">Login</a></li>
+                  <li><a href="{% url 'cadastro' %}" class="s-btn-white" rel="nofollow" style="margin-block-start:1.2em;">Cadastre-se</a></li>
+              {% endif %}
+          </ol>
+          <hr>
+      </div>
+  </div>
+  </footer>

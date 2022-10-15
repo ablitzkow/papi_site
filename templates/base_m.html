@@ -54,8 +54,7 @@ html.html__responsive, html.html__responsive body {
         background-size: cover;
         background-position-y: 15%;
         background-attachment:fixed;
-        background-color:transparent;
-        position: relative; 
+        background-color:transparent 
       }
 
 
@@ -105,12 +104,12 @@ html.html__responsive, html.html__responsive body {
     }
     div.body-content{
       /** Altura do rodapé tem que ser igual a isso aqui e vice-versa **/
-        padding-bottom: 50px;
+        padding-bottom: 120px;
     }
     footer{
         background: #ffffff;
         width: 100%;
-        height: 50px;
+        height: 120px;
         position: absolute;
         bottom: 0;
         left: 0;
@@ -219,6 +218,7 @@ html.html__responsive, html.html__responsive body {
   }
 
 /* CSS Footer */
+
 .site-footer, .page-wrap:after {
   height: 60px; 
   border-top: 1px solid #333;
@@ -253,14 +253,16 @@ html.html__responsive, html.html__responsive body {
     </div>
 
 
-  <div class="corpo">
-    {% block content %} {% endblock %}
-  </div>
+
+  {% block content %} {% endblock %}
+
   
+  {% include 'partials/_footer.html' %}
+
 
   {% include 'partials/_ga4.html' %}
 
-
+</body>
 
   <!-- ##### All Javascript Files ##### -->
     <!-- jQuery-2.2.4 js -->
@@ -273,6 +275,5 @@ html.html__responsive, html.html__responsive body {
     <script src="{% static 'js/plugins/plugins.js'%}"></script>
     <!-- Active js -->
     <script src="{% static 'js/active.js' %}"></script>
-</body>
 
 </html>

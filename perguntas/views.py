@@ -97,6 +97,7 @@ def pergunta(request, id_url):
                 'pergunta_texto':pergunta_texto,
                 'pergunta_inicio':pergunta_inicio,
                 'pergunta_fim':pergunta_fim,
+                'perguntas_relacionadas':perguntas_relacionadas,
                 'comentario_texto':comentario_texto,
                 'usuario_assinante_comentario' : email_comentario,
                 'assinante': assinante,

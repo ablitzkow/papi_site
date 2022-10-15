@@ -33,7 +33,7 @@
                                     <li><a href="{% url 'index' %}">home</a></li>
                                     <li><a href="{% url 'dashboard' %}">Meu Painel</a></li>
                                     <li><a href="{% url 'form_pergunta' %}">fazer uma pergunta</a></li>
-                                    <li><a href="{% url 'ultimas_perguntas' %}">últimas perguntas</a></li>
+                                    <li><a href="{% url 'ultimas_perguntas' %}">Lista de perguntas</a></li>
                                     <li><a href="{% url 'assessores' %}">Assessores</a></li>
                                     <li><a href="{% url 'equipe' %}">Equipe</a></li>
                                     <li><a href="{% url 'logout' %}">sair</a></li>
@@ -44,10 +44,11 @@
                                     {% endif %}
 
                                 {% else %}
+                                    <li><a href="{% url 'index' %}">home</a></li>
                                     <li><a href="{% url 'cadastro' %}">cadastro</a></li>
                                     <li><a href="{% url 'login'%}?action=logar">login</a></li>
                                     <li><a href="{% url 'login'%}?action=perguntar">fazer uma pergunta</a></li>
-                                    <li><a href="{% url 'ultimas_perguntas' %}">últimas perguntas</a></li>
+                                    <li><a href="{% url 'ultimas_perguntas' %}">Lista de perguntas</a></li>
                                     <li><a href="{% url 'assessores' %}">Assessores</a></li>
                                     <li><a href="{% url 'equipe' %}">Equipe</a></li>
                                 {% endif %}
@@ -90,7 +91,7 @@
                                      <li><a href="{% url 'index' %}">home</a></li>
                                      <li><a href="{% url 'dashboard' %}">Meu Painel</a></li>
                                      <li><a href="{% url 'form_pergunta' %}">fazer uma pergunta</a></li>
-                                     <li><a href="{% url 'ultimas_perguntas' %}">últimas perguntas</a></li>
+                                     <li><a href="{% url 'ultimas_perguntas' %}">Lista de perguntas</a></li>
                                      <li><a href="{% url 'assessores' %}">Assessores</a></li>
                                      <li><a href="{% url 'equipe' %}">Equipe</a></li>
                                      <li><a href="{% url 'logout' %}">sair</a></li>
@@ -101,10 +102,11 @@
                                      {% endif %}
  
                                  {% else %}
+                                     <li><a href="{% url 'index' %}">home</a></li>
                                      <li><a href="{% url 'cadastro' %}">cadastro</a></li>
                                      <li><a href="{% url 'login'%}?action=logar">login</a></li>
                                      <li><a href="{% url 'login'%}?action=perguntar">fazer uma pergunta</a></li>
-                                     <li><a href="{% url 'ultimas_perguntas' %}">últimas perguntas</a></li>
+                                     <li><a href="{% url 'ultimas_perguntas' %}">Lista de perguntas</a></li>
                                      <li><a href="{% url 'assessores' %}">Assessores</a></li>
                                      <li><a href="{% url 'equipe' %}">Equipe</a></li>
                                  {% endif %}

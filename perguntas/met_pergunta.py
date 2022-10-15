@@ -12,22 +12,33 @@ def colaborador_aleatorio(pergunta , comentario):
         if Especialidade.objects.filter(disciplina = pergunta.disciplina).count()==1:
             especialista = get_object_or_404(Especialidade,disciplina = pergunta.disciplina)
             assinante_selecionado = especialista.assinante
-            print("\n\n>>>>",especialista.assinante, especialista.rodada)
-
-
-            #Verifica a vez de quem é a de aparecer:
-            if especialista.rodada == True:
-                Especialidade.objects.filter(assinante = especialista.assinante).update(rodada = False)
-                email=especialista.assinante
+            
+            # verifica o modelo de peso
+            if especialista.peso == 0:
+                # Se igual a 0 é porque está em 50%
+                # Verifica a vez de quem é a de aparecer:
+                if especialista.rodada == True:
+                    Especialidade.objects.filter(assinante = especialista.assinante).update(rodada = False)
+                    email=especialista.assinante
+                else:
+                    Especialidade.objects.filter(assinante = especialista.assinante).update(rodada = True)
+                    import random
+                    # opçoes = ['blitzkow@gmail.com','mota.christopher@gmail.com']
+                    opçoes = ['blitzkow@gmail.com']
+                    email = random.choice(opçoes)
             else:
-                Especialidade.objects.filter(assinante = especialista.assinante).update(rodada = True)
-                import random
-                # opçoes = ['blitzkow@gmail.com','mota.christopher@gmail.com']
-                opçoes = ['blitzkow@gmail.com']
-                email = random.choice(opçoes)
-                
-            # Obtém os dados da Assinatura
-            assinante_random = get_object_or_404(Assinante,email=email)
+                # Foi inserido um peso para a divulgação
+                pesos = [1,2,3,4,5,6,7,8,9,10]
+                peso = random.choice(pesos)
+                if especialista.peso<=peso:
+                    email = especialista.assinante
+                else:
+                    # opçoes = ['blitzkow@gmail.com','mota.christopher@gmail.com']
+                    # email = random.choice(opçoes)
+                    email = 'blitzkow@gmail.com'
+                    
+                # Obtém os dados da Assinatura
+                assinante_random = get_object_or_404(Assinante,email=email)
 
         # Será executado se houver mais de 1 assessor cadastrado, modo aleatório
         else:

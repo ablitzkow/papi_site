@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404
 
 #Obtém um colaborador aleatório
 
-def colaborador_aleatorio(pergunta , comentario):
+def colaborador_aleatorio_40(pergunta , comentario):
     from django.db.models import Q
     import random
     
@@ -46,56 +46,72 @@ def colaborador_aleatorio(pergunta , comentario):
     return assinante_random
 
 
-def colaborador_aleatorio_novo(pergunta , comentario):
+def colaborador_aleatorio(pergunta , comentario):
     from django.db.models import Q
     import random
     
     if Especialidade.objects.filter(disciplina = pergunta.disciplina , exclusivo = False).exists():
-        # assinante_selecionado = Especialidade.objects.filter(Q(disciplina = pergunta.disciplina) | Q(disciplina='TODAS')).order_by('?').first()
+        print("OK1.0")
         if Especialidade.objects.filter(disciplina = pergunta.disciplina).count()==1:
+            print("OK2.1")
             especialista = get_object_or_404(Especialidade,disciplina = pergunta.disciplina)
             assinante_selecionado = especialista.assinante
             
             # verifica o modelo de peso
             if especialista.peso == 0:
+                print("OK3.1")
                 # Se igual a 0 é porque está em 50%
                 # Verifica a vez de quem é a de aparecer:
                 if especialista.rodada == True:
+                    print("OK4.1")
                     Especialidade.objects.filter(assinante = especialista.assinante).update(rodada = False)
                     email=especialista.assinante
                 else:
+                    print("OK4.2")
                     Especialidade.objects.filter(assinante = especialista.assinante).update(rodada = True)
                     import random
                     # opçoes = ['blitzkow@gmail.com','mota.christopher@gmail.com']
                     opçoes = ['blitzkow@gmail.com']
                     email = random.choice(opçoes)
+                
+                # Obtém os dados da Assinatura
+                assinante_random = get_object_or_404(Assinante,email=email)
+                    
             else:
+                print("OK3.2")
                 # Foi inserido um peso para a divulgação
                 pesos = [1,2,3,4,5,6,7,8,9,10]
                 peso = random.choice(pesos)
-                if especialista.peso<=peso:
+                print("peso:",peso)
+
+                if peso<=especialista.peso:
                     email = especialista.assinante
                 else:
                     # opçoes = ['blitzkow@gmail.com','mota.christopher@gmail.com']
                     # email = random.choice(opçoes)
                     email = 'blitzkow@gmail.com'
-                    
+                
                 # Obtém os dados da Assinatura
                 assinante_random = get_object_or_404(Assinante,email=email)
+                    
+            
 
         # Será executado se houver mais de 1 assessor cadastrado, modo aleatório
         else:
+            print("OK2.2")
             assinante_selecionado = Especialidade.objects.filter(Q(disciplina = pergunta.disciplina) | Q(disciplina='TODAS')).order_by('?').first()
             assinante_random = Assinante.objects.filter(email=assinante_selecionado.assinante)
             assinante_random = get_object_or_404(Assinante,email=assinante_selecionado.assinante)
     
     # Será executado se não houver nenhum assessor cadastrado
     else:
+        print("OK1.1")
         # opçoes = ['blitzkow@gmail.com','mota.christopher@gmail.com']
         opçoes = ['mota.christopher@gmail.com']
         email = random.choice(opçoes)
         assinante_random = get_object_or_404(Assinante,email=email)
     
+    print("RAND",assinante_random)
     return assinante_random
 
 

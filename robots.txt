@@ -1,4 +1,5 @@
 User-agent: *
 Disallow: /usuarios/whatsapp
+Disallow: /usuarios/whatsapp?*
 Disallow: /usuarios/login
 Disallow: /usuarios/equipe

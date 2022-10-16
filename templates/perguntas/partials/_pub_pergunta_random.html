@@ -35,7 +35,7 @@
 
             <div class="row row-sm">
                 <div style="width:150px; height:5px ; padding-left:2%;margin-block-start:0.5em;">
-                    <a href="{% url 'stats/whatsapp'%}?zap={{ assinante_random.whatsapp_ddd }}{{ assinante_random.whatsapp }}+id_url={{pergunta.id_url}}">
+                    <a href="{% url 'whatsapp'%}?zap={{ assinante_random.whatsapp_ddd }}{{ assinante_random.whatsapp }}+id_url={{pergunta.id_url}}">
                         <img src="{% static 'img/core-img/whatsapp.png' %}"width="90%">
                     </a>
                 </div>
@@ -67,7 +67,7 @@
 
                 <!-- <div style="width:150px; height:5px ; padding-left:2%;margin-block-start:0.5em;"><a href="https://api.whatsapp.com/send?phone=+55{{ assinante_random.whatsapp_ddd }}{{ assinante_random.whatsapp }}&text=Olá, peguei seu contato no Papiron!"><img src="{% static 'img/core-img/whatsapp.png' %}"width="90%"></a></div> -->
                 
-                <div style="width:150px; height:5px ; padding-left:2%;margin-block-start:0.5em;"><a href="{% url 'stats/whatsapp'%}?zap={{ assinante_random.whatsapp_ddd }}{{ assinante_random.whatsapp }}+id_url={{pergunta.id_url}}"><img src="{% static 'img/core-img/whatsapp.png' %}"width="90%"></a></div>
+                <div style="width:150px; height:5px ; padding-left:2%;margin-block-start:0.5em;"><a href="{% url 'whatsapp'%}?zap={{ assinante_random.whatsapp_ddd }}{{ assinante_random.whatsapp }}+id_url={{pergunta.id_url}}"><img src="{% static 'img/core-img/whatsapp.png' %}"width="90%"></a></div>
 
 
                 {% if assinante_random.instagram != '' %}

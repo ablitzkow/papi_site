@@ -27,8 +27,7 @@ urlpatterns = [
     path('incluir_assinante', forms.incluir_assinante, name='incluir_assinante'),
     path('form_incluir_assinante',forms.form_incluir_assinante, name = 'form_incluir_assinante'),
     path('captcha', forms.captcha, name = 'captcha'),
-    # path('whatsapp', views.whatsapp, name = 'whatsapp'),
-    path('stats/whatsapp', views.whatsapp, name = 'whatsapp'),
+    path('whatsapp', views.whatsapp, name = 'whatsapp'),
     path('stats_whatsapp', views.stats_whatsapp, name = 'stats_whatsapp'),
 
 ]

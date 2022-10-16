@@ -132,9 +132,9 @@
 <div class="invisible-lg" style="padding-bottom: 90px">
     <div class="receipe-content-area" style="width:90%; text-align: left; font-weight: bold; padding-left:15px; padding-top: 50px;">
         {% if pergunta.comentario_check == False %}
-            Ninguém respondeu essa pergunta, mas não se preocupe, entre em contato com o Assessor para te ajudar:<br>
+            Ninguém comentou {{atividade}}, mas não se preocupe, entre em contato com o Assessor, ele tem um modelo pronto para que você possa compreender e elaborar {{atividade}}:<br>
         {% else %}
-            Caso ainda tenha dúvidas, entre em contato com o Assessor:
+            Caso ainda tenha dúvidas comn {{atividade}}, entre em contato com o Assessor, ele tem um modelo pronto para que você possa compreender e elaborar {{atividade}}:
         {% endif %}
         <br><br>
     </div>
@@ -242,11 +242,14 @@
     <div class="invisible-sm" style="padding-bottom: 10px">
         <div class="receipe-content-area" style="width:90%; text-align: left; font-weight: bold; padding-left:15px; padding-top: 10px;">
             {% if pergunta.comentario_check == False %}
-                <br><br> Ninguém respondeu essa pergunta, mas não se preocupe, entre em contato com o Assessor para te ajudar:<br><br>
+                <br><br> Ninguém comentou {{atividade}}, mas não se preocupe, entre em contato com o Assessor, ele tem um modelo pronto para que você possa compreender e elaborar {{atividade}}:<br><br>
             {% else %}
                 <br><hr>
-                Caso ainda tenha dúvidas, entre em contato com o Assessor:
+                Caso ainda tenha dúvidas comn {{atividade}}, entre em contato com o Assessor, ele tem um modelo pronto para que você possa compreender e elaborar {{atividade}}:
             {% endif %}
+
+
+
         </div>
         {% include 'perguntas/partials/_pub_pergunta_random.html' %}
     </div>

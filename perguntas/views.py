@@ -64,6 +64,8 @@ def pergunta(request, id_url):
             
             elif "mapa" in pergunta.intro_pergunta.lower():
                 atividade = "o MAPA"
+                n = pergunta.intro_pergunta.find('\n')
+                resumo = pergunta.intro_pergunta[:n-1]
             
             elif "portfólio" in pergunta.intro_pergunta.lower():
                 atividade = "o PORTFÓLIO"

@@ -17,7 +17,7 @@ def pergunta(request, id_url):
         
         # Incrementa +1 view
         Pergunta.objects.filter(id_url=id_url).update(pageviews = pergunta.pageviews+1)
-        
+         
         if pergunta.publicada == True or pergunta.email == request.user.email:
             likes_count = LikeBtn.objects.filter(id_pergunta = pergunta.pk).count() # Qtd de Likes
             # Formata pelo tamanho da pergunta
@@ -48,9 +48,13 @@ def pergunta(request, id_url):
 
             # Verifica qual é a Atividade
             atividade = 'a atividade'
+            resumo = ""
 
             if "atividade 1" in pergunta.intro_pergunta.lower():
                 atividade = "a ATIVIDADE 1"
+                n = pergunta.intro_pergunta.find('\n')
+                resumo = pergunta.intro_pergunta[:n-1]
+
             
             elif "atividade 2" in pergunta.intro_pergunta.lower():
                 atividade = "as questões ATIVIDADE 2"
@@ -61,11 +65,13 @@ def pergunta(request, id_url):
             elif "mapa" in pergunta.intro_pergunta.lower():
                 atividade = "o MAPA"
             
-            if "portfólio" in pergunta.intro_pergunta.lower():
+            elif "portfólio" in pergunta.intro_pergunta.lower():
                 atividade = "o PORTFÓLIO"
 
+            
+
             # Relaciona 10 perguntas ligadas a disciplina
-            elif Pergunta.objects.filter(disciplina=pergunta.disciplina).exists():
+            if Pergunta.objects.filter(disciplina=pergunta.disciplina).exists():
                 perguntas_relacionadas = Pergunta.objects.order_by('-data').filter(disciplina=pergunta.disciplina, publicada = True)[0:10]
             
             # Verifica se quem está acessando está logado ou é anônimo
@@ -84,7 +90,7 @@ def pergunta(request, id_url):
                     recaptcha = ReCaptcha()
                 else:
                     recaptcha = None
-                
+
                 contexto = {
                 'title' : 'Papiron - '+pergunta.faculdade+' - '+pergunta.intro_pergunta,
                 'pergunta'  : pergunta,
@@ -93,6 +99,7 @@ def pergunta(request, id_url):
                 'pergunta_inicio':pergunta_inicio,
                 'pergunta_fim':pergunta_fim,
                 'atividade':atividade,
+                'resumo' : resumo,
                 'perguntas_relacionadas':perguntas_relacionadas,
                 'comentario_texto':comentario_texto,
                 'usuario_assinante_comentario' : email_comentario,
@@ -117,6 +124,7 @@ def pergunta(request, id_url):
                 'pergunta_inicio':pergunta_inicio,
                 'pergunta_fim':pergunta_fim,
                 'atividade':atividade,
+                'resumo' : resumo,
                 'perguntas_relacionadas':perguntas_relacionadas,
                 'comentario_texto':comentario_texto,
                 'usuario_assinante_comentario' : email_comentario,

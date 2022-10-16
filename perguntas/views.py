@@ -49,7 +49,6 @@ def pergunta(request, id_url):
             # Verifica qual é a Atividade
             atividade = 'a atividade'
 
-            print("atividade 1" in pergunta.intro_pergunta.lower(), "\n\natividade 1" , pergunta.intro_pergunta.lower())
             if "atividade 1" in pergunta.intro_pergunta.lower():
                 atividade = "a ATIVIDADE 1"
             

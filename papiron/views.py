@@ -1,16 +1,18 @@
 from django.shortcuts import render, HttpResponse
 
 def index(request):
-    
     return render(request,'index.html')
 
 def index1(request):
-    
     return render(request,'index1.html')
 
 def sitemap(request):
     from . import settings
     return HttpResponse(open(str(settings.BASE_DIR)+'/papiron/sitemap.xml').read(), content_type='text/xml')
+
+def robots(request):
+    from . import settings
+    return HttpResponse(open(str(settings.BASE_DIR)+'/robots.txt').read(), content_type='text/txt')
 
 def gera_sitemap(request):
     from . import settings

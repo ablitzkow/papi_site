@@ -11,7 +11,7 @@ urlpatterns = [
     path('', views.index , name='index'),
     path('index/index1', views.index1 , name='index1'),
     path('perguntas/', include('perguntas.urls')), 
-    path('usuarios/', include('usuarios.urls')),
+    path('usuarios/', include('usuarios.urls')), 
     path('sm/sitemap',views.sitemap,name='sitemap'),
     path('sitemap.xml',views.sitemap,name='sitemap'),
     path('robots.txt',views.robots,name='robots'),

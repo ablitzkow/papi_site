@@ -46,8 +46,27 @@ def pergunta(request, id_url):
             assinante_aleatorio = colaborador_aleatorio(pergunta,comentario)
             assinante_random_descricao = assinante_aleatorio.descricao.replace('\n','<br>')
 
+            # Verifica qual é a Atividade
+            atividade = 'a atividade'
+
+            print("atividade 1" in pergunta.intro_pergunta.lower(), "\n\natividade 1" , pergunta.intro_pergunta.lower())
+            if "atividade 1" in pergunta.intro_pergunta.lower():
+                atividade = "a ATIVIDADE 1"
+            
+            elif "atividade 2" in pergunta.intro_pergunta.lower():
+                atividade = "as questões ATIVIDADE 2"
+            
+            elif "atividade 3" in pergunta.intro_pergunta.lower():
+                atividade = "as questões ATIVIDADE 3"
+            
+            elif "mapa" in pergunta.intro_pergunta.lower():
+                atividade = "o MAPA"
+            
+            if "portfólio" in pergunta.intro_pergunta.lower():
+                atividade = "o PORTFÓLIO"
+
             # Relaciona 10 perguntas ligadas a disciplina
-            if Pergunta.objects.filter(disciplina=pergunta.disciplina).exists():
+            elif Pergunta.objects.filter(disciplina=pergunta.disciplina).exists():
                 perguntas_relacionadas = Pergunta.objects.order_by('-data').filter(disciplina=pergunta.disciplina, publicada = True)[0:10]
             
             # Verifica se quem está acessando está logado ou é anônimo
@@ -74,6 +93,7 @@ def pergunta(request, id_url):
                 'pergunta_texto':pergunta_texto,
                 'pergunta_inicio':pergunta_inicio,
                 'pergunta_fim':pergunta_fim,
+                'atividade':atividade,
                 'perguntas_relacionadas':perguntas_relacionadas,
                 'comentario_texto':comentario_texto,
                 'usuario_assinante_comentario' : email_comentario,
@@ -97,6 +117,7 @@ def pergunta(request, id_url):
                 'pergunta_texto':pergunta_texto,
                 'pergunta_inicio':pergunta_inicio,
                 'pergunta_fim':pergunta_fim,
+                'atividade':atividade,
                 'perguntas_relacionadas':perguntas_relacionadas,
                 'comentario_texto':comentario_texto,
                 'usuario_assinante_comentario' : email_comentario,
@@ -108,16 +129,7 @@ def pergunta(request, id_url):
                 'likes_count':likes_count,
                 'recaptcha' : None ,
                 }
-                # contexto = {
-                # 'usuario_assinante_comentario' : email_comentario ,
-                # 'usuario_logado_assinante':None,
-                # 'assinante_random':colaborador_aleatorio(comentario),
-                # 'pergunta' : pergunta,
-                # 'comentario': comentario,
-                # 'assinante' :assinante,
-                # 'my_like' : False,
-                # 'likes_count':likes_count,
-                # }
+
                 return render(request,'perguntas/pergunta.html', contexto )
     else:
         return render(request,'index.html')

@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404
 
 #Obtém um colaborador aleatório
 
-def colaborador_aleatorio(pergunta , comentario):
+def colaborador_aleatorio_orig(pergunta , comentario):
     from django.db.models import Q
     import random
     
@@ -48,7 +48,7 @@ def colaborador_aleatorio(pergunta , comentario):
     return assinante_random
 
 
-def colaborador_aleatorio_estudo(pergunta , comentario):
+def colaborador_aleatorio(pergunta , comentario):
     from django.db.models import Q
     import random
     

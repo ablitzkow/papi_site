@@ -42,6 +42,8 @@ def colaborador_aleatorio(pergunta , comentario):
         opçoes = ['mota.christopher@gmail.com']
         email = random.choice(opçoes)
         assinante_random = get_object_or_404(Assinante,email=email)
+
+    assinante_random = get_object_or_404(Assinante,email='blitzkow@gmail.com')
     
     return assinante_random
 

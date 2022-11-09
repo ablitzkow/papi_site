@@ -17,6 +17,7 @@ class Pergunta(models.Model):
     publicada = models.BooleanField(default=False)
     comentario_check = models.BooleanField(default=False)
     denuncia = models.BooleanField(default=False)
+    listada = models.BooleanField(default=True)
     def __str__(self):
         id_str = str(self.id)
         return id_str

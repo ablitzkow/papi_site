@@ -7,13 +7,18 @@ def colaborador_aleatorio_orig(pergunta , comentario):
     from django.db.models import Q
     import random
     
-    if Especialidade.objects.filter(disciplina = pergunta.disciplina , exclusivo = False).exists():
-        # assinante_selecionado = Especialidade.objects.filter(Q(disciplina = pergunta.disciplina) | Q(disciplina='TODAS')).order_by('?').first()
+
+    if Especialidade.objects.filter(disciplina = pergunta.disciplina, faculdade = pergunta.faculdade , exclusivo = True).exists():
+        especialista = get_object_or_404(Especialidade,disciplina = pergunta.disciplina)
+        assinante_selecionado = especialista.assinante
+        assinante_random = get_object_or_404(Assinante,email=assinante_selecionado.assinante)
+
+    elif Especialidade.objects.filter(disciplina = pergunta.disciplina, faculdade = pergunta.faculdade , exclusivo = False).exists():
+        
+        #se existir apenas um cadastro 
         if Especialidade.objects.filter(disciplina = pergunta.disciplina).count()==1:
             especialista = get_object_or_404(Especialidade,disciplina = pergunta.disciplina)
             assinante_selecionado = especialista.assinante
-            print("\n\n>>>>",especialista.assinante, especialista.rodada)
-
 
             #Verifica a vez de quem é a de aparecer:
             if especialista.rodada == True:
@@ -26,7 +31,6 @@ def colaborador_aleatorio_orig(pergunta , comentario):
                 opçoes = ['blitzkow@gmail.com']
                 email = random.choice(opçoes)
                 
-            
             # Obtém os dados da Assinatura
             assinante_random = get_object_or_404(Assinante,email=email)
 
@@ -38,13 +42,14 @@ def colaborador_aleatorio_orig(pergunta , comentario):
     
     # Será executado se não houver nenhum assessor cadastrado
     else:
-        # opçoes = ['blitzkow@gmail.com','mota.christopher@gmail.com']
-        opçoes = ['mota.christopher@gmail.com']
+        opçoes = ['blitzkow@gmail.com','mota.christopher@gmail.com']
+        #opçoes = ['mota.christopher@gmail.com']
         email = random.choice(opçoes)
         assinante_random = get_object_or_404(Assinante,email=email)
 
-    assinante_random = get_object_or_404(Assinante,email='blitzkow@gmail.com')
+        #assinante_random = get_object_or_404(Assinante,email='blitzkow@gmail.com')
     
+    print("Assessor selecionado:",assinante_random)
     return assinante_random
 
 
@@ -52,7 +57,13 @@ def colaborador_aleatorio(pergunta , comentario):
     from django.db.models import Q
     import random
     
-    if Especialidade.objects.filter(disciplina = pergunta.disciplina , exclusivo = False).exists():
+    # se houver algum exclusivo, se e somente um:
+    if Especialidade.objects.filter(faculdade = pergunta.faculdade , disciplina = pergunta.disciplina,  exclusivo = True).exists() and Especialidade.objects.filter(faculdade = pergunta.faculdade , disciplina = pergunta.disciplina,  exclusivo = True).count()==1:
+        especialista = get_object_or_404(Especialidade, faculdade = pergunta.faculdade , disciplina = pergunta.disciplina, exclusivo = True)
+        assinante_selecionado = especialista.assinante
+        assinante_random = get_object_or_404(Assinante,email=assinante_selecionado.assinante)
+
+    elif Especialidade.objects.filter(disciplina = pergunta.disciplina, faculdade = pergunta.faculdade , exclusivo = False).exists():
         print("OK1.0")
         if Especialidade.objects.filter(disciplina = pergunta.disciplina).count()==1:
             print("OK2.1")
@@ -96,9 +107,7 @@ def colaborador_aleatorio(pergunta , comentario):
                 # Obtém os dados da Assinatura
                 assinante_random = get_object_or_404(Assinante,email=email)
                     
-            
-
-        # Será executado se houver mais de 1 assessor cadastrado, modo aleatório
+        # Será executado se houver mais de 1 assessor cadastrado, modo aleatório ou outro erro desconhecido.
         else:
             print("OK2.2")
             assinante_selecionado = Especialidade.objects.filter(Q(disciplina = pergunta.disciplina) | Q(disciplina='TODAS')).order_by('?').first()
@@ -108,8 +117,9 @@ def colaborador_aleatorio(pergunta , comentario):
     # Será executado se não houver nenhum assessor cadastrado
     else:
         print("OK1.1")
-        # opçoes = ['blitzkow@gmail.com','mota.christopher@gmail.com']
-        opçoes = ['mota.christopher@gmail.com']
+        #opçoes = ['blitzkow@gmail.com','mota.christopher@gmail.com']
+        #opçoes = ['mota.christopher@gmail.com']
+        opçoes = ['blitzkow@gmail.com']
         email = random.choice(opçoes)
         assinante_random = get_object_or_404(Assinante,email=email)
     

@@ -16,10 +16,10 @@ class ListandoCode(admin.ModelAdmin):
     list_display_links = ('id', 'email_register',)
 
 class ListandoEspecialidade(admin.ModelAdmin):
-    list_display = ('id', 'assinante', 'faculdade', 'disciplina','peso')
+    list_display = ('id', 'assinante', 'faculdade', 'disciplina','peso','exclusivo')
     list_display_links = ('id', 'assinante', 'faculdade',)
-    list_filter = ('faculdade', 'disciplina','assinante')
-    list_editable = ('disciplina','peso')
+    list_filter = ('faculdade', 'disciplina','assinante','exclusivo')
+    list_editable = ('disciplina','peso','exclusivo')
 
 class ListandoStat_WhatsApp(admin.ModelAdmin):
     list_display = ('id', 'assinante', 'data', 'id_url')

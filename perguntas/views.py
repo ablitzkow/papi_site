@@ -147,7 +147,7 @@ def pergunta(request, id_url):
 def ultimas_perguntas(request):
     from datetime import datetime, timedelta
     data = datetime.today()-timedelta(days=30)
-    perguntas = Pergunta.objects.order_by('-data').filter(data__gte=data,publicada=True)[0:1000]
+    perguntas = Pergunta.objects.order_by('-data').filter(data__gte=data,publicada=True, listada = True)[0:1000]
     contexto = {
         'perguntas' : perguntas,        
         'faculdade_select':None,

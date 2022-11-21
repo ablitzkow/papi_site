@@ -42,26 +42,16 @@
                     <!-- <a href="{% url 'whatsapp'%}?zap={{ assinante_random.whatsapp_ddd }}{{ assinante_random.whatsapp }}+id_url={{pergunta.id_url}}"> -->
                     
                         <img src="{% static 'img/core-img/whatsapp.png' %}"width="90%">
-                    
+                        <br>
+                        <p style="font-size:18px; font-weight: bold;">{{ assinante_random.whatsapp_ddd }} {{ assinante_random.whatsapp }}</p>
+                        <img alt="" src="https://www.parqueaquaticoolimpia.com.br/imagens/images/botao-whatsapp-reservas.gif" >
                     </a>
                 </div>
 
 
-
-                <div style="width:150px; height:5px ; padding-left:2%;margin-block-start:0.5em;">
- 
-                    
-                    <a href="https://api.whatsapp.com/send?phone=+55{{ assinante_random.whatsapp_ddd }}{{ assinante_random.whatsapp }}&text=Olá, peguei seu contato no Papiron! %0A{{resumo}}%0A www.papiron.com.br/perguntas/{{pergunta.id_url}}" style="font-size:18px; font-weight: bold;">
-
-                    <!-- <a href="{% url 'whatsapp'%}?zap={{ assinante_random.whatsapp_ddd }}{{ assinante_random.whatsapp }}+id_url={{pergunta.id_url}}"> -->
-                    <br><br>
-                        {{ assinante_random.whatsapp_ddd }} {{ assinante_random.whatsapp }}
-                    <br>
-                    </a>
-                </div>
                 
             </div>
-            <div style="font-size:15px; font-weight: bold; "><br><br> Temos {{atividade}} modelo pronto para estudo</div>
+            <div style="font-size:15px; font-weight: bold; "><br><br><br><br><br><br> Temos {{atividade}} modelo pronto para estudo</div>
         </div>
     </div>
 </div>

@@ -69,7 +69,7 @@ def form_pergunta(request):
         form = ReCaptcha(request.POST)
         if form.is_valid():
             user = get_object_or_404(User, pk=request.user.id)
-            pergunta = request.POST['pergunta'][:5950]
+            pergunta = request.POST['pergunta'][:24990]
             if len(pergunta)>=299:
                 intro_pergunta = pergunta[0:299].replace("<b>","").replace("</b>","").replace("<i>","").replace("<br>","").replace("<p>","").replace("</p>","").replace("<hr>","")+'...'
             else:

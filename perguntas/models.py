@@ -8,7 +8,7 @@ class Pergunta(models.Model):
     id_url = models.CharField(max_length=22)
     nick = models.CharField(max_length=200)
     email = models.CharField(max_length=200)
-    pergunta = models.TextField(max_length=6000)
+    pergunta = models.TextField(max_length=25000)
     intro_pergunta = models.TextField(max_length=403)
     disciplina = models.CharField(max_length=150)
     faculdade = models.CharField(max_length=150)
